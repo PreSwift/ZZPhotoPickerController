@@ -1,0 +1,552 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		62128031F1302FE5AD19A4EC /* Pods_ZZPhotoPickerController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9BD133E13F768C289A26192 /* Pods_ZZPhotoPickerController.framework */; };
+		DC966D342108874C00D42A48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC966D332108874C00D42A48 /* AppDelegate.swift */; };
+		DC966D362108874C00D42A48 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC966D352108874C00D42A48 /* ViewController.swift */; };
+		DC966D3B2108874D00D42A48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC966D3A2108874D00D42A48 /* Assets.xcassets */; };
+		DC966D3E2108874D00D42A48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC966D3C2108874D00D42A48 /* LaunchScreen.storyboard */; };
+		DCDBC7442109759E00C245A9 /* ZZPhotoPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7432109759E00C245A9 /* ZZPhotoPickerController.swift */; };
+		DCDBC746210975B200C245A9 /* ZZPhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC745210975B200C245A9 /* ZZPhotoCollectionViewController.swift */; };
+		DCDBC748210975D500C245A9 /* ZZPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC747210975D500C245A9 /* ZZPhotoCollectionViewCell.swift */; };
+		DCDBC74A2109764800C245A9 /* ZZPhotoCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7492109764800C245A9 /* ZZPhotoCollectionViewModel.swift */; };
+		DCDBC7502109798E00C245A9 /* ZZPhotoGroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC74F2109798E00C245A9 /* ZZPhotoGroupModel.swift */; };
+		DCDBC752210979A700C245A9 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCDBC751210979A700C245A9 /* Photos.framework */; };
+		DCDBC754210979AF00C245A9 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCDBC753210979AF00C245A9 /* PhotosUI.framework */; };
+		DCDBC756210979B500C245A9 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCDBC755210979B500C245A9 /* RxSwift.framework */; };
+		DCDBC758210979BB00C245A9 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCDBC757210979BB00C245A9 /* RxCocoa.framework */; };
+		DCDBC75A210979C000C245A9 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCDBC759210979C000C245A9 /* RxDataSources.framework */; };
+		DCDBC7632109B08D00C245A9 /* ZZPhotoBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7622109B08D00C245A9 /* ZZPhotoBrowserViewController.swift */; };
+		DCDBC7652109B7E400C245A9 /* ZZPhotoBrowserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7642109B7E400C245A9 /* ZZPhotoBrowserCollectionViewCell.swift */; };
+		DCDBC7672109B80B00C245A9 /* ZZPhotoBrowserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7662109B80B00C245A9 /* ZZPhotoBrowserViewModel.swift */; };
+		DCDBC7692109B93C00C245A9 /* ZZPhotoBrowserCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7682109B93C00C245A9 /* ZZPhotoBrowserCollectionViewFlowLayout.swift */; };
+		DCDBC76C2109C5F000C245A9 /* ZZPhotoOperationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC76B2109C5F000C245A9 /* ZZPhotoOperationService.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		043C5AE68C0B72318EB28338 /* Pods-ZZPhotoPickerController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZPhotoPickerController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZZPhotoPickerController/Pods-ZZPhotoPickerController.debug.xcconfig"; sourceTree = "<group>"; };
+		152B6F78F6A9430C03AB4EF2 /* Pods-ZZPhotoPickerController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZPhotoPickerController.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZZPhotoPickerController/Pods-ZZPhotoPickerController.release.xcconfig"; sourceTree = "<group>"; };
+		DC966D302108874C00D42A48 /* ZZPhotoPickerController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZZPhotoPickerController.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC966D332108874C00D42A48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DC966D352108874C00D42A48 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DC966D3A2108874D00D42A48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DC966D3D2108874D00D42A48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DC966D3F2108874D00D42A48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DCDBC7432109759E00C245A9 /* ZZPhotoPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoPickerController.swift; sourceTree = "<group>"; };
+		DCDBC745210975B200C245A9 /* ZZPhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoCollectionViewController.swift; sourceTree = "<group>"; };
+		DCDBC747210975D500C245A9 /* ZZPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		DCDBC7492109764800C245A9 /* ZZPhotoCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoCollectionViewModel.swift; sourceTree = "<group>"; };
+		DCDBC74F2109798E00C245A9 /* ZZPhotoGroupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoGroupModel.swift; sourceTree = "<group>"; };
+		DCDBC751210979A700C245A9 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		DCDBC753210979AF00C245A9 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
+		DCDBC755210979B500C245A9 /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCDBC757210979BB00C245A9 /* RxCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCDBC759210979C000C245A9 /* RxDataSources.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxDataSources.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCDBC7622109B08D00C245A9 /* ZZPhotoBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoBrowserViewController.swift; sourceTree = "<group>"; };
+		DCDBC7642109B7E400C245A9 /* ZZPhotoBrowserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoBrowserCollectionViewCell.swift; sourceTree = "<group>"; };
+		DCDBC7662109B80B00C245A9 /* ZZPhotoBrowserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoBrowserViewModel.swift; sourceTree = "<group>"; };
+		DCDBC7682109B93C00C245A9 /* ZZPhotoBrowserCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZZPhotoBrowserCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		DCDBC76B2109C5F000C245A9 /* ZZPhotoOperationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoOperationService.swift; sourceTree = "<group>"; };
+		E9BD133E13F768C289A26192 /* Pods_ZZPhotoPickerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZZPhotoPickerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DC966D2D2108874C00D42A48 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCDBC75A210979C000C245A9 /* RxDataSources.framework in Frameworks */,
+				DCDBC758210979BB00C245A9 /* RxCocoa.framework in Frameworks */,
+				DCDBC756210979B500C245A9 /* RxSwift.framework in Frameworks */,
+				DCDBC754210979AF00C245A9 /* PhotosUI.framework in Frameworks */,
+				DCDBC752210979A700C245A9 /* Photos.framework in Frameworks */,
+				62128031F1302FE5AD19A4EC /* Pods_ZZPhotoPickerController.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6730A5F01881701024716713 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DCDBC759210979C000C245A9 /* RxDataSources.framework */,
+				DCDBC757210979BB00C245A9 /* RxCocoa.framework */,
+				DCDBC755210979B500C245A9 /* RxSwift.framework */,
+				DCDBC753210979AF00C245A9 /* PhotosUI.framework */,
+				DCDBC751210979A700C245A9 /* Photos.framework */,
+				E9BD133E13F768C289A26192 /* Pods_ZZPhotoPickerController.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9B599712BC24F08FFCA8953A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				043C5AE68C0B72318EB28338 /* Pods-ZZPhotoPickerController.debug.xcconfig */,
+				152B6F78F6A9430C03AB4EF2 /* Pods-ZZPhotoPickerController.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		DC966D272108874C00D42A48 = {
+			isa = PBXGroup;
+			children = (
+				DC966D322108874C00D42A48 /* ZZPhotoPickerController */,
+				DC966D312108874C00D42A48 /* Products */,
+				9B599712BC24F08FFCA8953A /* Pods */,
+				6730A5F01881701024716713 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		DC966D312108874C00D42A48 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DC966D302108874C00D42A48 /* ZZPhotoPickerController.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DC966D322108874C00D42A48 /* ZZPhotoPickerController */ = {
+			isa = PBXGroup;
+			children = (
+				DCDBC7422109756F00C245A9 /* ZZPhotoPickerController */,
+				DC966D332108874C00D42A48 /* AppDelegate.swift */,
+				DC966D352108874C00D42A48 /* ViewController.swift */,
+				DC966D3A2108874D00D42A48 /* Assets.xcassets */,
+				DC966D3C2108874D00D42A48 /* LaunchScreen.storyboard */,
+				DC966D3F2108874D00D42A48 /* Info.plist */,
+			);
+			path = ZZPhotoPickerController;
+			sourceTree = "<group>";
+		};
+		DCDBC7422109756F00C245A9 /* ZZPhotoPickerController */ = {
+			isa = PBXGroup;
+			children = (
+				DCDBC76A2109C58700C245A9 /* Common */,
+				DCDBC75B2109AFEE00C245A9 /* Current */,
+				DCDBC75C2109B00600C245A9 /* Next */,
+			);
+			path = ZZPhotoPickerController;
+			sourceTree = "<group>";
+		};
+		DCDBC74B2109765500C245A9 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				DCDBC7432109759E00C245A9 /* ZZPhotoPickerController.swift */,
+				DCDBC745210975B200C245A9 /* ZZPhotoCollectionViewController.swift */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		DCDBC74C2109765A00C245A9 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				DCDBC747210975D500C245A9 /* ZZPhotoCollectionViewCell.swift */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		DCDBC74D2109766100C245A9 /* VM */ = {
+			isa = PBXGroup;
+			children = (
+				DCDBC7492109764800C245A9 /* ZZPhotoCollectionViewModel.swift */,
+			);
+			path = VM;
+			sourceTree = "<group>";
+		};
+		DCDBC75B2109AFEE00C245A9 /* Current */ = {
+			isa = PBXGroup;
+			children = (
+				DCDBC74D2109766100C245A9 /* VM */,
+				DCDBC74C2109765A00C245A9 /* V */,
+				DCDBC74B2109765500C245A9 /* C */,
+			);
+			path = Current;
+			sourceTree = "<group>";
+		};
+		DCDBC75C2109B00600C245A9 /* Next */ = {
+			isa = PBXGroup;
+			children = (
+				DCDBC75D2109B01D00C245A9 /* ZZPhotoBrowserViewController */,
+			);
+			path = Next;
+			sourceTree = "<group>";
+		};
+		DCDBC75D2109B01D00C245A9 /* ZZPhotoBrowserViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DCDBC7612109B07E00C245A9 /* C */,
+				DCDBC7602109B07800C245A9 /* V */,
+				DCDBC75F2109B07300C245A9 /* VM */,
+			);
+			path = ZZPhotoBrowserViewController;
+			sourceTree = "<group>";
+		};
+		DCDBC75F2109B07300C245A9 /* VM */ = {
+			isa = PBXGroup;
+			children = (
+				DCDBC7662109B80B00C245A9 /* ZZPhotoBrowserViewModel.swift */,
+				DCDBC7682109B93C00C245A9 /* ZZPhotoBrowserCollectionViewFlowLayout.swift */,
+			);
+			path = VM;
+			sourceTree = "<group>";
+		};
+		DCDBC7602109B07800C245A9 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				DCDBC7642109B7E400C245A9 /* ZZPhotoBrowserCollectionViewCell.swift */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		DCDBC7612109B07E00C245A9 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				DCDBC7622109B08D00C245A9 /* ZZPhotoBrowserViewController.swift */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		DCDBC76A2109C58700C245A9 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				DCDBC74F2109798E00C245A9 /* ZZPhotoGroupModel.swift */,
+				DCDBC76B2109C5F000C245A9 /* ZZPhotoOperationService.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DC966D2F2108874C00D42A48 /* ZZPhotoPickerController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC966D422108874D00D42A48 /* Build configuration list for PBXNativeTarget "ZZPhotoPickerController" */;
+			buildPhases = (
+				76542945155D8ECBED4AC68E /* [CP] Check Pods Manifest.lock */,
+				DC966D2C2108874C00D42A48 /* Sources */,
+				DC966D2D2108874C00D42A48 /* Frameworks */,
+				DC966D2E2108874C00D42A48 /* Resources */,
+				69FC9FE0B1967963F2BCF75B /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ZZPhotoPickerController;
+			productName = ZZPhotoPickerController;
+			productReference = DC966D302108874C00D42A48 /* ZZPhotoPickerController.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DC966D282108874C00D42A48 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0940;
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "周元素";
+				TargetAttributes = {
+					DC966D2F2108874C00D42A48 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+				};
+			};
+			buildConfigurationList = DC966D2B2108874C00D42A48 /* Build configuration list for PBXProject "ZZPhotoPickerController" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DC966D272108874C00D42A48;
+			productRefGroup = DC966D312108874C00D42A48 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DC966D2F2108874C00D42A48 /* ZZPhotoPickerController */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DC966D2E2108874C00D42A48 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC966D3E2108874D00D42A48 /* LaunchScreen.storyboard in Resources */,
+				DC966D3B2108874D00D42A48 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		69FC9FE0B1967963F2BCF75B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ZZPhotoPickerController/Pods-ZZPhotoPickerController-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZZPhotoPickerController/Pods-ZZPhotoPickerController-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		76542945155D8ECBED4AC68E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ZZPhotoPickerController-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DC966D2C2108874C00D42A48 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC966D362108874C00D42A48 /* ViewController.swift in Sources */,
+				DCDBC746210975B200C245A9 /* ZZPhotoCollectionViewController.swift in Sources */,
+				DCDBC7442109759E00C245A9 /* ZZPhotoPickerController.swift in Sources */,
+				DCDBC7502109798E00C245A9 /* ZZPhotoGroupModel.swift in Sources */,
+				DCDBC76C2109C5F000C245A9 /* ZZPhotoOperationService.swift in Sources */,
+				DC966D342108874C00D42A48 /* AppDelegate.swift in Sources */,
+				DCDBC74A2109764800C245A9 /* ZZPhotoCollectionViewModel.swift in Sources */,
+				DCDBC7652109B7E400C245A9 /* ZZPhotoBrowserCollectionViewCell.swift in Sources */,
+				DCDBC7632109B08D00C245A9 /* ZZPhotoBrowserViewController.swift in Sources */,
+				DCDBC7672109B80B00C245A9 /* ZZPhotoBrowserViewModel.swift in Sources */,
+				DCDBC748210975D500C245A9 /* ZZPhotoCollectionViewCell.swift in Sources */,
+				DCDBC7692109B93C00C245A9 /* ZZPhotoBrowserCollectionViewFlowLayout.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DC966D3C2108874D00D42A48 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC966D3D2108874D00D42A48 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DC966D402108874D00D42A48 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DC966D412108874D00D42A48 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DC966D432108874D00D42A48 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 043C5AE68C0B72318EB28338 /* Pods-ZZPhotoPickerController.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DNT9DNS8D4;
+				INFOPLIST_FILE = ZZPhotoPickerController/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zyh.ZZPhotoPickerController;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		DC966D442108874D00D42A48 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 152B6F78F6A9430C03AB4EF2 /* Pods-ZZPhotoPickerController.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DNT9DNS8D4;
+				INFOPLIST_FILE = ZZPhotoPickerController/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zyh.ZZPhotoPickerController;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DC966D2B2108874C00D42A48 /* Build configuration list for PBXProject "ZZPhotoPickerController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC966D402108874D00D42A48 /* Debug */,
+				DC966D412108874D00D42A48 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC966D422108874D00D42A48 /* Build configuration list for PBXNativeTarget "ZZPhotoPickerController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC966D432108874D00D42A48 /* Debug */,
+				DC966D442108874D00D42A48 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DC966D282108874C00D42A48 /* Project object */;
+}
