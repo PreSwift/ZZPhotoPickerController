@@ -13,7 +13,7 @@ import Photos
 
 class ZZPhotoOperationService: NSObject {
     
-    @objc dynamic var currentGroup: ZZPhotoGroupModel?
+    @objc dynamic var currentGroup: ZZPhotoGroupModel!
     var selectedAssets = BehaviorRelay<[PHAsset]>(value: [])
     var groups = BehaviorRelay<[ZZPhotoGroupModel]>(value: [])
     

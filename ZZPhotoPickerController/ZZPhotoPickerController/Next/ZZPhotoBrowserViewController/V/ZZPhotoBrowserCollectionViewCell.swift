@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ZZPhotoBrowserCollectionViewCell: UICollectionViewCell, UIScrollViewDelegate {
+class ZZPhotoBrowserCollectionViewCell: UICollectionViewCell {
  
     static let cellID = NSStringFromClass(ZZPhotoBrowserCollectionViewCell.self)
     
@@ -26,7 +26,6 @@ class ZZPhotoBrowserCollectionViewCell: UICollectionViewCell, UIScrollViewDelega
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.minimumZoomScale = 1
         scrollView.maximumZoomScale = 10.0
-        scrollView.delegate = self
         contentView.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -56,11 +55,17 @@ class ZZPhotoBrowserCollectionViewCell: UICollectionViewCell, UIScrollViewDelega
                 strongSelf.scrollView.zoom(to: CGRect.init(x: touchPoint.x - xSize / 2, y: touchPoint.y - ySize / 2, width: xSize, height: ySize), animated: true)
             }
         }).disposed(by: disposeBag)
+        
+        scrollView.rx.setDelegate(self).disposed(by: disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+}
+
+extension ZZPhotoBrowserCollectionViewCell: UIScrollViewDelegate {
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView

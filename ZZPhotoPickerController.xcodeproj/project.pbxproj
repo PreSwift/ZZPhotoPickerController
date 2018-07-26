@@ -17,11 +17,6 @@
 		DCDBC748210975D500C245A9 /* ZZPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC747210975D500C245A9 /* ZZPhotoCollectionViewCell.swift */; };
 		DCDBC74A2109764800C245A9 /* ZZPhotoCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7492109764800C245A9 /* ZZPhotoCollectionViewModel.swift */; };
 		DCDBC7502109798E00C245A9 /* ZZPhotoGroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC74F2109798E00C245A9 /* ZZPhotoGroupModel.swift */; };
-		DCDBC752210979A700C245A9 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCDBC751210979A700C245A9 /* Photos.framework */; };
-		DCDBC754210979AF00C245A9 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCDBC753210979AF00C245A9 /* PhotosUI.framework */; };
-		DCDBC756210979B500C245A9 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCDBC755210979B500C245A9 /* RxSwift.framework */; };
-		DCDBC758210979BB00C245A9 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCDBC757210979BB00C245A9 /* RxCocoa.framework */; };
-		DCDBC75A210979C000C245A9 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCDBC759210979C000C245A9 /* RxDataSources.framework */; };
 		DCDBC7632109B08D00C245A9 /* ZZPhotoBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7622109B08D00C245A9 /* ZZPhotoBrowserViewController.swift */; };
 		DCDBC7652109B7E400C245A9 /* ZZPhotoBrowserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7642109B7E400C245A9 /* ZZPhotoBrowserCollectionViewCell.swift */; };
 		DCDBC7672109B80B00C245A9 /* ZZPhotoBrowserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7662109B80B00C245A9 /* ZZPhotoBrowserViewModel.swift */; };
@@ -61,11 +56,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DCDBC75A210979C000C245A9 /* RxDataSources.framework in Frameworks */,
-				DCDBC758210979BB00C245A9 /* RxCocoa.framework in Frameworks */,
-				DCDBC756210979B500C245A9 /* RxSwift.framework in Frameworks */,
-				DCDBC754210979AF00C245A9 /* PhotosUI.framework in Frameworks */,
-				DCDBC752210979A700C245A9 /* Photos.framework in Frameworks */,
 				62128031F1302FE5AD19A4EC /* Pods_ZZPhotoPickerController.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

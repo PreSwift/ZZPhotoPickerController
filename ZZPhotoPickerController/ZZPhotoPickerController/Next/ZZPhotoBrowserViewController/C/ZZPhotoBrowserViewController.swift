@@ -11,7 +11,17 @@ import RxSwift
 
 class ZZPhotoBrowserViewController: UIViewController {
 
-    var collectionView: UICollectionView!
+    lazy var flowLayout: ZZPhotoBrowserCollectionViewFlowLayout = {
+        let flowLayout = ZZPhotoBrowserCollectionViewFlowLayout()
+        return flowLayout
+    }()
+    lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.isPagingEnabled = true
+        collectionView.backgroundColor = UIColor.white
+        collectionView.register(ZZPhotoBrowserCollectionViewCell.self, forCellWithReuseIdentifier: ZZPhotoBrowserCollectionViewCell.cellID)
+        return collectionView
+    }()
     var viewModel: ZZPhotoBrowserViewModel!
     
     required init(photoOperationService: ZZPhotoOperationService) {
@@ -28,11 +38,6 @@ class ZZPhotoBrowserViewController: UIViewController {
         view.backgroundColor = UIColor.white
         
         // UI
-        let flowLayout = ZZPhotoBrowserCollectionViewFlowLayout()
-        flowLayout.itemSize = CGSize.init(width: self.view.frame.width, height: self.view.frame.height - (UIApplication.shared.statusBarFrame.height + self.navigationController!.navigationBar.frame.height))
-        collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.backgroundColor = UIColor.white
-        collectionView.register(ZZPhotoBrowserCollectionViewCell.self, forCellWithReuseIdentifier: ZZPhotoBrowserCollectionViewCell.cellID)
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { (make) in
             if #available(iOS 11.0, *) {
@@ -41,6 +46,7 @@ class ZZPhotoBrowserViewController: UIViewController {
                 make.edges.equalToSuperview()
             }
         }
+        
     }
     
     deinit {

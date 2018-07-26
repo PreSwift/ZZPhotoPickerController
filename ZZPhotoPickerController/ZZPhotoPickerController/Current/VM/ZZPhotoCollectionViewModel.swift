@@ -14,9 +14,9 @@ import RxDataSources
 class ZZPhotoCollectionViewModel: NSObject {
     
     var photoOperationService = ZZPhotoOperationService()
-    var result = PublishSubject<[SectionModel<String, PHAsset>]>()
-    
     weak var target: ZZPhotoCollectionViewController!
+    
+    var result = PublishSubject<[SectionModel<String, PHAsset>]>()
     let disposeBag = DisposeBag()
     
     required init(target: ZZPhotoCollectionViewController) {

@@ -30,7 +30,7 @@ class ZZPhotoCollectionViewController: UIViewController {
         navigationItem.leftBarButtonItem = leftItem
         navigationItem.rightBarButtonItem = rightItem
         titleBtn = UIButton()
-        titleBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.bold)
+        titleBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.bold)
         titleBtn.setTitleColor(UIColor.darkText, for: .normal)
         navigationItem.titleView = titleBtn
         titleBtn.snp.makeConstraints { (make) in
