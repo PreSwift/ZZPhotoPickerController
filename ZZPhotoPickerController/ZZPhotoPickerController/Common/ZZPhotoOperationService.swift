@@ -11,11 +11,20 @@ import RxSwift
 import RxCocoa
 import Photos
 
+@objc enum ZZPhotoOperationStatus: Int {
+    case normal
+    case noPermission
+    case noAsset
+}
+
 class ZZPhotoOperationService: NSObject {
     
     @objc dynamic var currentGroup: ZZPhotoGroupModel!
+    @objc dynamic var operationStatus = ZZPhotoOperationStatus.normal
     var selectedAssets = BehaviorRelay<[PHAsset]>(value: [])
     var groups = BehaviorRelay<[ZZPhotoGroupModel]>(value: [])
+    
+    var cachingManager: PHCachingImageManager?
     
     let disposeBag = DisposeBag()
     
@@ -27,6 +36,15 @@ class ZZPhotoOperationService: NSObject {
         NotificationCenter.default.rx.notification(.UIApplicationDidBecomeActive).subscribe(onNext: { [weak self] (_) in
             self?.fetchPhotoGroups()
         }).disposed(by: disposeBag)
+        
+        // 缓存
+        self.rx.observeWeakly(ZZPhotoGroupModel.self, "currentGroup", options: [.new]).take(1).subscribe(onNext: { [weak self] (value) in
+            guard let strongSelf = self else { return }
+            print("222222222232323222222222222222222222")
+            if let newValue = value {
+                strongSelf.cachingManager?.startCachingImages(for:newValue.imageAssets , targetSize: PHImageManagerMaximumSize, contentMode: .default, options: nil)
+            }
+        }).disposed(by: disposeBag)
     }
     
     func fetchPhotoGroups() {
@@ -37,6 +55,8 @@ class ZZPhotoOperationService: NSObject {
             if status == .notDetermined {
                 // do nothing
             } else if status == .authorized {
+                // 初始化缓存实例
+                self.cachingManager = PHCachingImageManager()
                 DispatchQueue.init(label: "ZZPhotoViewModel.fetchGroupQueue").async {
                     // 检索智能相册
                     let smartAlbumsResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
@@ -49,16 +69,30 @@ class ZZPhotoOperationService: NSObject {
                             options.sortDescriptors = [NSSortDescriptor.init(key: "creationDate", ascending: false)]
                             let result = PHAsset.fetchAssets(in: assetCollection, options: options)
                             options.predicate = NSPredicate.init(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
-                            let noVideoResult = PHAsset.fetchAssets(in: assetCollection, options: options)
+                            let imageResult = PHAsset.fetchAssets(in: assetCollection, options: options)
                             if result.count > 0 {
                                 if assetCollection.assetCollectionSubtype != PHAssetCollectionSubtype.init(rawValue: 1000000201) {
-                                    let group = ZZPhotoGroupModel.init(assetCollection: assetCollection, fetchResult: result, noVideoFetchResult: noVideoResult)
+                                    var items = [PHAsset]()
+                                    result.enumerateObjects({ (asset, index, nil) in
+                                        items.append(asset)
+                                    })
+                                    
+                                    var imageItems = [PHAsset]()
+                                    imageResult.enumerateObjects({ (asset, index, nil) in
+                                        imageItems.append(asset)
+                                    })
+                                    
+                                    let group = ZZPhotoGroupModel.init(assetCollection: assetCollection, assets: items, imageAssets: imageItems)
                                     strongSelf.groups.accept(strongSelf.groups.value + [group])
                                     
                                     // 默认选中所有相册
                                     if assetCollection.assetCollectionSubtype == .smartAlbumUserLibrary {
                                         strongSelf.currentGroup = group
                                     }
+                                }
+                            } else {
+                                if assetCollection.assetCollectionSubtype != PHAssetCollectionSubtype.init(rawValue: 1000000201) {
+                                    self?.operationStatus = .noAsset
                                 }
                             }
                         }
@@ -74,9 +108,19 @@ class ZZPhotoOperationService: NSObject {
                             options.sortDescriptors = [NSSortDescriptor.init(key: "creationDate", ascending: false)]
                             let result = PHAsset.fetchAssets(in: assetCollection, options: options)
                             options.predicate = NSPredicate.init(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
-                            let noVideoResult = PHAsset.fetchAssets(in: assetCollection, options: options)
+                            let imageResult = PHAsset.fetchAssets(in: assetCollection, options: options)
                             if result.count > 0 {
-                                let group = ZZPhotoGroupModel.init(assetCollection: assetCollection, fetchResult: result, noVideoFetchResult: noVideoResult)
+                                var items = [PHAsset]()
+                                result.enumerateObjects({ (asset, index, nil) in
+                                    items.append(asset)
+                                })
+                                
+                                var imageItems = [PHAsset]()
+                                imageResult.enumerateObjects({ (asset, index, nil) in
+                                    imageItems.append(asset)
+                                })
+                                
+                                let group = ZZPhotoGroupModel.init(assetCollection: assetCollection, assets: items, imageAssets: imageItems)
                                 strongSelf.groups.accept(strongSelf.groups.value + [group])
                             }
                         }
@@ -94,11 +138,14 @@ class ZZPhotoOperationService: NSObject {
                     }
                 }
             } else {
-                let alert = UIAlertController.init(title: "相册权限未开启", message: "请在系统设置中开启相册授权", preferredStyle: .alert)
-                alert.addAction(UIAlertAction.init(title: "确定", style: .cancel, handler: nil))
-                UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+                self.operationStatus = .noPermission
             }
         }
+    }
+    
+    deinit {
+        cachingManager?.stopCachingImagesForAllAssets()
+        print(self)
     }
 
 }

@@ -11,14 +11,14 @@ import Photos
 
 class ZZPhotoGroupModel: NSObject {
 
-    var assetCollection: PHAssetCollection
-    var fetchResult: PHFetchResult<PHAsset>
-    var noVideoFetchResult: PHFetchResult<PHAsset>
+    var assetCollection: PHAssetCollection // 保存一些基本信息
+    var assets: [PHAsset]  // 包含视频和照片
+    var imageAssets: [PHAsset] // 仅包含照片, 用于大图浏览页面
     
-    init(assetCollection: PHAssetCollection, fetchResult: PHFetchResult<PHAsset>, noVideoFetchResult: PHFetchResult<PHAsset>) {
+    init(assetCollection: PHAssetCollection, assets: [PHAsset], imageAssets: [PHAsset]) {
         self.assetCollection = assetCollection
-        self.fetchResult = fetchResult
-        self.noVideoFetchResult = noVideoFetchResult
+        self.assets = assets
+        self.imageAssets = imageAssets
     }
     
 }

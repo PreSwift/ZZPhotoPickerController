@@ -29,8 +29,26 @@ class ZZPhotoBrowserViewModel: NSObject {
         let dataSource = RxCollectionViewSectionedReloadDataSource<SectionModel<String, PHAsset>> (
             configureCell: { (dataSource, collectionView, indexPath, element) in
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ZZPhotoBrowserCollectionViewCell.cellID, for: indexPath) as! ZZPhotoBrowserCollectionViewCell
-                PHImageManager.default().requestImage(for: element, targetSize: collectionView.bounds.size, contentMode: .default, options: nil, resultHandler: { (image, _) in
-                    cell.imageView.image = image
+                cell.representedAssetIdentifier = element.localIdentifier
+                let options = PHImageRequestOptions()
+                options.isNetworkAccessAllowed = true
+                options.progressHandler = { (progress, error, stop, info) in
+                    DispatchQueue.main.async {
+                        print(progress)
+                        if progress < 1 && cell.indicator.isAnimating == false {
+                            cell.indicator.startAnimating()
+                        } else {
+                            cell.indicator.stopAnimating()
+                        }
+                    }
+                }
+                PHImageManager.default().requestImageData(for: element, options: options, resultHandler: { (data, _, _, _) in
+                    if cell.representedAssetIdentifier == element.localIdentifier && data != nil {
+                        let image = UIImage.init(data: data!)
+                        cell.imageView.image = image
+                    } else {
+                        cell.imageView.image = nil
+                    }
                 })
                 return cell
             }
@@ -40,13 +58,8 @@ class ZZPhotoBrowserViewModel: NSObject {
         
         // 监听dataSource
         result.bind(to: target.collectionView.rx.items(dataSource: dataSource)).disposed(by: disposeBag)
-        
-        var items = [PHAsset]()
-        photoOperationService.currentGroup.noVideoFetchResult.enumerateObjects({ (asset, index, nil) in
-            items.append(asset)
-        })
-        
-        let section = SectionModel.init(model: "1", items: items)
+
+        let section = SectionModel.init(model: "1", items: photoOperationService.currentGroup.imageAssets)
         result.onNext([section])
     }
     

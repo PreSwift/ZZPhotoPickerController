@@ -12,6 +12,7 @@ class ZZPhotoCollectionViewCell: UICollectionViewCell {
     
     static let cellID = NSStringFromClass(ZZPhotoCollectionViewCell.self)
     
+    var representedAssetIdentifier: String!
     var imageView: UIImageView!
     
     override init(frame: CGRect) {

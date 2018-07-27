@@ -14,6 +14,8 @@ class ZZPhotoBrowserCollectionViewCell: UICollectionViewCell {
  
     static let cellID = NSStringFromClass(ZZPhotoBrowserCollectionViewCell.self)
     
+    var representedAssetIdentifier: String!
+    private(set) var indicator: UIActivityIndicatorView!
     private(set) var scrollView: UIScrollView!
     private(set) var imageView: UIImageView!
     let disposeBag = DisposeBag()
@@ -38,6 +40,13 @@ class ZZPhotoBrowserCollectionViewCell: UICollectionViewCell {
         imageView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
             make.size.equalTo(frame.size)
+        }
+        
+        indicator = UIActivityIndicatorView.init(activityIndicatorStyle: .gray)
+        indicator.hidesWhenStopped = true
+        contentView.addSubview(indicator)
+        indicator.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
         }
         
         let doubleTap = UITapGestureRecognizer()

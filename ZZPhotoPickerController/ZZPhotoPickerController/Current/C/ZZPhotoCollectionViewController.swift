@@ -18,6 +18,7 @@ class ZZPhotoCollectionViewController: UIViewController {
     var titleBtn: UIButton!
     var itemWidth = (UIScreen.main.bounds.width - 3) / 4
     var collectionView: UICollectionView!
+    var placeholderView: ZZPhotoPlaceholderView!
     var collectionViewModel: ZZPhotoCollectionViewModel!
     
     override func viewDidLoad() {
@@ -51,6 +52,12 @@ class ZZPhotoCollectionViewController: UIViewController {
             } else {
                 make.edges.equalToSuperview()
             }
+        }
+        
+        placeholderView = ZZPhotoPlaceholderView()
+        view.addSubview(placeholderView)
+        placeholderView.snp.makeConstraints { (make) in
+            make.edges.equalTo(collectionView)
         }
         
         // VM

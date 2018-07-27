@@ -27,9 +27,14 @@ class ZZPhotoCollectionViewModel: NSObject {
         let dataSource = RxCollectionViewSectionedReloadDataSource<SectionModel<String, PHAsset>> (
             configureCell: { [weak self] (dataSource, collectionView, indexPath, element) in
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ZZPhotoCollectionViewCell.cellID, for: indexPath) as! ZZPhotoCollectionViewCell
+                cell.representedAssetIdentifier = element.localIdentifier
                 guard let strongSelf = self else { return cell }
                 PHImageManager.default().requestImage(for: element, targetSize: CGSize.init(width: strongSelf.target.itemWidth * UIScreen.main.scale, height: strongSelf.target.itemWidth * UIScreen.main.scale), contentMode: .default, options: nil, resultHandler: { (image, _) in
-                    cell.imageView.image = image
+                    if cell.representedAssetIdentifier == element.localIdentifier && image != nil {
+                        cell.imageView.image = image
+                    } else {
+                        cell.imageView.image = nil
+                    }
                 })
                 return cell
             }
@@ -39,22 +44,22 @@ class ZZPhotoCollectionViewModel: NSObject {
         result.bind(to: target.collectionView.rx.items(dataSource: dataSource)).disposed(by: disposeBag)
 
         // 监听数据请求
-        self.photoOperationService.rx.observeWeakly(ZZPhotoGroupModel.self, "currentGroup").subscribe(onNext: { [weak self] (value) in
+        self.photoOperationService.rx.observeWeakly(ZZPhotoGroupModel.self, "currentGroup", options: [.new]).subscribe(onNext: { [weak self] (value) in
             guard let strongSelf = self else { return }
             if let newValue = value {
-                var items = [PHAsset]()
-                newValue.fetchResult.enumerateObjects({ (asset, index, nil) in
-                    items.append(asset)
-                })
-                
-                let section = SectionModel.init(model: "1", items: items)
+                let section = SectionModel.init(model: "1", items: newValue.assets)
                 strongSelf.result.onNext([section])
                 
                 Observable.just(newValue.assetCollection.localizedTitle).bind(to: strongSelf.target.titleBtn.rx.title()).disposed(by: strongSelf.disposeBag)
             }
         }).disposed(by: disposeBag)
         
-        
+        // 监听服务状态
+        self.photoOperationService.rx.observeWeakly(ZZPhotoOperationStatus.self, "operationStatus").subscribe(onNext: { [unowned self] (status) in
+            if let newStatus = status {
+                self.target.placeholderView.changeStatus(type: newStatus)
+            }
+        }).disposed(by: disposeBag)
         
         // 监听UI事件
         (target.leftItem.rx.tap).subscribe(onNext: { [weak self] (_) in
@@ -63,8 +68,10 @@ class ZZPhotoCollectionViewModel: NSObject {
         
         (target.rightItem.rx.tap).subscribe(onNext: { [weak self] (_) in
             guard let strongSelf = self else { return }
-            let vc = ZZPhotoBrowserViewController.init(photoOperationService: strongSelf.photoOperationService)
-            strongSelf.target.navigationController?.pushViewController(vc, animated: true)
+            if strongSelf.photoOperationService.currentGroup != nil {
+                let vc = ZZPhotoBrowserViewController.init(photoOperationService: strongSelf.photoOperationService)
+                strongSelf.target.navigationController?.pushViewController(vc, animated: true)
+            }
         }).disposed(by: disposeBag)
         
         target.collectionView.rx.modelSelected(PHAsset.self).subscribe(onNext: { (asset) in
