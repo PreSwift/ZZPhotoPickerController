@@ -91,7 +91,7 @@ class ZZPhotoOperationService: NSObject {
                                     }
                                 }
                             } else {
-                                if assetCollection.assetCollectionSubtype != PHAssetCollectionSubtype.init(rawValue: 1000000201) {
+                                if assetCollection.assetCollectionSubtype == .smartAlbumUserLibrary {
                                     self?.operationStatus = .noAsset
                                 }
                             }
@@ -109,6 +109,7 @@ class ZZPhotoOperationService: NSObject {
                             let result = PHAsset.fetchAssets(in: assetCollection, options: options)
                             options.predicate = NSPredicate.init(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
                             let imageResult = PHAsset.fetchAssets(in: assetCollection, options: options)
+                            
                             if result.count > 0 {
                                 var items = [PHAsset]()
                                 result.enumerateObjects({ (asset, index, nil) in
