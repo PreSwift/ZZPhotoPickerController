@@ -12,7 +12,11 @@ class ZZPhotoBrowserCollectionViewFlowLayout: UICollectionViewFlowLayout {
     var offsetX: CGFloat = 0
     /// 一页宽度，算上空隙
     private lazy var pageWidth: CGFloat = {
-        return self.itemSize.width + self.minimumLineSpacing
+        guard var pageWidth = self.collectionView?.bounds.width else {
+            return 0
+        }
+        pageWidth += self.minimumLineSpacing
+        return pageWidth
     }()
     
     /// 上次页码
@@ -48,7 +52,7 @@ class ZZPhotoBrowserCollectionViewFlowLayout: UICollectionViewFlowLayout {
     override func prepare() {
         super.prepare()
         if offsetX != 0 {
-            collectionView?.contentOffset = CGPoint.init(x: offsetX, y: collectionView?.contentOffset.y ?? 64)
+            collectionView!.contentOffset = CGPoint.init(x: offsetX, y: collectionView!.contentOffset.y)
             offsetX = 0
         }
     }

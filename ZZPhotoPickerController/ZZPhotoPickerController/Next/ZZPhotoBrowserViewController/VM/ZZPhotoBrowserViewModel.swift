@@ -55,7 +55,7 @@ class ZZPhotoBrowserViewModel: NSObject {
 extension ZZPhotoBrowserViewModel: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize.init(width: collectionView.bounds.width, height: collectionView.bounds.height)
+        return collectionView.bounds.size
     }
     
 }

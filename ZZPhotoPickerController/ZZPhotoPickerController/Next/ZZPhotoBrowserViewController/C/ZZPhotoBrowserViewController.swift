@@ -17,8 +17,10 @@ class ZZPhotoBrowserViewController: UIViewController {
     }()
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.isPagingEnabled = true
         collectionView.backgroundColor = UIColor.white
+        collectionView.isDirectionalLockEnabled = true
+        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(ZZPhotoBrowserCollectionViewCell.self, forCellWithReuseIdentifier: ZZPhotoBrowserCollectionViewCell.cellID)
         return collectionView
     }()
