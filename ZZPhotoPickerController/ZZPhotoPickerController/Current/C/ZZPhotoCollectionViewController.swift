@@ -18,7 +18,15 @@ class ZZPhotoCollectionViewController: UIViewController {
     var titleBtn: UIButton!
     var itemWidth = (UIScreen.main.bounds.width - 3) / 4
     var collectionView: UICollectionView!
-    var placeholderView: ZZPhotoPlaceholderView!
+    lazy var placeholderView: ZZPhotoPlaceholderView = {
+        let placeholderView = ZZPhotoPlaceholderView()
+        view.addSubview(placeholderView)
+        placeholderView.snp.makeConstraints { (make) in
+            make.edges.equalTo(collectionView)
+        }
+        return placeholderView
+    }()
+    var toolView: ZZPhotoToolView!
     var collectionViewModel: ZZPhotoCollectionViewModel!
     
     override func viewDidLoad() {
@@ -48,16 +56,21 @@ class ZZPhotoCollectionViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { (make) in
             if #available(iOS 11.0, *) {
-                make.edges.equalTo(view.safeAreaLayoutGuide)
+                make.top.left.right.equalTo(view.safeAreaLayoutGuide)
             } else {
-                make.edges.equalToSuperview()
+                make.top.left.right.equalToSuperview()
             }
         }
-        
-        placeholderView = ZZPhotoPlaceholderView()
-        view.addSubview(placeholderView)
-        placeholderView.snp.makeConstraints { (make) in
-            make.edges.equalTo(collectionView)
+
+        toolView = ZZPhotoToolView()
+        view.addSubview(toolView)
+        toolView.snp.makeConstraints { (make) in
+            make.top.equalTo(collectionView.snp.bottom)
+            if #available(iOS 11.0, *) {
+                make.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+            } else {
+                make.left.right.bottom.equalToSuperview()
+            }
         }
         
         // VM

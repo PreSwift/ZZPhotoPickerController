@@ -121,6 +121,23 @@ class ZZPhotoCollectionViewModel: NSObject {
                 strongSelf.target.navigationController?.pushViewController(vc, animated: true)
             }
         }).disposed(by: disposeBag)
+        
+        // 监听选中改变预览按钮状态
+        photoOperationService.selectedAssets.map { (assets) -> Bool in
+            assets.count > 0 ? true : false
+            }.bind { [unowned self] isEnabled in
+                self.target.toolView.changeCameraBtnStatus(isEnabled: isEnabled)
+        }.disposed(by: target.toolView.disposeBag)
+        
+        // 预览按钮点击事件
+        target.toolView.previewBtn.rx.tap.bind {
+            print("预览")
+        }.disposed(by: disposeBag)
+        
+        // 拍摄按钮点击事件
+        target.toolView.cameraBtn.rx.tap.bind {
+            print("拍摄")
+        }.disposed(by: disposeBag)
     }
     
     deinit {
