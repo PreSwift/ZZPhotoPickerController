@@ -9,7 +9,10 @@
 import UIKit
 
 class ZZPhotoBrowserCollectionViewFlowLayout: UICollectionViewFlowLayout {
+    
+    let itemSpacing: CGFloat = 20
     var offsetX: CGFloat = 0
+    
     /// 一页宽度，算上空隙
     private lazy var pageWidth: CGFloat = {
         guard var pageWidth = self.collectionView?.bounds.width else {
@@ -38,7 +41,7 @@ class ZZPhotoBrowserCollectionViewFlowLayout: UICollectionViewFlowLayout {
         contentWidth += self.minimumLineSpacing
         return contentWidth / self.pageWidth - 1
     }()
-    let itemSpacing: CGFloat = 20
+    
     override init() {
         super.init()
         scrollDirection = .horizontal

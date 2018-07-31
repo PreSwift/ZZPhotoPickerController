@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		62128031F1302FE5AD19A4EC /* Pods_ZZPhotoPickerController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9BD133E13F768C289A26192 /* Pods_ZZPhotoPickerController.framework */; };
+		DC5F9F3821105E1C00C09777 /* ZZPhoto.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC5F9F3721105E1C00C09777 /* ZZPhoto.xcassets */; };
 		DC966D342108874C00D42A48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC966D332108874C00D42A48 /* AppDelegate.swift */; };
 		DC966D362108874C00D42A48 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC966D352108874C00D42A48 /* ViewController.swift */; };
 		DC966D3B2108874D00D42A48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC966D3A2108874D00D42A48 /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		043C5AE68C0B72318EB28338 /* Pods-ZZPhotoPickerController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZPhotoPickerController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZZPhotoPickerController/Pods-ZZPhotoPickerController.debug.xcconfig"; sourceTree = "<group>"; };
 		152B6F78F6A9430C03AB4EF2 /* Pods-ZZPhotoPickerController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZPhotoPickerController.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZZPhotoPickerController/Pods-ZZPhotoPickerController.release.xcconfig"; sourceTree = "<group>"; };
+		DC5F9F3721105E1C00C09777 /* ZZPhoto.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ZZPhoto.xcassets; sourceTree = "<group>"; };
 		DC966D302108874C00D42A48 /* ZZPhotoPickerController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZZPhotoPickerController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC966D332108874C00D42A48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC966D352108874C00D42A48 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +89,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		DC5F9F2C21104FCA00C09777 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				DC5F9F3721105E1C00C09777 /* ZZPhoto.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		DC966D272108874C00D42A48 = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +131,7 @@
 		DCDBC7422109756F00C245A9 /* ZZPhotoPickerController */ = {
 			isa = PBXGroup;
 			children = (
+				DC5F9F2C21104FCA00C09777 /* Resource */,
 				DCDBC76A2109C58700C245A9 /* Common */,
 				DCDBC75B2109AFEE00C245A9 /* Current */,
 				DCDBC75C2109B00600C245A9 /* Next */,
@@ -277,6 +288,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC966D3E2108874D00D42A48 /* LaunchScreen.storyboard in Resources */,
+				DC5F9F3821105E1C00C09777 /* ZZPhoto.xcassets in Resources */,
 				DC966D3B2108874D00D42A48 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

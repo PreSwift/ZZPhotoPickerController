@@ -29,7 +29,35 @@ class ZZPhotoCollectionViewModel: NSObject {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ZZPhotoCollectionViewCell.cellID, for: indexPath) as! ZZPhotoCollectionViewCell
                 cell.representedAssetIdentifier = element.localIdentifier
                 cell.imageView.image = nil
+                
                 guard let strongSelf = self else { return cell }
+                
+                let assets = strongSelf.photoOperationService.selectedAssets.value
+                if assets.contains(element) {
+                    cell.selectBtn.isSelected = true
+                    cell.shadowView.isHidden = false
+                } else {
+                    cell.selectBtn.isSelected = false
+                    cell.shadowView.isHidden = true
+                }
+                
+                //cell中按钮点击事件订阅
+                cell.selectBtn.rx.tap.asDriver()
+                    .drive(onNext: { [weak self] in
+                        guard let strongSelf = self else { return }
+                        var newAssets = strongSelf.photoOperationService.selectedAssets.value
+                        if let index = newAssets.index(of: element) {
+                            newAssets.remove(at: index)
+                        } else {
+                            newAssets.append(element)
+                        }
+                        strongSelf.photoOperationService.selectedAssets.accept(newAssets)
+                        collectionView.performBatchUpdates({
+                            collectionView.reloadItems(at: [indexPath])
+                        })
+                    }).disposed(by: cell.disposeBag)
+                
+                
                 let options = PHImageRequestOptions()
                 options.isNetworkAccessAllowed = true
                 options.progressHandler = { (progress, error, stop, info) in
@@ -80,14 +108,18 @@ class ZZPhotoCollectionViewModel: NSObject {
         
         (target.rightItem.rx.tap).subscribe(onNext: { [weak self] (_) in
             guard let strongSelf = self else { return }
-            if strongSelf.photoOperationService.currentGroup != nil {
-                let vc = ZZPhotoBrowserViewController.init(photoOperationService: strongSelf.photoOperationService)
-                strongSelf.target.navigationController?.pushViewController(vc, animated: true)
-            }
+            print("选中了\(strongSelf.photoOperationService.selectedAssets.value.count)个内容")
         }).disposed(by: disposeBag)
         
-        target.collectionView.rx.modelSelected(PHAsset.self).subscribe(onNext: { (asset) in
-            print(asset.localIdentifier)
+        target.collectionView.rx.modelSelected(PHAsset.self).subscribe(onNext: { [weak self] (asset) in
+            guard let strongSelf = self else { return }
+            if strongSelf.photoOperationService.currentGroup != nil {
+                let vc = ZZPhotoBrowserViewController.init(photoOperationService: strongSelf.photoOperationService)
+                if let index = strongSelf.photoOperationService.currentGroup.imageAssets.index(of: asset) {
+                    vc.pageIndex = index
+                }
+                strongSelf.target.navigationController?.pushViewController(vc, animated: true)
+            }
         }).disposed(by: disposeBag)
     }
     

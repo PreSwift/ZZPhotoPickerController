@@ -7,13 +7,17 @@
 //
 
 import UIKit
+import RxSwift
 
 class ZZPhotoCollectionViewCell: UICollectionViewCell {
     
     static let cellID = NSStringFromClass(ZZPhotoCollectionViewCell.self)
     
     var representedAssetIdentifier: String!
+    var disposeBag = DisposeBag()
     private(set) var imageView: UIImageView!
+    private(set) var shadowView: UIView!
+    private(set) var selectBtn: UIButton!
     private(set) lazy var indicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView.init(activityIndicatorStyle: .gray)
         indicator.hidesWhenStopped = true
@@ -24,6 +28,11 @@ class ZZPhotoCollectionViewCell: UICollectionViewCell {
         return indicator
     }()
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -33,6 +42,23 @@ class ZZPhotoCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(imageView)
         imageView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
+        }
+        
+        shadowView = UIView()
+        shadowView.backgroundColor = UIColor.init(white: 0, alpha: 0.3)
+        contentView.addSubview(shadowView)
+        shadowView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+        selectBtn = UIButton()
+        selectBtn.setImage(#imageLiteral(resourceName: "ZZPhoto_selected_small"), for: .selected)
+        selectBtn.setImage(#imageLiteral(resourceName: "ZZPhoto_selected_not_small"), for: .normal)
+        selectBtn.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
+        contentView.addSubview(selectBtn)
+        selectBtn.snp.makeConstraints { (make) in
+            make.width.height.equalTo(40)
+            make.right.top.equalToSuperview()
         }
     }
     

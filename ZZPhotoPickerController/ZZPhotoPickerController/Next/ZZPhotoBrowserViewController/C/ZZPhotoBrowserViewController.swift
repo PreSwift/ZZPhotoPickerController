@@ -25,6 +25,7 @@ class ZZPhotoBrowserViewController: UIViewController {
         return collectionView
     }()
     var viewModel: ZZPhotoBrowserViewModel!
+    var pageIndex: Int = 0
     
     required init(photoOperationService: ZZPhotoOperationService) {
         super.init(nibName: nil, bundle: nil)
@@ -40,6 +41,7 @@ class ZZPhotoBrowserViewController: UIViewController {
         view.backgroundColor = UIColor.white
         
         // UI
+        flowLayout.offsetX = (view.frame.width + flowLayout.itemSpacing) * CGFloat(pageIndex)
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { (make) in
             if #available(iOS 11.0, *) {
@@ -48,7 +50,6 @@ class ZZPhotoBrowserViewController: UIViewController {
                 make.edges.equalToSuperview()
             }
         }
-        
     }
     
     deinit {

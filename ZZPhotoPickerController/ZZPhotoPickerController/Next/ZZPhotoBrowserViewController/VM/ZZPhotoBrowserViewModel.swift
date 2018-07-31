@@ -61,6 +61,14 @@ class ZZPhotoBrowserViewModel: NSObject {
 
         let section = SectionModel.init(model: "1", items: photoOperationService.currentGroup.imageAssets)
         result.onNext([section])
+        
+        // 处理UI事件
+        target.collectionView.rx.didScroll.map { [unowned self] (_) -> Int in
+            Int((self.target.collectionView.contentOffset.x + self.target.collectionView.bounds.width / 2) / (self.target.collectionView.bounds.width + self.target.flowLayout.itemSpacing))
+            }.bind { (page) in
+            self.target.pageIndex = page
+            self.target.navigationItem.title = "\(page + 1)/\(self.photoOperationService.currentGroup.imageAssets.count)"
+        }.disposed(by: disposeBag)
     }
     
 }
