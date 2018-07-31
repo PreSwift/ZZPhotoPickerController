@@ -13,7 +13,16 @@ class ZZPhotoCollectionViewCell: UICollectionViewCell {
     static let cellID = NSStringFromClass(ZZPhotoCollectionViewCell.self)
     
     var representedAssetIdentifier: String!
-    var imageView: UIImageView!
+    private(set) var imageView: UIImageView!
+    private(set) lazy var indicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView.init(activityIndicatorStyle: .gray)
+        indicator.hidesWhenStopped = true
+        contentView.addSubview(indicator)
+        indicator.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+        }
+        return indicator
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

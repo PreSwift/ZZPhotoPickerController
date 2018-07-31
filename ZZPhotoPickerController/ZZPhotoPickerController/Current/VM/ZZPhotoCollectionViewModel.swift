@@ -28,12 +28,24 @@ class ZZPhotoCollectionViewModel: NSObject {
             configureCell: { [weak self] (dataSource, collectionView, indexPath, element) in
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ZZPhotoCollectionViewCell.cellID, for: indexPath) as! ZZPhotoCollectionViewCell
                 cell.representedAssetIdentifier = element.localIdentifier
+                cell.imageView.image = nil
                 guard let strongSelf = self else { return cell }
-                PHImageManager.default().requestImage(for: element, targetSize: CGSize.init(width: strongSelf.target.itemWidth * UIScreen.main.scale, height: strongSelf.target.itemWidth * UIScreen.main.scale), contentMode: .default, options: nil, resultHandler: { (image, _) in
+                let options = PHImageRequestOptions()
+                options.isNetworkAccessAllowed = true
+                options.progressHandler = { (progress, error, stop, info) in
+                    DispatchQueue.main.async {
+                        if progress < 1 {
+                            if cell.indicator.isAnimating == false {
+                                cell.indicator.startAnimating()
+                            }
+                        } else {
+                            cell.indicator.stopAnimating()
+                        }
+                    }
+                }
+                PHImageManager.default().requestImage(for: element, targetSize: CGSize.init(width: strongSelf.target.itemWidth * UIScreen.main.scale, height: strongSelf.target.itemWidth * UIScreen.main.scale), contentMode: .default, options: options, resultHandler: { (image, _) in
                     if cell.representedAssetIdentifier == element.localIdentifier && image != nil {
                         cell.imageView.image = image
-                    } else {
-                        cell.imageView.image = nil
                     }
                 })
                 return cell

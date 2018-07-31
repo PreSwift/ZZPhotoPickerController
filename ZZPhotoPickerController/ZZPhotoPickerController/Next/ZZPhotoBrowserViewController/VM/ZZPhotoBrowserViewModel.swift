@@ -30,13 +30,15 @@ class ZZPhotoBrowserViewModel: NSObject {
             configureCell: { (dataSource, collectionView, indexPath, element) in
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ZZPhotoBrowserCollectionViewCell.cellID, for: indexPath) as! ZZPhotoBrowserCollectionViewCell
                 cell.representedAssetIdentifier = element.localIdentifier
+                cell.imageView.image = nil
                 let options = PHImageRequestOptions()
                 options.isNetworkAccessAllowed = true
                 options.progressHandler = { (progress, error, stop, info) in
                     DispatchQueue.main.async {
-                        print(progress)
-                        if progress < 1 && cell.indicator.isAnimating == false {
-                            cell.indicator.startAnimating()
+                        if progress < 1 {
+                            if cell.indicator.isAnimating == false {
+                                cell.indicator.startAnimating()
+                            }
                         } else {
                             cell.indicator.stopAnimating()
                         }
@@ -46,8 +48,6 @@ class ZZPhotoBrowserViewModel: NSObject {
                     if cell.representedAssetIdentifier == element.localIdentifier && data != nil {
                         let image = UIImage.init(data: data!)
                         cell.imageView.image = image
-                    } else {
-                        cell.imageView.image = nil
                     }
                 })
                 return cell
