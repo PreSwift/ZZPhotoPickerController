@@ -14,16 +14,19 @@ import RxDataSources
 
 class ZZPhotoBrowserViewModel: NSObject {
 
-    var photoOperationService: ZZPhotoOperationService!
+    var photoOperationService: ZZPhotoOperationService
+    var isPreview: Bool
     weak var target: ZZPhotoBrowserViewController!
     
+    lazy var previewAssets = [PHAsset]()
     var result = PublishSubject<[SectionModel<String, PHAsset>]>()
     let disposeBag = DisposeBag()
     
-    required init(target: ZZPhotoBrowserViewController, photoOperationService: ZZPhotoOperationService) {
+    required init(target: ZZPhotoBrowserViewController, photoOperationService: ZZPhotoOperationService, isPreview: Bool) {
+        self.photoOperationService = photoOperationService
+        self.isPreview = isPreview
         super.init()
         self.target = target
-        self.photoOperationService = photoOperationService
         
         // 数据绑定UI
         let dataSource = RxCollectionViewSectionedReloadDataSource<SectionModel<String, PHAsset>> (
@@ -59,15 +62,25 @@ class ZZPhotoBrowserViewModel: NSObject {
         // 监听dataSource
         result.bind(to: target.collectionView.rx.items(dataSource: dataSource)).disposed(by: disposeBag)
 
-        let section = SectionModel.init(model: "1", items: photoOperationService.currentGroup.imageAssets)
-        result.onNext([section])
+        if isPreview {
+            previewAssets += photoOperationService.selectedAssets.value
+            let section = SectionModel.init(model: "1", items: previewAssets)
+            result.onNext([section])
+        } else {
+            let section = SectionModel.init(model: "1", items: photoOperationService.currentGroup.imageAssets)
+            result.onNext([section])
+        }
         
         // 处理UI事件
         target.collectionView.rx.didScroll.map { [unowned self] (_) -> Int in
             Int((self.target.collectionView.contentOffset.x + self.target.collectionView.bounds.width / 2) / (self.target.collectionView.bounds.width + self.target.flowLayout.itemSpacing))
             }.bind { (page) in
             self.target.pageIndex = page
-            self.target.navigationItem.title = "\(page + 1)/\(self.photoOperationService.currentGroup.imageAssets.count)"
+            if self.isPreview {
+                self.target.navigationItem.title = "\(page + 1)/\(self.previewAssets.count)"
+            } else {
+                self.target.navigationItem.title = "\(page + 1)/\(self.photoOperationService.currentGroup.imageAssets.count)"
+            }
         }.disposed(by: disposeBag)
     }
     

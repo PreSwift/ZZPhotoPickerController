@@ -54,9 +54,6 @@ class ZZPhotoToolView: UIView {
         cameraBtn.layer.masksToBounds = true
         cameraBtn.setBackgroundImage(UIImage.init(color: UIColor.orange), for: .normal)
         cameraBtn.setBackgroundImage(UIImage.init(color: UIColor.white), for: .disabled)
-        cameraBtn.setTitleColor(UIColor.white, for: .normal)
-        cameraBtn.setTitleColor(UIColor.init(hex: "#dcdcdc"), for: .disabled)
-        cameraBtn.isEnabled = true
         addSubview(cameraBtn)
         cameraBtn.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
@@ -80,20 +77,8 @@ class ZZPhotoToolView: UIView {
         }
     }
     
-    func changeCameraBtnStatus(isEnabled: Bool) {
-        if isEnabled == true {
-            cameraBtn.isEnabled = true
-            cameraBtn.layer.borderColor = nil
-            cameraBtn.layer.borderWidth = 0
-        } else {
-            cameraBtn.isEnabled = false
-            cameraBtn.layer.borderColor = UIColor.init(hex: "#dcdcdc").cgColor
-            cameraBtn.layer.borderWidth = 1
-        }
-    }
-    
     deinit {
-        print(self)
+//        print(self)
     }
     
 }

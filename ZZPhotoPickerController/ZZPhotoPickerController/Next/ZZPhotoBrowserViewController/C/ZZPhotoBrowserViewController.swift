@@ -27,9 +27,9 @@ class ZZPhotoBrowserViewController: UIViewController {
     var viewModel: ZZPhotoBrowserViewModel!
     var pageIndex: Int = 0
     
-    required init(photoOperationService: ZZPhotoOperationService) {
+    required init(photoOperationService: ZZPhotoOperationService, isPreview: Bool = false) {
         super.init(nibName: nil, bundle: nil)
-        viewModel = ZZPhotoBrowserViewModel.init(target: self, photoOperationService: photoOperationService)
+        viewModel = ZZPhotoBrowserViewModel.init(target: self, photoOperationService: photoOperationService, isPreview: isPreview)
     }
     
     required init?(coder aDecoder: NSCoder) {

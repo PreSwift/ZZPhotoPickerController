@@ -77,4 +77,8 @@ class ZZPhotoCollectionViewController: UIViewController {
         collectionViewModel = ZZPhotoCollectionViewModel.init(target: self)
     }
 
+    deinit {
+        print(self)
+    }
+    
 }

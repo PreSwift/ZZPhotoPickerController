@@ -108,7 +108,10 @@ class ZZPhotoCollectionViewModel: NSObject {
         
         (target.rightItem.rx.tap).subscribe(onNext: { [weak self] (_) in
             guard let strongSelf = self else { return }
-            print("选中了\(strongSelf.photoOperationService.selectedAssets.value.count)个内容")
+            if let rootVC = strongSelf.target.navigationController as? ZZPhotoPickerController {
+                rootVC.zzDelegate?.photoPickerController(rootVC, didSelect: strongSelf.photoOperationService.selectedAssets.value)
+                rootVC.dismiss(animated: true, completion: nil)
+            }
         }).disposed(by: disposeBag)
         
         target.collectionView.rx.modelSelected(PHAsset.self).subscribe(onNext: { [weak self] (asset) in
@@ -126,12 +129,14 @@ class ZZPhotoCollectionViewModel: NSObject {
         photoOperationService.selectedAssets.map { (assets) -> Bool in
             assets.count > 0 ? true : false
             }.bind { [unowned self] isEnabled in
-                self.target.toolView.changeCameraBtnStatus(isEnabled: isEnabled)
+                self.target.toolView.changePreviewBtnStatus(isEnabled: isEnabled)
         }.disposed(by: target.toolView.disposeBag)
         
         // 预览按钮点击事件
-        target.toolView.previewBtn.rx.tap.bind {
-            print("预览")
+        target.toolView.previewBtn.rx.tap.bind { [weak self] in
+            guard let strongSelf = self else { return }
+            let vc = ZZPhotoBrowserViewController.init(photoOperationService: strongSelf.photoOperationService, isPreview: true)
+            strongSelf.target.navigationController?.pushViewController(vc, animated: true)
         }.disposed(by: disposeBag)
         
         // 拍摄按钮点击事件
