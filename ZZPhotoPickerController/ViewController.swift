@@ -49,7 +49,6 @@ class ViewController: UIViewController {
         
         _ = (rightItem.rx.tap).bind { [unowned self] in
             let vc = ZZPhotoPickerController()
-//            vc.zzDelegate = self
             self.present(vc, animated: true, completion: nil)
             
             vc.rx.assetsSelected.subscribe(onNext: { [unowned self] (assets) in
@@ -65,6 +64,7 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return assets.count
     }
@@ -83,6 +83,7 @@ extension ViewController: UICollectionViewDataSource {
         })
         return cell
     }
+    
 }
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
@@ -93,21 +94,3 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     }
     
 }
-
-extension ViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-    }
-    
-}
-
-extension ViewController: ZZPhotoPickerControllerDelegate {
-    
-    func photoPickerController(_ photoPickerController: ZZPhotoPickerController, didSelect assets: [Any]) {
-        self.assets += (assets as![PHAsset])
-        self.collectionView.reloadData()
-    }
-    
-}
-
