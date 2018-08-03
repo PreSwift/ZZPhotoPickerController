@@ -10,9 +10,14 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+// 代理方式获取结果
+@objc public protocol ZZPhotoPickerControllerDelegate : NSObjectProtocol {
+    @objc optional func photoPickerController(_ photoPickerController: ZZPhotoPickerController, didSelect assets: [Any])
+}
+
 public class ZZPhotoPickerController: UINavigationController {
     
-    public var zzDelegate: ZZPhotoPickerControllerDelegate?
+    public weak var zzDelegate: ZZPhotoPickerControllerDelegate?
     
     private var collectionViewController: ZZPhotoCollectionViewController!
     
@@ -35,17 +40,3 @@ public class ZZPhotoPickerController: UINavigationController {
     }
 }
 
-// 代理方式获取结果
-@objc public protocol ZZPhotoPickerControllerDelegate {
-    @objc func photoPickerController(_ photoPickerController: ZZPhotoPickerController, didSelect assets: [Any])
-}
-
-// rx订阅方式获取结果
-extension Reactive where Base: ZZPhotoPickerController {
-    
-    public var assetsSelected: ControlEvent<[Any]> {
-        let source = delegate.methodInvoked(#selector(ZZPhotoPickerControllerDelegate.photoPickerController(_:didSelect:)))
-        return ControlEvent(events: source)
-    }
-    
-}

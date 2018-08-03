@@ -12,6 +12,8 @@
 		DC5F9F5D211060D700C09777 /* ZZPhotoToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5F9F5C211060D700C09777 /* ZZPhotoToolView.swift */; };
 		DC5F9F602110643A00C09777 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5F9F5F2110643A00C09777 /* UIImage+Extension.swift */; };
 		DC5F9F622110649D00C09777 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5F9F612110649D00C09777 /* UIColor+Extension.swift */; };
+		DC6468762113FB1B003BC385 /* RxPhotoPickerControllerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6468752113FB1B003BC385 /* RxPhotoPickerControllerDelegateProxy.swift */; };
+		DC646878211407B3003BC385 /* ZZPhotoPickerController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC646877211407B3003BC385 /* ZZPhotoPickerController+Rx.swift */; };
 		DC710FAE2112E78D00E8933D /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC710FAD2112E78D00E8933D /* CollectionViewCell.swift */; };
 		DC966D342108874C00D42A48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC966D332108874C00D42A48 /* AppDelegate.swift */; };
 		DC966D362108874C00D42A48 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC966D352108874C00D42A48 /* ViewController.swift */; };
@@ -37,6 +39,8 @@
 		DC5F9F5C211060D700C09777 /* ZZPhotoToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoToolView.swift; sourceTree = "<group>"; };
 		DC5F9F5F2110643A00C09777 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		DC5F9F612110649D00C09777 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		DC6468752113FB1B003BC385 /* RxPhotoPickerControllerDelegateProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxPhotoPickerControllerDelegateProxy.swift; sourceTree = "<group>"; };
+		DC646877211407B3003BC385 /* ZZPhotoPickerController+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZZPhotoPickerController+Rx.swift"; sourceTree = "<group>"; };
 		DC710FAD2112E78D00E8933D /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		DC966D302108874C00D42A48 /* ZZPhotoPickerController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZZPhotoPickerController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC966D332108874C00D42A48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -163,6 +167,8 @@
 			children = (
 				DCDBC7432109759E00C245A9 /* ZZPhotoPickerController.swift */,
 				DCDBC745210975B200C245A9 /* ZZPhotoCollectionViewController.swift */,
+				DC646877211407B3003BC385 /* ZZPhotoPickerController+Rx.swift */,
+				DC6468752113FB1B003BC385 /* RxPhotoPickerControllerDelegateProxy.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -377,10 +383,12 @@
 				DCDBC76C2109C5F000C245A9 /* ZZPhotoOperationService.swift in Sources */,
 				DC5F9F622110649D00C09777 /* UIColor+Extension.swift in Sources */,
 				DC966D342108874C00D42A48 /* AppDelegate.swift in Sources */,
+				DC646878211407B3003BC385 /* ZZPhotoPickerController+Rx.swift in Sources */,
 				DCDBC74A2109764800C245A9 /* ZZPhotoCollectionViewModel.swift in Sources */,
 				DCDBC7652109B7E400C245A9 /* ZZPhotoBrowserCollectionViewCell.swift in Sources */,
 				DCDBC7632109B08D00C245A9 /* ZZPhotoBrowserViewController.swift in Sources */,
 				DCDBC7672109B80B00C245A9 /* ZZPhotoBrowserViewModel.swift in Sources */,
+				DC6468762113FB1B003BC385 /* RxPhotoPickerControllerDelegateProxy.swift in Sources */,
 				DC5F9F602110643A00C09777 /* UIImage+Extension.swift in Sources */,
 				DCDBC748210975D500C245A9 /* ZZPhotoCollectionViewCell.swift in Sources */,
 				DCDBC7692109B93C00C245A9 /* ZZPhotoBrowserCollectionViewFlowLayout.swift in Sources */,
