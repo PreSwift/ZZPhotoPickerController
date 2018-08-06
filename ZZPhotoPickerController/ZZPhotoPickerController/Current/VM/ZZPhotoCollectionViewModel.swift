@@ -76,6 +76,26 @@ class ZZPhotoCollectionViewModel: NSObject {
                         cell.imageView.image = image
                     }
                 })
+                
+                if element.mediaType.rawValue == PHAssetMediaType.video.rawValue {
+                    cell.videoIndicatorView.isHidden = false
+                    
+                    let minutes = Int(element.duration / 60.0)
+                    let seconds = Int(ceil(element.duration - 60.0 * Double(minutes)))
+                    cell.videoIndicatorView.timeLabel.text = String.init(format: "%02ld:%02ld", minutes, seconds)
+                    
+                    if element.mediaSubtypes.rawValue & PHAssetMediaSubtype.videoHighFrameRate.rawValue != 0 {
+                        cell.videoIndicatorView.videoIcon.isHidden = true
+                        cell.videoIndicatorView.slomoIcon.isHidden = false
+                    }
+                    else {
+                        cell.videoIndicatorView.videoIcon.isHidden = false
+                        cell.videoIndicatorView.slomoIcon.isHidden = true
+                    }
+                } else {
+                    cell.videoIndicatorView.isHidden = true
+                }
+                
                 return cell
             }
         )
@@ -102,6 +122,11 @@ class ZZPhotoCollectionViewModel: NSObject {
         }).disposed(by: disposeBag)
         
         // 监听UI事件
+        (target.titleBtn.rx.tap).subscribe(onNext: { [unowned self] (_) in
+            let groupView = ZZPhotoGroupView.init(photoOperationService: self.photoOperationService)
+            groupView.show()
+        }).disposed(by: disposeBag)
+        
         (target.leftItem.rx.tap).subscribe(onNext: { [weak self] (_) in
             self?.target.dismiss(animated: true, completion: nil)
         }).disposed(by: disposeBag)
@@ -117,11 +142,15 @@ class ZZPhotoCollectionViewModel: NSObject {
         target.collectionView.rx.modelSelected(PHAsset.self).subscribe(onNext: { [weak self] (asset) in
             guard let strongSelf = self else { return }
             if strongSelf.photoOperationService.currentGroup != nil {
-                let vc = ZZPhotoBrowserViewController.init(photoOperationService: strongSelf.photoOperationService)
-                if let index = strongSelf.photoOperationService.currentGroup.imageAssets.index(of: asset) {
-                    vc.pageIndex = index
+                if strongSelf.photoOperationService.currentGroup.assetCollection.assetCollectionSubtype != .smartAlbumVideos && strongSelf.photoOperationService.currentGroup.assetCollection.assetCollectionSubtype != .smartAlbumSlomoVideos {
+                    let vc = ZZPhotoBrowserViewController.init(photoOperationService: strongSelf.photoOperationService)
+                    if let index = strongSelf.photoOperationService.currentGroup.assets.index(of: asset) {
+                        vc.pageIndex = index
+                    }
+                    strongSelf.target.navigationController?.pushViewController(vc, animated: true)
+                } else {
+                    print("视频预览")
                 }
-                strongSelf.target.navigationController?.pushViewController(vc, animated: true)
             }
         }).disposed(by: disposeBag)
         

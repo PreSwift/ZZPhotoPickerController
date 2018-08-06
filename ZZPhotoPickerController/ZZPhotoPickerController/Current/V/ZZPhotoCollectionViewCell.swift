@@ -18,6 +18,11 @@ class ZZPhotoCollectionViewCell: UICollectionViewCell {
     private(set) var imageView: UIImageView!
     private(set) var shadowView: UIView!
     private(set) var selectBtn: UIButton!
+    private(set) lazy var videoIndicatorView: ZZPhotoVideoIndicatorView = {
+        let view = ZZPhotoVideoIndicatorView.init(frame: CGRect.init(x: 0, y: self.bounds.maxY - 20, width: self.bounds.width, height: 20))
+        contentView.addSubview(view)
+        return view
+    }()
     private(set) lazy var indicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView.init(activityIndicatorStyle: .gray)
         indicator.hidesWhenStopped = true

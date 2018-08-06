@@ -18,6 +18,7 @@ class ZZPhotoCollectionViewController: UIViewController {
     var titleBtn: UIButton!
     var itemWidth = (UIScreen.main.bounds.width - 3) / 4
     var collectionView: UICollectionView!
+    var titleView: UIButton!
     lazy var placeholderView: ZZPhotoPlaceholderView = {
         let placeholderView = ZZPhotoPlaceholderView()
         view.addSubview(placeholderView)

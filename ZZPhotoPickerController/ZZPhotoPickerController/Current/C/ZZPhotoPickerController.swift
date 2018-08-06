@@ -19,12 +19,9 @@ public class ZZPhotoPickerController: UINavigationController {
     
     public weak var zzDelegate: ZZPhotoPickerControllerDelegate?
     
-    private var collectionViewController: ZZPhotoCollectionViewController!
-    
     required public init() {
         let collectionViewController = ZZPhotoCollectionViewController()
         super.init(rootViewController: collectionViewController)
-        self.collectionViewController = collectionViewController
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {

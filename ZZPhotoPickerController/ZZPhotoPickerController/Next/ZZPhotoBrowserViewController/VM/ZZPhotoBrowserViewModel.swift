@@ -67,7 +67,7 @@ class ZZPhotoBrowserViewModel: NSObject {
             let section = SectionModel.init(model: "1", items: previewAssets)
             result.onNext([section])
         } else {
-            let section = SectionModel.init(model: "1", items: photoOperationService.currentGroup.imageAssets)
+            let section = SectionModel.init(model: "1", items: photoOperationService.currentGroup.assets)
             result.onNext([section])
         }
         
@@ -79,7 +79,7 @@ class ZZPhotoBrowserViewModel: NSObject {
             if self.isPreview {
                 self.target.navigationItem.title = "\(page + 1)/\(self.previewAssets.count)"
             } else {
-                self.target.navigationItem.title = "\(page + 1)/\(self.photoOperationService.currentGroup.imageAssets.count)"
+                self.target.navigationItem.title = "\(page + 1)/\(self.photoOperationService.currentGroup.assets.count)"
             }
         }.disposed(by: disposeBag)
     }

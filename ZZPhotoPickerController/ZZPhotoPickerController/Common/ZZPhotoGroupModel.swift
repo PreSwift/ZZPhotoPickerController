@@ -13,12 +13,12 @@ class ZZPhotoGroupModel: NSObject {
 
     var assetCollection: PHAssetCollection // 保存一些基本信息
     var assets: [PHAsset]  // 包含视频和照片
-    var imageAssets: [PHAsset] // 仅包含照片, 用于大图浏览页面
+    var isContainSelectedAssets: Bool = false
+    var isCurrentGroup: Bool = false
     
-    init(assetCollection: PHAssetCollection, assets: [PHAsset], imageAssets: [PHAsset]) {
+    init(assetCollection: PHAssetCollection, assets: [PHAsset]) {
         self.assetCollection = assetCollection
         self.assets = assets
-        self.imageAssets = imageAssets
     }
     
 }

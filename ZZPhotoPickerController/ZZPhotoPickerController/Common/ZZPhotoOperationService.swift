@@ -37,12 +37,41 @@ class ZZPhotoOperationService: NSObject {
             self?.fetchPhotoGroups()
         }).disposed(by: disposeBag)
         
-        // 缓存
+        // 监听选中改变预览按钮状态
+        self.selectedAssets.subscribe(onNext: { [weak self] (assets) in
+            guard let strongSelf = self else { return }
+            let groups = strongSelf.groups.value
+            for group in groups {
+                var isContainSelectedAssets = false
+                for asset in assets {
+                    if group.assets.contains(asset) {
+                        isContainSelectedAssets = true
+                        break
+                    }
+                }
+                group.isContainSelectedAssets = isContainSelectedAssets
+            }
+            strongSelf.groups.accept(groups)
+        }).disposed(by: disposeBag)
+        
+        self.rx.observeWeakly(ZZPhotoGroupModel.self, "currentGroup", options: [.new]).subscribe(onNext: { [weak self] (value) in
+            guard let strongSelf = self else { return }
+            if let newValue = value {
+                let groups = strongSelf.groups.value
+                for group in groups {
+                    group.isCurrentGroup = group == newValue
+                }
+                strongSelf.groups.accept(groups)
+            }
+        }).disposed(by: disposeBag)
+        
         self.rx.observeWeakly(ZZPhotoGroupModel.self, "currentGroup", options: [.new]).take(1).subscribe(onNext: { [weak self] (value) in
             guard let strongSelf = self else { return }
             print("222222222232323222222222222222222222")
             if let newValue = value {
-                strongSelf.cachingManager?.startCachingImages(for:newValue.imageAssets , targetSize: PHImageManagerMaximumSize, contentMode: .default, options: nil)
+                if strongSelf.currentGroup.assetCollection.assetCollectionSubtype != .smartAlbumVideos && strongSelf.currentGroup.assetCollection.assetCollectionSubtype != .smartAlbumSlomoVideos {
+                    strongSelf.cachingManager?.startCachingImages(for:newValue.assets , targetSize: PHImageManagerMaximumSize, contentMode: .default, options: nil)
+                }
             }
         }).disposed(by: disposeBag)
     }
@@ -67,9 +96,10 @@ class ZZPhotoOperationService: NSObject {
                             let assetCollection = obj0
                             let options = PHFetchOptions()
                             options.sortDescriptors = [NSSortDescriptor.init(key: "creationDate", ascending: false)]
+                            if obj0.assetCollectionSubtype != .smartAlbumVideos && obj0.assetCollectionSubtype != .smartAlbumSlomoVideos {
+                                options.predicate = NSPredicate.init(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+                            }
                             let result = PHAsset.fetchAssets(in: assetCollection, options: options)
-                            options.predicate = NSPredicate.init(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
-                            let imageResult = PHAsset.fetchAssets(in: assetCollection, options: options)
                             if result.count > 0 {
                                 if assetCollection.assetCollectionSubtype != PHAssetCollectionSubtype.init(rawValue: 1000000201) {
                                     var items = [PHAsset]()
@@ -77,12 +107,7 @@ class ZZPhotoOperationService: NSObject {
                                         items.append(asset)
                                     })
                                     
-                                    var imageItems = [PHAsset]()
-                                    imageResult.enumerateObjects({ (asset, index, nil) in
-                                        imageItems.append(asset)
-                                    })
-                                    
-                                    let group = ZZPhotoGroupModel.init(assetCollection: assetCollection, assets: items, imageAssets: imageItems)
+                                    let group = ZZPhotoGroupModel.init(assetCollection: assetCollection, assets: items)
                                     strongSelf.groups.accept(strongSelf.groups.value + [group])
                                     
                                     // 默认选中所有相册
@@ -106,22 +131,18 @@ class ZZPhotoOperationService: NSObject {
                             let assetCollection = obj0
                             let options = PHFetchOptions()
                             options.sortDescriptors = [NSSortDescriptor.init(key: "creationDate", ascending: false)]
+                            if obj0.assetCollectionSubtype != .smartAlbumVideos && obj0.assetCollectionSubtype != .smartAlbumSlomoVideos {
+                                options.predicate = NSPredicate.init(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+                            }
                             let result = PHAsset.fetchAssets(in: assetCollection, options: options)
-                            options.predicate = NSPredicate.init(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
-                            let imageResult = PHAsset.fetchAssets(in: assetCollection, options: options)
                             
                             if result.count > 0 {
                                 var items = [PHAsset]()
                                 result.enumerateObjects({ (asset, index, nil) in
                                     items.append(asset)
                                 })
-                                
-                                var imageItems = [PHAsset]()
-                                imageResult.enumerateObjects({ (asset, index, nil) in
-                                    imageItems.append(asset)
-                                })
-                                
-                                let group = ZZPhotoGroupModel.init(assetCollection: assetCollection, assets: items, imageAssets: imageItems)
+                                 
+                                let group = ZZPhotoGroupModel.init(assetCollection: assetCollection, assets: items)
                                 strongSelf.groups.accept(strongSelf.groups.value + [group])
                             }
                         }
