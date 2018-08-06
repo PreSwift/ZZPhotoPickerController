@@ -29,13 +29,13 @@ class ZZPhotoToolView: UIView {
         }
         
         previewBtn = UIButton()
-        previewBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.bold)
+        previewBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.regular)
         previewBtn.setTitle("预览", for: .normal)
         previewBtn.contentEdgeInsets = UIEdgeInsetsMake(4, 8, 4, 8)
         previewBtn.layer.cornerRadius = 2
         previewBtn.layer.masksToBounds = true
         previewBtn.setBackgroundImage(UIImage.init(color: UIColor.orange), for: .normal)
-        previewBtn.setBackgroundImage(UIImage.init(color: UIColor.white), for: .disabled)
+        previewBtn.setBackgroundImage(UIImage.init(color: UIColor.clear), for: .disabled)
         previewBtn.setTitleColor(UIColor.white, for: .normal)
         previewBtn.setTitleColor(UIColor.init(hex: "#dcdcdc"), for: .disabled)
         previewBtn.isEnabled = false
@@ -47,13 +47,13 @@ class ZZPhotoToolView: UIView {
         }
         
         cameraBtn = UIButton()
-        cameraBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.bold)
+        cameraBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.regular)
         cameraBtn.setTitle("拍摄", for: .normal)
         cameraBtn.contentEdgeInsets = UIEdgeInsetsMake(4, 8, 4, 8)
         cameraBtn.layer.cornerRadius = 2
         cameraBtn.layer.masksToBounds = true
         cameraBtn.setBackgroundImage(UIImage.init(color: UIColor.orange), for: .normal)
-        cameraBtn.setBackgroundImage(UIImage.init(color: UIColor.white), for: .disabled)
+        cameraBtn.setBackgroundImage(UIImage.init(color: UIColor.clear), for: .disabled)
         addSubview(cameraBtn)
         cameraBtn.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()

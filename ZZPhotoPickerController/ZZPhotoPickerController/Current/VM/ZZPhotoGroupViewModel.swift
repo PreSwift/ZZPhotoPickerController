@@ -25,6 +25,8 @@ class ZZPhotoGroupViewModel: NSObject {
         super.init()
         self.target = target
         
+        photoOperationService.isGroupViewShow = true
+        
         let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, ZZPhotoGroupModel>>(configureCell: { (dataSource, tableView, indexPath, element) -> UITableViewCell in
             let cell = tableView.dequeueReusableCell(withIdentifier: ZZPhotoGroupTableViewCell.cellID, for: indexPath) as! ZZPhotoGroupTableViewCell
             cell.update(group: element)
@@ -49,6 +51,7 @@ class ZZPhotoGroupViewModel: NSObject {
     }
     
     deinit {
+        photoOperationService.isGroupViewShow = false
 //        print(self)
     }
     

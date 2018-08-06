@@ -110,7 +110,26 @@ class ZZPhotoCollectionViewModel: NSObject {
                 let section = SectionModel.init(model: "1", items: newValue.assets)
                 strongSelf.result.onNext([section])
                 
-                Observable.just(newValue.assetCollection.localizedTitle).bind(to: strongSelf.target.titleBtn.rx.title()).disposed(by: strongSelf.disposeBag)
+                Observable.just(newValue.assetCollection.localizedTitle).map { [weak self] (value) -> String? in
+                    if self?.photoOperationService.isGroupViewShow == true {
+                        return value == nil ? nil : value! + " ▲"
+                    } else {
+                        return value == nil ? nil : value! + " ▼"
+                    }
+                }.bind(to: strongSelf.target.titleBtn.rx.title()).disposed(by: strongSelf.disposeBag)
+            }
+        }).disposed(by: disposeBag)
+        
+        self.photoOperationService.rx.observeWeakly(Bool.self, "isGroupViewShow", options: [.new]).subscribe(onNext: { [weak self] (value) in
+            guard let strongSelf = self else { return }
+            if let newValue = value {
+                Observable.just(strongSelf.photoOperationService.currentGroup.assetCollection.localizedTitle).map { (value) -> String? in
+                    if newValue == true {
+                        return value == nil ? nil : value! + " ▲"
+                    } else {
+                        return value == nil ? nil : value! + " ▼"
+                    }
+                    }.bind(to: strongSelf.target.titleBtn.rx.title()).disposed(by: strongSelf.disposeBag)
             }
         }).disposed(by: disposeBag)
         
@@ -131,7 +150,7 @@ class ZZPhotoCollectionViewModel: NSObject {
             self?.target.dismiss(animated: true, completion: nil)
         }).disposed(by: disposeBag)
         
-        (target.rightItem.rx.tap).subscribe(onNext: { [weak self] (_) in
+        (target.rightButton.rx.tap).subscribe(onNext: { [weak self] (_) in
             guard let strongSelf = self else { return }
             if let rootVC = strongSelf.target.navigationController as? ZZPhotoPickerController {
                 rootVC.zzDelegate?.photoPickerController!(rootVC, didSelect: strongSelf.photoOperationService.selectedAssets.value)
@@ -155,10 +174,19 @@ class ZZPhotoCollectionViewModel: NSObject {
         }).disposed(by: disposeBag)
         
         // 监听选中改变预览按钮状态
-        photoOperationService.selectedAssets.map { (assets) -> Bool in
-            assets.count > 0 ? true : false
-            }.bind { [unowned self] isEnabled in
-                self.target.toolView.changePreviewBtnStatus(isEnabled: isEnabled)
+        photoOperationService.selectedAssets.bind { [unowned self] assets in
+            let isEnabled = assets.count > 0 ? true : false
+            self.target.toolView.changePreviewBtnStatus(isEnabled: isEnabled)
+            self.target.rightButton.isEnabled = isEnabled
+            if isEnabled {
+                self.target.rightButton.setTitle("下一步(\(assets.count))", for: .normal)
+                self.target.rightButton.layer.borderColor = nil
+                self.target.rightButton.layer.borderWidth = 0
+            } else {
+                self.target.rightButton.setTitle("下一步", for: .normal)
+                self.target.rightButton.layer.borderColor = UIColor.init(hex: "#dcdcdc").cgColor
+                self.target.rightButton.layer.borderWidth = 1
+            }
         }.disposed(by: target.toolView.disposeBag)
         
         // 预览按钮点击事件

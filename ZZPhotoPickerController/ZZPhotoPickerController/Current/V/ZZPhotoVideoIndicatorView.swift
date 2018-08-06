@@ -14,6 +14,13 @@ class ZZPhotoVideoIndicatorView: UIView {
         let label = UILabel()
         label.textColor = UIColor.white
         label.font = UIFont.systemFont(ofSize: 12)
+        label.textAlignment = .right
+        self.addSubview(label)
+        label.snp.makeConstraints({ (make) in
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().inset(5)
+            make.left.equalTo(self.videoIcon.snp.right).offset(4)
+        })
         return label
     }()
     

@@ -18,7 +18,7 @@ class ZZPhotoVideoIconView: UIView {
         let trianglePath = UIBezierPath()
         trianglePath.move(to: CGPoint.init(x: bounds.maxX, y: bounds.minY))
         trianglePath.addLine(to: CGPoint.init(x: bounds.maxX, y: bounds.maxY))
-        trianglePath.addLine(to: CGPoint.init(x: bounds.maxX - bounds.midY, y: bounds.minY))
+        trianglePath.addLine(to: CGPoint.init(x: bounds.maxX - bounds.midY, y: bounds.midY))
         trianglePath.close()
         trianglePath.fill()
         

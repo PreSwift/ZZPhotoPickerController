@@ -19,6 +19,7 @@ import Photos
 
 class ZZPhotoOperationService: NSObject {
     
+    @objc dynamic var isGroupViewShow: Bool = false
     @objc dynamic var currentGroup: ZZPhotoGroupModel!
     @objc dynamic var operationStatus = ZZPhotoOperationStatus.normal
     var selectedAssets = BehaviorRelay<[PHAsset]>(value: [])

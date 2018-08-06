@@ -14,7 +14,7 @@ import RxDataSources
 class ZZPhotoCollectionViewController: UIViewController {
 
     var leftItem: UIBarButtonItem!
-    var rightItem: UIBarButtonItem!
+    var rightButton: UIButton!
     var titleBtn: UIButton!
     var itemWidth = (UIScreen.main.bounds.width - 3) / 4
     var collectionView: UICollectionView!
@@ -36,12 +36,25 @@ class ZZPhotoCollectionViewController: UIViewController {
         
         // UI
         leftItem = UIBarButtonItem.init(barButtonSystemItem: .cancel, target: nil, action: nil)
-        rightItem = UIBarButtonItem.init(barButtonSystemItem: .done, target: nil, action: nil)
+        rightButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 60, height: 44))
+        rightButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.regular)
+        rightButton.contentEdgeInsets = UIEdgeInsetsMake(2, 4, 2, 4)
+        rightButton.layer.cornerRadius = 2
+        rightButton.layer.masksToBounds = true
+        rightButton.setBackgroundImage(UIImage.init(color: UIColor.orange), for: .normal)
+        rightButton.setBackgroundImage(UIImage.init(color: UIColor.clear), for: .disabled)
+        rightButton.setTitleColor(UIColor.white, for: .normal)
+        rightButton.setTitleColor(UIColor.init(hex: "#dcdcdc"), for: .disabled)
+        rightButton.isEnabled = false
+        rightButton.snp.makeConstraints { (make) in
+            
+        }
+        let rightItem = UIBarButtonItem.init(customView: rightButton)
         navigationItem.leftBarButtonItem = leftItem
         navigationItem.rightBarButtonItem = rightItem
         titleBtn = UIButton()
         titleBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.bold)
-        titleBtn.setTitleColor(UIColor.darkText, for: .normal)
+        titleBtn.setTitleColor(UIColor.orange, for: .normal)
         navigationItem.titleView = titleBtn
         titleBtn.snp.makeConstraints { (make) in
             make.size.greaterThanOrEqualTo(CGSize.init(width: 44, height: 44))
