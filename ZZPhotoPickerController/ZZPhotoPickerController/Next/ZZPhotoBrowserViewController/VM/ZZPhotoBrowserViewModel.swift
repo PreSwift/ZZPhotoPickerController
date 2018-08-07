@@ -15,9 +15,9 @@ import RxDataSources
 class ZZPhotoBrowserViewModel: NSObject {
 
     var photoOperationService: ZZPhotoOperationService
-    var isPreview: Bool
     weak var target: ZZPhotoBrowserViewController!
     
+    var isPreview: Bool
     lazy var previewAssets = [PHAsset]()
     var result = PublishSubject<[SectionModel<String, PHAsset>]>()
     let disposeBag = DisposeBag()
@@ -72,16 +72,22 @@ class ZZPhotoBrowserViewModel: NSObject {
         }
         
         // 处理UI事件
-        target.collectionView.rx.didScroll.map { [unowned self] (_) -> Int in
-            Int((self.target.collectionView.contentOffset.x + self.target.collectionView.bounds.width / 2) / (self.target.collectionView.bounds.width + self.target.flowLayout.itemSpacing))
-            }.bind { (page) in
-            self.target.pageIndex = page
-            if self.isPreview {
-                self.target.navigationItem.title = "\(page + 1)/\(self.previewAssets.count)"
+        target.collectionView.rx.didScroll.map { [weak self] (_) -> Int in
+            guard let strongSelf = self else { return 0 }
+            return Int((strongSelf.target.collectionView.contentOffset.x + strongSelf.target.collectionView.bounds.width / 2) / (strongSelf.target.collectionView.bounds.width + strongSelf.target.flowLayout.itemSpacing))
+        }.bind { [weak self] (page) in
+            guard let strongSelf = self else { return  }
+            strongSelf.target.pageIndex = page
+            if strongSelf.isPreview {
+                strongSelf.target.navigationItem.title = "\(page + 1)/\(strongSelf.previewAssets.count)"
             } else {
-                self.target.navigationItem.title = "\(page + 1)/\(self.photoOperationService.currentGroup.assets.count)"
+                strongSelf.target.navigationItem.title = "\(page + 1)/\(strongSelf.photoOperationService.currentGroup.assets.count)"
             }
         }.disposed(by: disposeBag)
+    }
+    
+    deinit {
+        print(self)
     }
     
 }

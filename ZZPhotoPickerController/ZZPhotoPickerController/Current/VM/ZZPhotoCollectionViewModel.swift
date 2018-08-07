@@ -13,13 +13,14 @@ import RxDataSources
 
 class ZZPhotoCollectionViewModel: NSObject {
     
-    var photoOperationService = ZZPhotoOperationService()
+    var photoOperationService: ZZPhotoOperationService
     weak var target: ZZPhotoCollectionViewController!
     
     var result = PublishSubject<[SectionModel<String, PHAsset>]>()
     let disposeBag = DisposeBag()
     
-    required init(target: ZZPhotoCollectionViewController) {
+    required init(target: ZZPhotoCollectionViewController, photoOperationService: ZZPhotoOperationService) {
+        self.photoOperationService = photoOperationService
         super.init()
         self.target = target
         
@@ -29,7 +30,7 @@ class ZZPhotoCollectionViewModel: NSObject {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ZZPhotoCollectionViewCell.cellID, for: indexPath) as! ZZPhotoCollectionViewCell
                 cell.representedAssetIdentifier = element.localIdentifier
                 cell.imageView.image = nil
-                
+
                 guard let strongSelf = self else { return cell }
                 
                 let assets = strongSelf.photoOperationService.selectedAssets.value
@@ -40,7 +41,7 @@ class ZZPhotoCollectionViewModel: NSObject {
                     cell.selectBtn.isSelected = false
                     cell.shadowView.isHidden = true
                 }
-                
+
                 //cell中按钮点击事件订阅
                 cell.selectBtn.rx.tap.asDriver()
                     .drive(onNext: { [weak self] in
@@ -49,15 +50,20 @@ class ZZPhotoCollectionViewModel: NSObject {
                         if let index = newAssets.index(of: element) {
                             newAssets.remove(at: index)
                         } else {
-                            newAssets.append(element)
+                            let max = strongSelf.photoOperationService.maxSelectCount
+                            if newAssets.count >= max {
+                                ZZPhotoAlertView.show("最多可以选择\(max)张照片")
+                            } else {
+                                newAssets.append(element)
+                            }
                         }
                         strongSelf.photoOperationService.selectedAssets.accept(newAssets)
                         collectionView.performBatchUpdates({
                             collectionView.reloadItems(at: [indexPath])
                         })
                     }).disposed(by: cell.disposeBag)
-                
-                
+
+
                 let options = PHImageRequestOptions()
                 options.isNetworkAccessAllowed = true
                 options.progressHandler = { (progress, error, stop, info) in
@@ -76,14 +82,14 @@ class ZZPhotoCollectionViewModel: NSObject {
                         cell.imageView.image = image
                     }
                 })
-                
+
                 if element.mediaType.rawValue == PHAssetMediaType.video.rawValue {
                     cell.videoIndicatorView.isHidden = false
-                    
+
                     let minutes = Int(element.duration / 60.0)
                     let seconds = Int(ceil(element.duration - 60.0 * Double(minutes)))
                     cell.videoIndicatorView.timeLabel.text = String.init(format: "%02ld:%02ld", minutes, seconds)
-                    
+
                     if element.mediaSubtypes.rawValue & PHAssetMediaSubtype.videoHighFrameRate.rawValue != 0 {
                         cell.videoIndicatorView.videoIcon.isHidden = true
                         cell.videoIndicatorView.slomoIcon.isHidden = false
@@ -95,7 +101,7 @@ class ZZPhotoCollectionViewModel: NSObject {
                 } else {
                     cell.videoIndicatorView.isHidden = true
                 }
-                
+
                 return cell
             }
         )
@@ -109,7 +115,7 @@ class ZZPhotoCollectionViewModel: NSObject {
             if let newValue = value {
                 let section = SectionModel.init(model: "1", items: newValue.assets)
                 strongSelf.result.onNext([section])
-                
+
                 Observable.just(newValue.assetCollection.localizedTitle).map { [weak self] (value) -> String? in
                     if self?.photoOperationService.isGroupViewShow == true {
                         return value == nil ? nil : value! + " ▲"
@@ -119,7 +125,7 @@ class ZZPhotoCollectionViewModel: NSObject {
                 }.bind(to: strongSelf.target.titleBtn.rx.title()).disposed(by: strongSelf.disposeBag)
             }
         }).disposed(by: disposeBag)
-        
+
         self.photoOperationService.rx.observeWeakly(Bool.self, "isGroupViewShow", options: [.new]).subscribe(onNext: { [weak self] (value) in
             guard let strongSelf = self else { return }
             if let newValue = value {
@@ -132,24 +138,26 @@ class ZZPhotoCollectionViewModel: NSObject {
                     }.bind(to: strongSelf.target.titleBtn.rx.title()).disposed(by: strongSelf.disposeBag)
             }
         }).disposed(by: disposeBag)
-        
+
         // 监听服务状态
-        self.photoOperationService.rx.observeWeakly(ZZPhotoOperationStatus.self, "operationStatus").subscribe(onNext: { [unowned self] (status) in
+        self.photoOperationService.rx.observeWeakly(String.self, "operationStatusRaw").subscribe(onNext: { [weak self] (status) in
+            guard let strongSelf = self else { return }
             if let newStatus = status {
-                self.target.placeholderView.changeStatus(type: newStatus)
+                strongSelf.target.placeholderView.changeStatus(type: ZZPhotoOperationStatus.init(rawValue: newStatus)!)
             }
         }).disposed(by: disposeBag)
-        
+
         // 监听UI事件
-        (target.titleBtn.rx.tap).subscribe(onNext: { [unowned self] (_) in
-            let groupView = ZZPhotoGroupView.init(photoOperationService: self.photoOperationService)
+        (target.titleBtn.rx.tap).subscribe(onNext: { [weak self] (_) in
+            guard let strongSelf = self else { return }
+            let groupView = ZZPhotoGroupView.init(photoOperationService: strongSelf.photoOperationService)
             groupView.show()
         }).disposed(by: disposeBag)
-        
+
         (target.leftItem.rx.tap).subscribe(onNext: { [weak self] (_) in
             self?.target.dismiss(animated: true, completion: nil)
         }).disposed(by: disposeBag)
-        
+
         (target.rightButton.rx.tap).subscribe(onNext: { [weak self] (_) in
             guard let strongSelf = self else { return }
             if let rootVC = strongSelf.target.navigationController as? ZZPhotoPickerController {
@@ -157,7 +165,7 @@ class ZZPhotoCollectionViewModel: NSObject {
                 rootVC.dismiss(animated: true, completion: nil)
             }
         }).disposed(by: disposeBag)
-        
+
         target.collectionView.rx.modelSelected(PHAsset.self).subscribe(onNext: { [weak self] (asset) in
             guard let strongSelf = self else { return }
             if strongSelf.photoOperationService.currentGroup != nil {
@@ -172,30 +180,31 @@ class ZZPhotoCollectionViewModel: NSObject {
                 }
             }
         }).disposed(by: disposeBag)
-        
+
         // 监听选中改变预览按钮状态
-        photoOperationService.selectedAssets.bind { [unowned self] assets in
+        photoOperationService.selectedAssets.bind { [weak self] assets in
+            guard let strongSelf = self else { return }
             let isEnabled = assets.count > 0 ? true : false
-            self.target.toolView.changePreviewBtnStatus(isEnabled: isEnabled)
-            self.target.rightButton.isEnabled = isEnabled
+            strongSelf.target.toolView.changePreviewBtnStatus(isEnabled: isEnabled)
+            strongSelf.target.rightButton.isEnabled = isEnabled
             if isEnabled {
-                self.target.rightButton.setTitle("下一步(\(assets.count))", for: .normal)
-                self.target.rightButton.layer.borderColor = nil
-                self.target.rightButton.layer.borderWidth = 0
+                strongSelf.target.rightButton.setTitle("下一步(\(assets.count))", for: .normal)
+                strongSelf.target.rightButton.layer.borderColor = nil
+                strongSelf.target.rightButton.layer.borderWidth = 0
             } else {
-                self.target.rightButton.setTitle("下一步", for: .normal)
-                self.target.rightButton.layer.borderColor = UIColor.init(hex: "#dcdcdc").cgColor
-                self.target.rightButton.layer.borderWidth = 1
+                strongSelf.target.rightButton.setTitle("下一步", for: .normal)
+                strongSelf.target.rightButton.layer.borderColor = UIColor.init(hex: "#dcdcdc").cgColor
+                strongSelf.target.rightButton.layer.borderWidth = 1
             }
         }.disposed(by: target.toolView.disposeBag)
-        
+
         // 预览按钮点击事件
         target.toolView.previewBtn.rx.tap.bind { [weak self] in
             guard let strongSelf = self else { return }
             let vc = ZZPhotoBrowserViewController.init(photoOperationService: strongSelf.photoOperationService, isPreview: true)
             strongSelf.target.navigationController?.pushViewController(vc, animated: true)
         }.disposed(by: disposeBag)
-        
+
         // 拍摄按钮点击事件
         target.toolView.cameraBtn.rx.tap.bind {
             print("拍摄")

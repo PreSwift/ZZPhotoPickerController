@@ -24,12 +24,23 @@ public enum ZZPhotoPickerMediaType {
 public class ZZPhotoPickerController: UINavigationController {
     
     public weak var zzDelegate: ZZPhotoPickerControllerDelegate?
-    public var maxSelectCount: Int = 9
-    public var mediaType: ZZPhotoPickerMediaType = .any
+    public var maxSelectCount: Int = 9999 {
+        didSet {
+            collectionViewController.maxSelectCount = maxSelectCount
+        }
+    }
+    public var mediaType: ZZPhotoPickerMediaType = .any {
+        didSet {
+            collectionViewController.mediaType = mediaType
+        }
+    }
+    
+    private var collectionViewController: ZZPhotoCollectionViewController!
 
     required public init() {
         let collectionViewController = ZZPhotoCollectionViewController()
         super.init(rootViewController: collectionViewController)
+        self.collectionViewController = collectionViewController
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {

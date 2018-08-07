@@ -27,6 +27,8 @@ class ZZPhotoCollectionViewController: UIViewController {
         }
         return placeholderView
     }()
+    var mediaType: ZZPhotoPickerMediaType = .any
+    var maxSelectCount: Int = 9999
     var toolView: ZZPhotoToolView!
     var collectionViewModel: ZZPhotoCollectionViewModel!
     
@@ -88,7 +90,8 @@ class ZZPhotoCollectionViewController: UIViewController {
         }
         
         // VM
-        collectionViewModel = ZZPhotoCollectionViewModel.init(target: self)
+        let photoOperationService = ZZPhotoOperationService.init(mediaType: mediaType, maxSelectCount: maxSelectCount)
+        collectionViewModel = ZZPhotoCollectionViewModel.init(target: self, photoOperationService: photoOperationService)
     }
 
     deinit {

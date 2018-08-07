@@ -11,17 +11,26 @@ import RxSwift
 import RxCocoa
 import Photos
 
-@objc enum ZZPhotoOperationStatus: Int {
-    case normal
-    case noPermission
-    case noAsset
+enum ZZPhotoOperationStatus: String {
+    typealias RawValue = String
+    
+    case normal = "normal"
+    case noPermission = "noPermission"
+    case noAsset = "noAsset"
 }
 
 class ZZPhotoOperationService: NSObject {
     
+    var maxSelectCount: Int
+    var mediaType: ZZPhotoPickerMediaType
     @objc dynamic var isGroupViewShow: Bool = false
+    @objc dynamic private(set) var operationStatusRaw: String?
+    var operationStatus: ZZPhotoOperationStatus? {
+        didSet {
+            operationStatusRaw = operationStatus?.rawValue
+        }
+    }
     @objc dynamic var currentGroup: ZZPhotoGroupModel!
-    @objc dynamic var operationStatus = ZZPhotoOperationStatus.normal
     var selectedAssets = BehaviorRelay<[PHAsset]>(value: [])
     var groups = BehaviorRelay<[ZZPhotoGroupModel]>(value: [])
     
@@ -29,7 +38,12 @@ class ZZPhotoOperationService: NSObject {
     
     let disposeBag = DisposeBag()
     
-    required override init() {
+    private var hasVideoGroup: Bool = true
+    private var hasImageGroup: Bool = true
+    
+    required init(mediaType: ZZPhotoPickerMediaType, maxSelectCount: Int) {
+        self.mediaType = mediaType
+        self.maxSelectCount = maxSelectCount
         super.init()
         
         fetchPhotoGroups()
@@ -97,7 +111,7 @@ class ZZPhotoOperationService: NSObject {
                             let assetCollection = obj0
                             let options = PHFetchOptions()
                             options.sortDescriptors = [NSSortDescriptor.init(key: "creationDate", ascending: false)]
-                            if obj0.assetCollectionSubtype != .smartAlbumVideos && obj0.assetCollectionSubtype != .smartAlbumSlomoVideos {
+                            if assetCollection.assetCollectionSubtype != .smartAlbumVideos && assetCollection.assetCollectionSubtype != .smartAlbumSlomoVideos {
                                 options.predicate = NSPredicate.init(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
                             }
                             let result = PHAsset.fetchAssets(in: assetCollection, options: options)
@@ -108,17 +122,40 @@ class ZZPhotoOperationService: NSObject {
                                         items.append(asset)
                                     })
                                     
-                                    let group = ZZPhotoGroupModel.init(assetCollection: assetCollection, assets: items)
-                                    strongSelf.groups.accept(strongSelf.groups.value + [group])
+                                     let group = ZZPhotoGroupModel.init(assetCollection: assetCollection, assets: items)
                                     
-                                    // 默认选中所有相册
-                                    if assetCollection.assetCollectionSubtype == .smartAlbumUserLibrary {
-                                        strongSelf.currentGroup = group
+                                    if strongSelf.mediaType == .image {
+                                        if assetCollection.assetCollectionSubtype != .smartAlbumVideos && assetCollection.assetCollectionSubtype != .smartAlbumSlomoVideos {
+                                            strongSelf.groups.accept(strongSelf.groups.value + [group])
+                                        }
+                                        // 默认选中所有相册
+                                        if assetCollection.assetCollectionSubtype == .smartAlbumUserLibrary {
+                                            strongSelf.currentGroup = group
+                                        }
+                                    } else if strongSelf.mediaType == .video {
+                                        if assetCollection.assetCollectionSubtype == .smartAlbumVideos || assetCollection.assetCollectionSubtype == .smartAlbumSlomoVideos {
+                                            strongSelf.groups.accept(strongSelf.groups.value + [group])
+                                        }
+                                        // 默认选中所有相册
+                                        if assetCollection.assetCollectionSubtype == .smartAlbumVideos {
+                                            strongSelf.currentGroup = group
+                                        }
+                                    } else if strongSelf.mediaType == .any {
+                                         strongSelf.groups.accept(strongSelf.groups.value + [group])
+                                        // 默认选中所有相册
+                                        if assetCollection.assetCollectionSubtype == .smartAlbumUserLibrary {
+                                            strongSelf.currentGroup = group
+                                        }
                                     }
                                 }
                             } else {
-                                if assetCollection.assetCollectionSubtype == .smartAlbumUserLibrary {
-                                    self?.operationStatus = .noAsset
+                                if assetCollection.assetCollectionSubtype == .smartAlbumVideos || assetCollection.assetCollectionSubtype == .smartAlbumSlomoVideos {
+                                    strongSelf.hasVideoGroup = false
+                                } else if assetCollection.assetCollectionSubtype == .smartAlbumUserLibrary {
+                                    strongSelf.hasImageGroup = false
+                                }
+                                if strongSelf.hasVideoGroup == false && strongSelf.hasImageGroup == false {
+                                    strongSelf.operationStatus = .noAsset
                                 }
                             }
                         }
@@ -132,7 +169,7 @@ class ZZPhotoOperationService: NSObject {
                             let assetCollection = obj0
                             let options = PHFetchOptions()
                             options.sortDescriptors = [NSSortDescriptor.init(key: "creationDate", ascending: false)]
-                            if obj0.assetCollectionSubtype != .smartAlbumVideos && obj0.assetCollectionSubtype != .smartAlbumSlomoVideos {
+                            if assetCollection.assetCollectionSubtype != .smartAlbumVideos && assetCollection.assetCollectionSubtype != .smartAlbumSlomoVideos {
                                 options.predicate = NSPredicate.init(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
                             }
                             let result = PHAsset.fetchAssets(in: assetCollection, options: options)
@@ -144,7 +181,17 @@ class ZZPhotoOperationService: NSObject {
                                 })
                                  
                                 let group = ZZPhotoGroupModel.init(assetCollection: assetCollection, assets: items)
-                                strongSelf.groups.accept(strongSelf.groups.value + [group])
+                                if strongSelf.mediaType == .image {
+                                    if assetCollection.assetCollectionSubtype != .smartAlbumVideos && assetCollection.assetCollectionSubtype != .smartAlbumSlomoVideos {
+                                        strongSelf.groups.accept(strongSelf.groups.value + [group])
+                                    }
+                                } else if strongSelf.mediaType == .video {
+                                    if assetCollection.assetCollectionSubtype == .smartAlbumVideos || assetCollection.assetCollectionSubtype == .smartAlbumSlomoVideos {
+                                        strongSelf.groups.accept(strongSelf.groups.value + [group])
+                                    }
+                                } else if strongSelf.mediaType == .any {
+                                    strongSelf.groups.accept(strongSelf.groups.value + [group])
+                                }
                             }
                         }
                     }
