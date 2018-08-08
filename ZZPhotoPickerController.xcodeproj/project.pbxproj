@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		62128031F1302FE5AD19A4EC /* Pods_ZZPhotoPickerController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9BD133E13F768C289A26192 /* Pods_ZZPhotoPickerController.framework */; };
+		DC34FB62211AFDC6005EADA1 /* ZZVideoPlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC34FB61211AFDC6005EADA1 /* ZZVideoPlayViewModel.swift */; };
+		DC34FB64211AFDD9005EADA1 /* ZZVideoPlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC34FB63211AFDD9005EADA1 /* ZZVideoPlayViewController.swift */; };
 		DC5F9F3821105E1C00C09777 /* ZZPhoto.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC5F9F3721105E1C00C09777 /* ZZPhoto.xcassets */; };
 		DC5F9F5D211060D700C09777 /* ZZPhotoToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5F9F5C211060D700C09777 /* ZZPhotoToolView.swift */; };
 		DC5F9F602110643A00C09777 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5F9F5F2110643A00C09777 /* UIImage+Extension.swift */; };
@@ -43,6 +45,8 @@
 /* Begin PBXFileReference section */
 		043C5AE68C0B72318EB28338 /* Pods-ZZPhotoPickerController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZPhotoPickerController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZZPhotoPickerController/Pods-ZZPhotoPickerController.debug.xcconfig"; sourceTree = "<group>"; };
 		152B6F78F6A9430C03AB4EF2 /* Pods-ZZPhotoPickerController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZPhotoPickerController.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZZPhotoPickerController/Pods-ZZPhotoPickerController.release.xcconfig"; sourceTree = "<group>"; };
+		DC34FB61211AFDC6005EADA1 /* ZZVideoPlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZVideoPlayViewModel.swift; sourceTree = "<group>"; };
+		DC34FB63211AFDD9005EADA1 /* ZZVideoPlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZVideoPlayViewController.swift; sourceTree = "<group>"; };
 		DC5F9F3721105E1C00C09777 /* ZZPhoto.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ZZPhoto.xcassets; sourceTree = "<group>"; };
 		DC5F9F5C211060D700C09777 /* ZZPhotoToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoToolView.swift; sourceTree = "<group>"; };
 		DC5F9F5F2110643A00C09777 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
@@ -115,6 +119,39 @@
 				152B6F78F6A9430C03AB4EF2 /* Pods-ZZPhotoPickerController.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		DC34FB5D211AFD56005EADA1 /* ZZVideoPlayViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DC34FB60211AFD87005EADA1 /* VM */,
+				DC34FB5F211AFD73005EADA1 /* V */,
+				DC34FB5E211AFD6E005EADA1 /* C */,
+			);
+			path = ZZVideoPlayViewController;
+			sourceTree = "<group>";
+		};
+		DC34FB5E211AFD6E005EADA1 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				DC34FB63211AFDD9005EADA1 /* ZZVideoPlayViewController.swift */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		DC34FB5F211AFD73005EADA1 /* V */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		DC34FB60211AFD87005EADA1 /* VM */ = {
+			isa = PBXGroup;
+			children = (
+				DC34FB61211AFDC6005EADA1 /* ZZVideoPlayViewModel.swift */,
+			);
+			path = VM;
 			sourceTree = "<group>";
 		};
 		DC5F9F2C21104FCA00C09777 /* Resource */ = {
@@ -227,6 +264,7 @@
 		DCDBC75C2109B00600C245A9 /* Next */ = {
 			isa = PBXGroup;
 			children = (
+				DC34FB5D211AFD56005EADA1 /* ZZVideoPlayViewController */,
 				DCDBC75D2109B01D00C245A9 /* ZZPhotoBrowserViewController */,
 			);
 			path = Next;
@@ -407,6 +445,8 @@
 				DC88A5E821181A44003256B3 /* ZZPhotoGroupView.swift in Sources */,
 				DC88A5EA21181ABB003256B3 /* ZZPhotoGroupTableViewCell.swift in Sources */,
 				DCE40DF2210B06D800194041 /* ZZPhotoPlaceholderView.swift in Sources */,
+				DC34FB62211AFDC6005EADA1 /* ZZVideoPlayViewModel.swift in Sources */,
+				DC34FB64211AFDD9005EADA1 /* ZZVideoPlayViewController.swift in Sources */,
 				DCDBC7502109798E00C245A9 /* ZZPhotoGroupModel.swift in Sources */,
 				DCDBC76C2109C5F000C245A9 /* ZZPhotoOperationService.swift in Sources */,
 				DC5F9F622110649D00C09777 /* UIColor+Extension.swift in Sources */,
