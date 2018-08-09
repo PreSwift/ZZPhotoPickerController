@@ -11,13 +11,36 @@ import RxSwift
 
 class ZZPhotoBrowserViewController: UIViewController {
 
+    lazy var leftButton: UIButton = {
+        let leftButton = UIButton()
+        leftButton.setImage(#imageLiteral(resourceName: "ZZPhoto_nav_back").withRenderingMode(.alwaysTemplate), for: .normal)
+        leftButton.contentHorizontalAlignment = .left
+        leftButton.tintColor = UIColor.white
+        return leftButton
+    }()
+    lazy var rightButton: UIButton = {
+        let rightButton = UIButton()
+        rightButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.regular)
+        rightButton.setTitle("下一步", for: .normal)
+        rightButton.layer.cornerRadius = 15
+        rightButton.layer.masksToBounds = true
+        rightButton.setBackgroundImage(UIImage.init(color: UIColor.orange.withAlphaComponent(0.8)), for: .normal)
+        rightButton.setTitleColor(UIColor.white, for: .normal)
+        rightButton.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
+        return rightButton
+    }()
+    lazy var checkMark: UIButton = {
+        let button = UIButton()
+        button.setImage(#imageLiteral(resourceName: "ZZPhoto_selected_small"), for: .selected)
+        button.setImage(#imageLiteral(resourceName: "ZZPhoto_selected_not_small"), for: .normal)
+        return button
+    }()
     lazy var flowLayout: ZZPhotoBrowserCollectionViewFlowLayout = {
         let flowLayout = ZZPhotoBrowserCollectionViewFlowLayout()
         return flowLayout
     }()
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.backgroundColor = UIColor.white
         collectionView.isDirectionalLockEnabled = true
         collectionView.decelerationRate = UIScrollViewDecelerationRateFast
         collectionView.showsHorizontalScrollIndicator = false
@@ -38,8 +61,8 @@ class ZZPhotoBrowserViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.white
-        
+        view.backgroundColor = UIColor.init(white: 0.1, alpha: 1)
+
         // UI
         flowLayout.offsetX = (view.frame.width + flowLayout.itemSpacing) * CGFloat(pageIndex)
         view.addSubview(collectionView)
@@ -50,6 +73,40 @@ class ZZPhotoBrowserViewController: UIViewController {
                 make.edges.equalToSuperview()
             }
         }
+        
+        view.addSubview(leftButton)
+        leftButton.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().inset(15)
+            make.left.equalToSuperview().inset(10)
+            make.size.equalTo(CGSize.init(width: 60, height: 30))
+        }
+        
+        view.addSubview(rightButton)
+        rightButton.snp.makeConstraints { (make) in
+            make.right.equalToSuperview().inset(10)
+            make.top.equalToSuperview().inset(15)
+            make.height.equalTo(30)
+        }
+        
+        view.addSubview(checkMark)
+        checkMark.snp.makeConstraints { (make) in
+            make.top.equalTo(rightButton.snp.bottom).offset(30)
+            make.right.equalToSuperview().inset(15)
+        }
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     deinit {

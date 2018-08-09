@@ -71,6 +71,30 @@ class ZZPhotoBrowserViewModel: NSObject {
             result.onNext([section])
         }
         
+        // 监听选中改变预览按钮状态
+        photoOperationService.selectedAssets.bind { [weak self] assets in
+            guard let strongSelf = self else { return }
+            let isEnabled = assets.count > 0 ? true : false
+            if isEnabled {
+                strongSelf.target.rightButton.setTitle("下一步(\(assets.count))", for: .normal)
+            } else {
+                strongSelf.target.rightButton.setTitle("下一步", for: .normal)
+            }
+            
+            var asset: PHAsset!
+            if strongSelf.isPreview {
+                asset = strongSelf.previewAssets[strongSelf.target.pageIndex]
+            } else {
+                asset = strongSelf.photoOperationService.currentGroup.assets[strongSelf.target.pageIndex]
+            }
+            let newAssets = strongSelf.photoOperationService.selectedAssets.value
+            if let _ = newAssets.index(of: asset) {
+                strongSelf.target.checkMark.isSelected = true
+            } else {
+                strongSelf.target.checkMark.isSelected = false
+            }
+        }.disposed(by: disposeBag)
+        
         // 处理UI事件
         target.collectionView.rx.didScroll.map { [weak self] (_) -> Int in
             guard let strongSelf = self else { return 0 }
@@ -80,10 +104,57 @@ class ZZPhotoBrowserViewModel: NSObject {
             strongSelf.target.pageIndex = page
             if strongSelf.isPreview {
                 strongSelf.target.navigationItem.title = "\(page + 1)/\(strongSelf.previewAssets.count)"
+                let asset = strongSelf.previewAssets[page]
+                if strongSelf.photoOperationService.selectedAssets.value.contains(asset) {
+                    strongSelf.target.checkMark.isSelected = true
+                } else {
+                    strongSelf.target.checkMark.isSelected = false
+                }
             } else {
                 strongSelf.target.navigationItem.title = "\(page + 1)/\(strongSelf.photoOperationService.currentGroup.assets.count)"
+                let asset = strongSelf.photoOperationService.currentGroup.assets[page]
+                if strongSelf.photoOperationService.selectedAssets.value.contains(asset) {
+                    strongSelf.target.checkMark.isSelected = true
+                } else {
+                    strongSelf.target.checkMark.isSelected = false
+                }
             }
         }.disposed(by: disposeBag)
+        
+        (target.leftButton.rx.tap).subscribe(onNext: { [weak self] (_) in
+            self?.target.navigationController?.popViewController(animated: true)
+        }).disposed(by: disposeBag)
+        
+        (target.rightButton.rx.tap).subscribe(onNext: { [weak self] (_) in
+            guard let strongSelf = self else { return }
+            if let rootVC = strongSelf.target.navigationController as? ZZPhotoPickerController {
+                rootVC.zzDelegate?.photoPickerController!(rootVC, didSelect: strongSelf.photoOperationService.selectedAssets.value)
+                rootVC.dismiss(animated: true, completion: nil)
+            }
+        }).disposed(by: disposeBag)
+        
+        (target.checkMark.rx.tap).subscribe(onNext: { [weak self] (_) in
+            guard let strongSelf = self else { return }
+            var asset: PHAsset!
+            if strongSelf.isPreview {
+                asset = strongSelf.previewAssets[strongSelf.target.pageIndex]
+            } else {
+                asset = strongSelf.photoOperationService.currentGroup.assets[strongSelf.target.pageIndex]
+            }
+            
+            var newAssets = strongSelf.photoOperationService.selectedAssets.value
+            if let index = newAssets.index(of: asset) {
+                newAssets.remove(at: index)
+            } else {
+                let max = strongSelf.photoOperationService.maxSelectCount
+                if newAssets.count >= max {
+                    ZZPhotoAlertView.show("最多可以选择\(max)张照片")
+                } else {
+                    newAssets.append(asset)
+                }
+            }
+            strongSelf.photoOperationService.selectedAssets.accept(newAssets)
+        }).disposed(by: disposeBag)
     }
     
     deinit {

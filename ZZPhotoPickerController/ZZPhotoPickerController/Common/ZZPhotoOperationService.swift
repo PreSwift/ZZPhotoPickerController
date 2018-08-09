@@ -140,12 +140,6 @@ class ZZPhotoOperationService: NSObject {
                                         if assetCollection.assetCollectionSubtype == .smartAlbumVideos {
                                             strongSelf.currentGroup = group
                                         }
-                                    } else if strongSelf.mediaType == .any {
-                                         strongSelf.groups.accept(strongSelf.groups.value + [group])
-                                        // 默认选中所有相册
-                                        if assetCollection.assetCollectionSubtype == .smartAlbumUserLibrary {
-                                            strongSelf.currentGroup = group
-                                        }
                                     }
                                 }
                             } else {
@@ -189,8 +183,6 @@ class ZZPhotoOperationService: NSObject {
                                     if assetCollection.assetCollectionSubtype == .smartAlbumVideos || assetCollection.assetCollectionSubtype == .smartAlbumSlomoVideos {
                                         strongSelf.groups.accept(strongSelf.groups.value + [group])
                                     }
-                                } else if strongSelf.mediaType == .any {
-                                    strongSelf.groups.accept(strongSelf.groups.value + [group])
                                 }
                             }
                         }
@@ -198,6 +190,12 @@ class ZZPhotoOperationService: NSObject {
                     // 相册排序
                     if self.groups.value.count > 1 {
                         var newArray = self.groups.value
+                        newArray.sort(by: { (obj1, obj2) -> Bool in
+                            if obj1.assetCollection.assetCollectionSubtype == .smartAlbumVideos || obj1.assetCollection.assetCollectionSubtype == .smartAlbumSlomoVideos {
+                                return true
+                            }
+                            return false
+                        })
                         newArray.sort(by: { (obj1, obj2) -> Bool in
                             if obj1.assetCollection.assetCollectionSubtype == .smartAlbumUserLibrary {
                                 return true

@@ -27,7 +27,7 @@ class ZZPhotoCollectionViewController: UIViewController {
         }
         return placeholderView
     }()
-    var mediaType: ZZPhotoPickerMediaType = .any
+    var mediaType: ZZPhotoPickerMediaType = .image
     var maxSelectCount: Int = 9999
     var toolView: ZZPhotoToolView!
     var collectionViewModel: ZZPhotoCollectionViewModel!
@@ -38,6 +38,7 @@ class ZZPhotoCollectionViewController: UIViewController {
         
         // UI
         leftItem = UIBarButtonItem.init(barButtonSystemItem: .cancel, target: nil, action: nil)
+        leftItem.tintColor = UIColor.darkText
         rightButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 60, height: 44))
         rightButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.regular)
         rightButton.contentEdgeInsets = UIEdgeInsetsMake(2, 4, 2, 4)

@@ -32,12 +32,12 @@ class ZZPhotoGroupTableViewCell: UITableViewCell {
         
         titleLabel = UILabel()
         titleLabel.textColor = UIColor.init(hex: "#333333")
-        titleLabel.font = UIFont.systemFont(ofSize: 15.3)
+        titleLabel.font = UIFont.systemFont(ofSize: 16)
         contentView.addSubview(titleLabel)
         
         numberLabel = UILabel()
         numberLabel.textColor = UIColor.init(hex: "#333333")
-        numberLabel.font = UIFont.systemFont(ofSize: 11.5)
+        numberLabel.font = UIFont.systemFont(ofSize: 12)
         contentView.addSubview(numberLabel)
         
         selectedImageView = UIImageView()

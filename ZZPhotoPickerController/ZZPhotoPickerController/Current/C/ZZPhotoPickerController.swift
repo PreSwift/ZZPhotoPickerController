@@ -11,7 +11,6 @@ import RxSwift
 import RxCocoa
 
 public enum ZZPhotoPickerMediaType {
-    case any
     case image
     case video
 }
@@ -19,6 +18,7 @@ public enum ZZPhotoPickerMediaType {
 // 代理方式获取结果
 @objc public protocol ZZPhotoPickerControllerDelegate : NSObjectProtocol {
     @objc optional func photoPickerController(_ photoPickerController: ZZPhotoPickerController, didSelect assets: [Any])
+    @objc optional func photoPickerController(_ photoPickerController: ZZPhotoPickerController, didSelect avAsset: Any)
 }
 
 public class ZZPhotoPickerController: UINavigationController {
@@ -29,7 +29,7 @@ public class ZZPhotoPickerController: UINavigationController {
             collectionViewController.maxSelectCount = maxSelectCount
         }
     }
-    public var mediaType: ZZPhotoPickerMediaType = .any {
+    public var mediaType: ZZPhotoPickerMediaType = .image {
         didSet {
             collectionViewController.mediaType = mediaType
         }

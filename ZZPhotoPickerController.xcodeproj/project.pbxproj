@@ -125,7 +125,6 @@
 			isa = PBXGroup;
 			children = (
 				DC34FB60211AFD87005EADA1 /* VM */,
-				DC34FB5F211AFD73005EADA1 /* V */,
 				DC34FB5E211AFD6E005EADA1 /* C */,
 			);
 			path = ZZVideoPlayViewController;
@@ -137,13 +136,6 @@
 				DC34FB63211AFDD9005EADA1 /* ZZVideoPlayViewController.swift */,
 			);
 			path = C;
-			sourceTree = "<group>";
-		};
-		DC34FB5F211AFD73005EADA1 /* V */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = V;
 			sourceTree = "<group>";
 		};
 		DC34FB60211AFD87005EADA1 /* VM */ = {

@@ -84,6 +84,7 @@ class ZZPhotoCollectionViewModel: NSObject {
                 })
 
                 if element.mediaType.rawValue == PHAssetMediaType.video.rawValue {
+                    cell.selectBtn.isHidden = true
                     cell.videoIndicatorView.isHidden = false
 
                     let minutes = Int(element.duration / 60.0)
@@ -99,6 +100,7 @@ class ZZPhotoCollectionViewModel: NSObject {
                         cell.videoIndicatorView.slomoIcon.isHidden = true
                     }
                 } else {
+                    cell.selectBtn.isHidden = false
                     cell.videoIndicatorView.isHidden = true
                 }
 
@@ -168,16 +170,41 @@ class ZZPhotoCollectionViewModel: NSObject {
 
         target.collectionView.rx.modelSelected(PHAsset.self).subscribe(onNext: { [weak self] (asset) in
             guard let strongSelf = self else { return }
-            if strongSelf.photoOperationService.currentGroup != nil {
-                if strongSelf.photoOperationService.currentGroup.assetCollection.assetCollectionSubtype != .smartAlbumVideos && strongSelf.photoOperationService.currentGroup.assetCollection.assetCollectionSubtype != .smartAlbumSlomoVideos {
-                    let vc = ZZPhotoBrowserViewController.init(photoOperationService: strongSelf.photoOperationService)
-                    if let index = strongSelf.photoOperationService.currentGroup.assets.index(of: asset) {
-                        vc.pageIndex = index
-                    }
-                    strongSelf.target.navigationController?.pushViewController(vc, animated: true)
-                } else {
-                    print("视频预览")
+            if asset.mediaType == .image {
+                let vc = ZZPhotoBrowserViewController.init(photoOperationService: strongSelf.photoOperationService)
+                if let index = strongSelf.photoOperationService.currentGroup.assets.index(of: asset) {
+                    vc.pageIndex = index
                 }
+                strongSelf.target.navigationController?.pushViewController(vc, animated: true)
+            } else if asset.mediaType == .video {
+                PHImageManager.default().requestAVAsset(forVideo: asset, options: nil, resultHandler: { [weak self] (avAsset, audioMix, info) in
+                    guard let strongSelf = self else { return }
+                    if avAsset == nil {
+                        if let isInCloud = info?[PHImageResultIsInCloudKey] as? Bool {
+                            if isInCloud == true {
+                                DispatchQueue.main.async {
+                                    ZZPhotoAlertView.show("iCloud同步中")
+                                }
+                            }
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            let vc = ZZVideoPlayViewController()
+                            vc.asset = avAsset
+                            strongSelf.target.navigationController?.pushViewController(vc, animated: true)
+                        }
+                    }
+                })
+            }
+        }).disposed(by: disposeBag)
+        
+        target.collectionView.rx.modelSelected(PHAsset.self).take(1).subscribe(onNext: { (asset) in
+            if asset.mediaType == .video {
+                let options = PHVideoRequestOptions()
+                options.isNetworkAccessAllowed = true
+                PHImageManager.default().requestAVAsset(forVideo: asset, options: options, resultHandler: { (avAsset, audioMix, info) in
+
+                })
             }
         }).disposed(by: disposeBag)
 
