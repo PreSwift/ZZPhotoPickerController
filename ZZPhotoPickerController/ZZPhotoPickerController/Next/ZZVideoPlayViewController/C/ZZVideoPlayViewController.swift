@@ -8,6 +8,8 @@
 
 import UIKit
 import AVKit
+import RxSwift
+import RxCocoa
 
 class ZZVideoPlayViewController: UIViewController {
 
@@ -20,6 +22,7 @@ class ZZVideoPlayViewController: UIViewController {
     var viewModel: ZZVideoPlayViewModel!
     
     var asset: AVAsset!
+    let disposeBag = DisposeBag()
     
     @objc dynamic var playerItem: AVPlayerItem? {
         didSet {
@@ -37,7 +40,11 @@ class ZZVideoPlayViewController: UIViewController {
         leftButton.tintColor = UIColor.white
         view.addSubview(leftButton)
         leftButton.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().inset(15)
+            if #available(iOS 11.0, *) {
+                make.top.equalTo(view.safeAreaLayoutGuide).inset(15)
+            } else {
+                make.top.equalToSuperview().inset(15)
+            }
             make.left.equalToSuperview().inset(10)
             make.size.equalTo(CGSize.init(width: 60, height: 30))
         }
@@ -53,7 +60,11 @@ class ZZVideoPlayViewController: UIViewController {
         view.addSubview(rightButton)
         rightButton.snp.makeConstraints { (make) in
             make.right.equalToSuperview().inset(10)
-            make.top.equalToSuperview().inset(15)
+            if #available(iOS 11.0, *) {
+                make.top.equalTo(view.safeAreaLayoutGuide).inset(15)
+            } else {
+                make.top.equalToSuperview().inset(15)
+            }
             make.height.equalTo(30)
         }
         
@@ -77,6 +88,15 @@ class ZZVideoPlayViewController: UIViewController {
         
         if asset != nil {
             playerItem = AVPlayerItem.init(asset: asset)
+            
+            playerItem!.rx.observeWeakly(AVPlayerItemStatus.self, "status").subscribe(onNext: { [weak self] (status) in
+                guard let strongSelf = self else { return }
+                if let newStatus = status {
+                    if newStatus == AVPlayerItemStatus.readyToPlay {
+                        strongSelf.avPlayer.play()
+                    }
+                }
+            }).disposed(by: disposeBag)
         }
         
         viewModel = ZZVideoPlayViewModel.init(target: self)

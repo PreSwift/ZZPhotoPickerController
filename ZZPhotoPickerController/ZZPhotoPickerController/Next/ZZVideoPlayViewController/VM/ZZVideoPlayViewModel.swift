@@ -26,13 +26,7 @@ class ZZVideoPlayViewModel: NSObject {
         self.target.rx.observeWeakly(AVPlayerItem.self, "playerItem").subscribe(onNext: { [weak self] (playerItem) in
             guard let strongSelf = self else { return }
             if let newItem = playerItem {
-                newItem.rx.observeWeakly(AVPlayerItemStatus.self, "status").subscribe(onNext: { (status) in
-                    if let newStatus = status {
-                        if newStatus == AVPlayerItemStatus.readyToPlay {
-                            strongSelf.target.avPlayer.play()
-                        }
-                    }
-                }).disposed(by: strongSelf.disposeBag)
+//                strongSelf.addObserver(newItem: newItem)
             }
         }).disposed(by: disposeBag)
         
@@ -77,6 +71,17 @@ class ZZVideoPlayViewModel: NSObject {
             guard let strongSelf = self else { return }
             if strongSelf.isPlayingWhenLost {
                 strongSelf.play()
+            }
+        }).disposed(by: disposeBag)
+    }
+    
+    func addObserver(newItem: AVPlayerItem) {
+        newItem.rx.observeWeakly(AVPlayerItemStatus.self, "status").subscribe(onNext: { [weak self] (status) in
+            guard let strongSelf = self else { return }
+            if let newStatus = status {
+                if newStatus == AVPlayerItemStatus.readyToPlay {
+                    strongSelf.play()
+                }
             }
         }).disposed(by: disposeBag)
     }

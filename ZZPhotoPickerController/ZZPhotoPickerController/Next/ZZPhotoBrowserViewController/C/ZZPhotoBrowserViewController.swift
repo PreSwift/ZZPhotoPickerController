@@ -76,22 +76,31 @@ class ZZPhotoBrowserViewController: UIViewController {
         
         view.addSubview(leftButton)
         leftButton.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().inset(15)
+            if #available(iOS 11.0, *) {
+                make.top.equalTo(view.safeAreaLayoutGuide).inset(15)
+            } else {
+                make.top.equalToSuperview().inset(15)
+            }
             make.left.equalToSuperview().inset(10)
             make.size.equalTo(CGSize.init(width: 60, height: 30))
         }
         
         view.addSubview(rightButton)
         rightButton.snp.makeConstraints { (make) in
+            if #available(iOS 11.0, *) {
+                make.top.equalTo(view.safeAreaLayoutGuide).inset(15)
+            } else {
+                make.top.equalToSuperview().inset(15)
+            }
             make.right.equalToSuperview().inset(10)
-            make.top.equalToSuperview().inset(15)
             make.height.equalTo(30)
         }
         
         view.addSubview(checkMark)
         checkMark.snp.makeConstraints { (make) in
-            make.top.equalTo(rightButton.snp.bottom).offset(30)
-            make.right.equalToSuperview().inset(15)
+            make.top.equalTo(rightButton.snp.bottom).offset(10)
+            make.right.equalToSuperview()
+            make.size.equalTo(CGSize.init(width: 40, height: 40))
         }
     }
     
