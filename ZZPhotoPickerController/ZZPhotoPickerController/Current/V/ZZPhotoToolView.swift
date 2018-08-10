@@ -13,7 +13,7 @@ class ZZPhotoToolView: UIView {
 
     private var line: UIView!
     private(set) var previewBtn: UIButton!
-    private(set) var cameraBtn: UIButton!
+    private(set) var ytBtn: UIButton!
     
     let disposeBag = DisposeBag()
     
@@ -46,16 +46,20 @@ class ZZPhotoToolView: UIView {
             make.top.bottom.equalToSuperview().inset(15)
         }
         
-        cameraBtn = UIButton()
-        cameraBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.regular)
-        cameraBtn.setTitle("拍摄", for: .normal)
-        cameraBtn.contentEdgeInsets = UIEdgeInsetsMake(4, 8, 4, 8)
-        cameraBtn.layer.cornerRadius = 2
-        cameraBtn.layer.masksToBounds = true
-        cameraBtn.setBackgroundImage(UIImage.init(color: UIColor.orange), for: .normal)
-        cameraBtn.setBackgroundImage(UIImage.init(color: UIColor.clear), for: .disabled)
-        addSubview(cameraBtn)
-        cameraBtn.snp.makeConstraints { (make) in
+        ytBtn = UIButton()
+        ytBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.regular)
+        ytBtn.setTitle("原图", for: .normal)
+        ytBtn.contentEdgeInsets = UIEdgeInsetsMake(4, 8, 4, 8)
+        ytBtn.layer.cornerRadius = 2
+        ytBtn.layer.masksToBounds = true
+        ytBtn.layer.borderColor = UIColor.init(hex: "#dcdcdc").cgColor
+        ytBtn.layer.borderWidth = 1
+        ytBtn.setBackgroundImage(UIImage.init(color: UIColor.orange), for: .selected)
+        ytBtn.setBackgroundImage(UIImage.init(color: UIColor.clear), for: .normal)
+        ytBtn.setTitleColor(UIColor.white, for: .selected)
+        ytBtn.setTitleColor(UIColor.init(hex: "#dcdcdc"), for: .normal)
+        addSubview(ytBtn)
+        ytBtn.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().inset(20)
         }
@@ -66,14 +70,24 @@ class ZZPhotoToolView: UIView {
     }
     
     func changePreviewBtnStatus(isEnabled: Bool) {
+        previewBtn.isEnabled = isEnabled
         if isEnabled == true {
-            previewBtn.isEnabled = true
             previewBtn.layer.borderColor = nil
             previewBtn.layer.borderWidth = 0
         } else {
-            previewBtn.isEnabled = false
             previewBtn.layer.borderColor = UIColor.init(hex: "#dcdcdc").cgColor
             previewBtn.layer.borderWidth = 1
+        }
+    }
+    
+    func changeYtBtnStatus(isSelected: Bool) {
+        ytBtn.isSelected = isSelected
+        if isSelected == true {
+            ytBtn.layer.borderColor = nil
+            ytBtn.layer.borderWidth = 0
+        } else {
+            ytBtn.layer.borderColor = UIColor.init(hex: "#dcdcdc").cgColor
+            ytBtn.layer.borderWidth = 1
         }
     }
     

@@ -8,8 +8,6 @@
 
 import UIKit
 import AVKit
-import RxSwift
-import RxCocoa
 
 class ZZVideoPlayViewController: UIViewController {
 
@@ -22,7 +20,6 @@ class ZZVideoPlayViewController: UIViewController {
     var viewModel: ZZVideoPlayViewModel!
     
     var asset: AVAsset!
-    let disposeBag = DisposeBag()
     
     @objc dynamic var playerItem: AVPlayerItem? {
         didSet {
@@ -88,15 +85,6 @@ class ZZVideoPlayViewController: UIViewController {
         
         if asset != nil {
             playerItem = AVPlayerItem.init(asset: asset)
-            
-            playerItem!.rx.observeWeakly(AVPlayerItemStatus.self, "status").subscribe(onNext: { [weak self] (status) in
-                guard let strongSelf = self else { return }
-                if let newStatus = status {
-                    if newStatus == AVPlayerItemStatus.readyToPlay {
-                        strongSelf.avPlayer.play()
-                    }
-                }
-            }).disposed(by: disposeBag)
         }
         
         viewModel = ZZVideoPlayViewModel.init(target: self)

@@ -26,7 +26,7 @@ class ZZVideoPlayViewModel: NSObject {
         self.target.rx.observeWeakly(AVPlayerItem.self, "playerItem").subscribe(onNext: { [weak self] (playerItem) in
             guard let strongSelf = self else { return }
             if let newItem = playerItem {
-//                strongSelf.addObserver(newItem: newItem)
+                strongSelf.addObserver(newItem: newItem)
             }
         }).disposed(by: disposeBag)
         
@@ -37,7 +37,7 @@ class ZZVideoPlayViewModel: NSObject {
         (self.target.rightButton.rx.tap).subscribe(onNext: { [weak self] (_) in
             guard let strongSelf = self else { return }
             if let rootVC = strongSelf.target.navigationController as? ZZPhotoPickerController {
-                rootVC.zzDelegate?.photoPickerController!(rootVC, didSelect: strongSelf.target.asset)
+                rootVC.zzDelegate?.photoPickerController!(rootVC, didSelectVideo: strongSelf.target.asset)
                 rootVC.dismiss(animated: true, completion: nil)
             }
         }).disposed(by: disposeBag)
@@ -76,10 +76,10 @@ class ZZVideoPlayViewModel: NSObject {
     }
     
     func addObserver(newItem: AVPlayerItem) {
-        newItem.rx.observeWeakly(AVPlayerItemStatus.self, "status").subscribe(onNext: { [weak self] (status) in
+        newItem.rx.observeWeakly(NSNumber.self, "status").subscribe(onNext: { [weak self] (status) in
             guard let strongSelf = self else { return }
             if let newStatus = status {
-                if newStatus == AVPlayerItemStatus.readyToPlay {
+                if newStatus.intValue == AVPlayerItemStatus.readyToPlay.rawValue {
                     strongSelf.play()
                 }
             }
