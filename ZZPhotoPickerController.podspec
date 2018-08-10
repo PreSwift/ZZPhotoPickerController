@@ -11,7 +11,6 @@ s.source       = { :git => "https://github.com/PreSwift/ZZPhotoPickerController.
 s.resource          = "ZZPhotoPicker.bundle"
 s.swift_version = '4.1'
 s.frameworks = 'Foundation', 'UIKit'
-s.vendored_frameworks = 'Products/ZZPhotoPickerController.framework'
 s.requires_arc = true
 s.dependency  'RxSwift'
 s.dependency  'RxCocoa'
