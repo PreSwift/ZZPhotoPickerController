@@ -42,6 +42,19 @@
 		DCE40DF2210B06D800194041 /* ZZPhotoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE40DF1210B06D800194041 /* ZZPhotoPlaceholderView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		DC708A9F211D6685006459D0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		043C5AE68C0B72318EB28338 /* Pods-ZZPhotoPickerController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZPhotoPickerController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZZPhotoPickerController/Pods-ZZPhotoPickerController.debug.xcconfig"; sourceTree = "<group>"; };
 		152B6F78F6A9430C03AB4EF2 /* Pods-ZZPhotoPickerController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZPhotoPickerController.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZZPhotoPickerController/Pods-ZZPhotoPickerController.release.xcconfig"; sourceTree = "<group>"; };
@@ -319,6 +332,7 @@
 				DC966D2D2108874C00D42A48 /* Frameworks */,
 				DC966D2E2108874C00D42A48 /* Resources */,
 				69FC9FE0B1967963F2BCF75B /* [CP] Embed Pods Frameworks */,
+				DC708A9F211D6685006459D0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -591,6 +605,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 043C5AE68C0B72318EB28338 /* Pods-ZZPhotoPickerController.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DNT9DNS8D4;
@@ -611,6 +626,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 152B6F78F6A9430C03AB4EF2 /* Pods-ZZPhotoPickerController.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DNT9DNS8D4;
