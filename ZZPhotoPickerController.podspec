@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name         = "ZZPhotoPickerController"
-s.version      = "0.1.2"
+s.version      = "0.1.3"
 s.summary      = "照片选择器."
 s.homepage     = "https://github.com/PreSwift/ZZPhotoPickerController"
 s.license              = { :type => "MIT", :file => "LICENSE" }
@@ -16,7 +16,7 @@ s.source_files = 'ZZPhotoPickerController/ZZPhotoPickerController/**/*.swift'
 s.requires_arc = true
 
 s.swift_version = '4.1'
-s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4' }
+s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.1' }
 
 s.dependency  'RxSwift'
 s.dependency  'RxCocoa'
