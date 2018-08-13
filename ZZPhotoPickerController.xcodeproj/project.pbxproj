@@ -17,7 +17,6 @@
 		DC60CF5121196FAE00AA3EBB /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC60CF5021196FAE00AA3EBB /* Notification.swift */; };
 		DC6468762113FB1B003BC385 /* RxPhotoPickerControllerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6468752113FB1B003BC385 /* RxPhotoPickerControllerDelegateProxy.swift */; };
 		DC646878211407B3003BC385 /* ZZPhotoPickerController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC646877211407B3003BC385 /* ZZPhotoPickerController+Rx.swift */; };
-		DC708ACB211D8B2A006459D0 /* ZZPhoto.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC708ACA211D8B2A006459D0 /* ZZPhoto.xcassets */; };
 		DC708ACE211D8E90006459D0 /* ZZPhotoPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DC708ACC211D8E36006459D0 /* ZZPhotoPicker.bundle */; };
 		DC710FAE2112E78D00E8933D /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC710FAD2112E78D00E8933D /* CollectionViewCell.swift */; };
 		DC88A5E22117ECA4003256B3 /* ZZPhotoVideoIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88A5E12117ECA4003256B3 /* ZZPhotoVideoIndicatorView.swift */; };
@@ -68,11 +67,11 @@
 		DC60CF5021196FAE00AA3EBB /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		DC6468752113FB1B003BC385 /* RxPhotoPickerControllerDelegateProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxPhotoPickerControllerDelegateProxy.swift; sourceTree = "<group>"; };
 		DC646877211407B3003BC385 /* ZZPhotoPickerController+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZZPhotoPickerController+Rx.swift"; sourceTree = "<group>"; };
-		DC708AC3211D8870006459D0 /* ZZPhotoPicker.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZZPhotoPicker.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC708AC5211D8870006459D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC708ACA211D8B2A006459D0 /* ZZPhoto.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ZZPhoto.xcassets; sourceTree = "<group>"; };
 		DC708ACC211D8E36006459D0 /* ZZPhotoPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZZPhotoPicker.bundle; sourceTree = "<group>"; };
 		DC710FAD2112E78D00E8933D /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		DC7DCAD921212F9800AC7636 /* Pods_ZZPhotoPickerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_ZZPhotoPickerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC88A5E12117ECA4003256B3 /* ZZPhotoVideoIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoVideoIndicatorView.swift; sourceTree = "<group>"; };
 		DC88A5E32117ED31003256B3 /* ZZPhotoVideoIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoVideoIconView.swift; sourceTree = "<group>"; };
 		DC88A5E52117ED9D003256B3 /* ZZPhotoSlomoIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoSlomoIconView.swift; sourceTree = "<group>"; };
@@ -105,13 +104,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		DC708AC0211D8870006459D0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DC966D2D2108874C00D42A48 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -126,6 +118,7 @@
 		6730A5F01881701024716713 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC7DCAD921212F9800AC7636 /* Pods_ZZPhotoPickerController.framework */,
 				DCDBC759210979C000C245A9 /* RxDataSources.framework */,
 				DCDBC757210979BB00C245A9 /* RxCocoa.framework */,
 				DCDBC755210979B500C245A9 /* RxSwift.framework */,
@@ -205,7 +198,6 @@
 			isa = PBXGroup;
 			children = (
 				DC966D302108874C00D42A48 /* ZZPhotoPickerController.app */,
-				DC708AC3211D8870006459D0 /* ZZPhotoPicker.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -337,23 +329,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DC708AC2211D8870006459D0 /* ZZPhotoPicker */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DC708AC6211D8870006459D0 /* Build configuration list for PBXNativeTarget "ZZPhotoPicker" */;
-			buildPhases = (
-				DC708ABF211D8870006459D0 /* Sources */,
-				DC708AC0211D8870006459D0 /* Frameworks */,
-				DC708AC1211D8870006459D0 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ZZPhotoPicker;
-			productName = ZZPhotoPicker;
-			productReference = DC708AC3211D8870006459D0 /* ZZPhotoPicker.bundle */;
-			productType = "com.apple.product-type.bundle";
-		};
 		DC966D2F2108874C00D42A48 /* ZZPhotoPickerController */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DC966D422108874D00D42A48 /* Build configuration list for PBXNativeTarget "ZZPhotoPickerController" */;
@@ -384,9 +359,6 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "周元素";
 				TargetAttributes = {
-					DC708AC2211D8870006459D0 = {
-						CreatedOnToolsVersion = 9.4.1;
-					};
 					DC966D2F2108874C00D42A48 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
@@ -406,20 +378,11 @@
 			projectRoot = "";
 			targets = (
 				DC966D2F2108874C00D42A48 /* ZZPhotoPickerController */,
-				DC708AC2211D8870006459D0 /* ZZPhotoPicker */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		DC708AC1211D8870006459D0 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DC708ACB211D8B2A006459D0 /* ZZPhoto.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DC966D2E2108874C00D42A48 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -480,13 +443,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		DC708ABF211D8870006459D0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DC966D2C2108874C00D42A48 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -537,55 +493,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		DC708AC7211D8870006459D0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = NO;
-				DEVELOPMENT_TEAM = DNT9DNS8D4;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				INFOPLIST_FILE = ZZPhotoPicker/Info.plist;
-				INSTALL_PATH = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.zyh.ZZPhotoPicker;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		DC708AC8211D8870006459D0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = NO;
-				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = DNT9DNS8D4;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				INFOPLIST_FILE = ZZPhotoPicker/Info.plist;
-				INSTALL_PATH = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.zyh.ZZPhotoPicker;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
 		DC966D402108874D00D42A48 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -745,15 +652,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DC708AC6211D8870006459D0 /* Build configuration list for PBXNativeTarget "ZZPhotoPicker" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC708AC7211D8870006459D0 /* Debug */,
-				DC708AC8211D8870006459D0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		DC966D2B2108874C00D42A48 /* Build configuration list for PBXProject "ZZPhotoPickerController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
