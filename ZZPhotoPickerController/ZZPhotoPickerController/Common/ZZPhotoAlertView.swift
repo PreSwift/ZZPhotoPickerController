@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 var alertView: ZZPhotoAlertView?
 
