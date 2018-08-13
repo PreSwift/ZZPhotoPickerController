@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import Photos
 
-let imageBundle = Bundle.init(path: (Bundle.main.resourcePath?.appending("/ZZPhotoPicker.bundle"))!)
+let imageBundle = Bundle.init(url: Bundle.main.url(forResource: "ZZPhotoPicker", withExtension: "bundle")!)
 
 enum ZZPhotoOperationStatus: String {
     typealias RawValue = String
