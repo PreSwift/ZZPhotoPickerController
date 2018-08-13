@@ -1,7 +1,6 @@
 Pod::Spec.new do |s|
 s.name         = "ZZPhotoPickerController"
-s.version      = "0.0.4"
-s.swift_version = '4.1'
+s.version      = "0.0.7"
 s.summary      = "照片选择器."
 s.homepage     = "https://github.com/PreSwift/ZZPhotoPickerController"
 s.license              = { :type => "MIT", :file => "LICENSE" }
