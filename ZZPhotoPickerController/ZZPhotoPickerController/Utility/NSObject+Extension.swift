@@ -9,9 +9,13 @@
 import UIKit
 
 extension NSObject {
-
-    var imageBundle: Bundle {
-        return  Bundle.init(url: Bundle.init(for: self.classForCoder).url(forResource: "ZZPhoto_Images", withExtension: "bundle")!)!
+    
+    var imageBundle: Bundle? {
+        if let bundleUrl = Bundle.init(for: self.classForCoder).url(forResource: "ZZPhoto_Images", withExtension: "bundle") {
+            return Bundle.init(url: bundleUrl)
+        } else {
+            return nil
+        }
     }
     
 }
