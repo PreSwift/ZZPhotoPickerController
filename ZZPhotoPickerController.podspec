@@ -6,7 +6,7 @@ s.homepage     = "https://github.com/PreSwift/ZZPhotoPickerController"
 s.license              = { :type => "MIT", :file => "LICENSE" }
 s.author             = { "周元素" => "1778031092@qq.com" }
 s.source       = { :git => "https://github.com/PreSwift/ZZPhotoPickerController.git", :tag => s.version }
-s.frameworks = 'Foundation', 'UIKit'
+s.frameworks = 'Foundation', 'UIKit', 'CoreMedia'
 
 s.resource_bundles = {
     'ZZPhoto_Images' =>['ZZPhotoPickerController/ZZPhotoPickerController/Resources/ZZPhoto.xcassets']

@@ -37,7 +37,7 @@ class ZZVideoPlayViewModel: NSObject {
         (self.target.rightButton.rx.tap).subscribe(onNext: { [weak self] (_) in
             guard let strongSelf = self else { return }
             if let rootVC = strongSelf.target.navigationController as? ZZPhotoPickerController {
-                rootVC.zzDelegate?.photoPickerController!(rootVC, didSelectVideo: strongSelf.target.asset)
+                rootVC.zzDelegate?.photoPickerController!(rootVC, didSelectVideo: strongSelf.target.avAsset)
                 rootVC.dismiss(animated: true, completion: nil)
             }
         }).disposed(by: disposeBag)

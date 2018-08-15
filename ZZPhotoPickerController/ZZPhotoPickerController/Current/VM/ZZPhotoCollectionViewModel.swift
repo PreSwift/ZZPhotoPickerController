@@ -10,6 +10,7 @@ import UIKit
 import Photos
 import RxSwift
 import RxDataSources
+import PhotosUI
 
 class ZZPhotoCollectionViewModel: NSObject {
     
@@ -40,6 +41,28 @@ class ZZPhotoCollectionViewModel: NSObject {
                 } else {
                     cell.selectBtn.isSelected = false
                     cell.shadowView.isHidden = true
+                }
+                
+                // Add a badge to the cell if the PHAsset represents a Live Photo.
+                if #available(iOS 9.1, *) {
+                    if element.mediaSubtypes.contains(.photoLive) {
+                        cell.livePhotoBadgeView.image = PHLivePhotoView.livePhotoBadgeImage(options: .overContent)
+                    } else {
+                        cell.livePhotoBadgeView.image = nil
+                    }
+                } else {
+                    cell.livePhotoBadgeView.image = nil
+                }
+                
+                // Add a badge to the cell if the PHAsset represents a gif.
+                if #available(iOS 11.0, *) {
+                    if element.playbackStyle == .imageAnimated {
+                        cell.gifLabel.isHidden = false
+                    } else {
+                        cell.gifLabel.isHidden = true
+                    }
+                } else {
+                    cell.gifLabel.isHidden = true
                 }
 
                 //cell中按钮点击事件订阅
@@ -189,8 +212,7 @@ class ZZPhotoCollectionViewModel: NSObject {
                         }
                     } else {
                         DispatchQueue.main.async {
-                            let vc = ZZVideoPlayViewController()
-                            vc.asset = avAsset
+                            let vc = ZZVideoPlayViewController.init(avAsset: avAsset!)
                             strongSelf.target.navigationController?.pushViewController(vc, animated: true)
                         }
                     }
@@ -237,9 +259,65 @@ class ZZPhotoCollectionViewModel: NSObject {
             guard let strongSelf = self else { return }
             strongSelf.target.toolView.changeYtBtnStatus(isSelected: !strongSelf.target.toolView.ytBtn.isSelected)
         }.disposed(by: disposeBag)
+        
+        
+        
+        
+        // 注册3DTouch
+        if self.target.traitCollection.forceTouchCapability == .available {
+            self.target.registerForPreviewing(with: self, sourceView: self.target.collectionView)
+        }
     }
     
     deinit {
         print(self)
+    }
+}
+
+extension ZZPhotoCollectionViewModel: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        if let indexPath = self.target.collectionView.indexPathForItem(at: location) {
+            let asset = photoOperationService.currentGroup.assets[indexPath.item]
+            if asset.mediaType == .video {
+               
+            } else {
+                
+            }
+            if let cell = self.target.collectionView.cellForItem(at: indexPath) {
+                previewingContext.sourceRect = cell.frame
+                let _3dTouchVC = ZZPhoto3DTouchViewController.init(currentAsset: asset, indexPath: indexPath)
+                return _3dTouchVC
+            }
+        }
+        return nil
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        let asset = (viewControllerToCommit as! ZZPhoto3DTouchViewController).currentAsset
+        if asset.mediaType == .image {
+            let vc = ZZPhotoBrowserViewController.init(photoOperationService: photoOperationService)
+            if let index = photoOperationService.currentGroup.assets.index(of: asset) {
+                vc.pageIndex = index
+            }
+            target.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            PHImageManager.default().requestAVAsset(forVideo: asset, options: nil, resultHandler: { [weak self] (avAsset, audioMix, info) in
+                guard let strongSelf = self else { return }
+                if avAsset == nil {
+                    if let isInCloud = info?[PHImageResultIsInCloudKey] as? Bool {
+                        if isInCloud == true {
+                            DispatchQueue.main.async {
+                                ZZPhotoAlertView.show("iCloud同步中")
+                            }
+                        }
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        let vc = ZZVideoPlayViewController.init(avAsset: avAsset!)
+                        strongSelf.target.navigationController?.pushViewController(vc, animated: true)
+                    }
+                }
+            })
+        }
     }
 }

@@ -31,29 +31,139 @@ class ZZPhotoBrowserViewModel: NSObject {
         // 数据绑定UI
         let dataSource = RxCollectionViewSectionedReloadDataSource<SectionModel<String, PHAsset>> (
             configureCell: { (dataSource, collectionView, indexPath, element) in
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ZZPhotoBrowserCollectionViewCell.cellID, for: indexPath) as! ZZPhotoBrowserCollectionViewCell
-                cell.representedAssetIdentifier = element.localIdentifier
-                cell.imageView.image = nil
-                let options = PHImageRequestOptions()
-                options.isNetworkAccessAllowed = true
-                options.progressHandler = { (progress, error, stop, info) in
-                    DispatchQueue.main.async {
-                        if progress < 1 {
-                            if cell.indicator.isAnimating == false {
-                                cell.indicator.startAnimating()
+                if #available(iOS 9.1, *) {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ZZPhotoBrowserLivePhotoCollectionViewCell.cellID, for: indexPath) as! ZZPhotoBrowserLivePhotoCollectionViewCell
+                    cell.representedAssetIdentifier = element.localIdentifier
+                    cell.imageView.image = nil
+                    if element.mediaSubtypes.contains(.photoLive) {
+                        cell.isLivePhoto = true
+                        cell.imageView.stopAnimating()
+                        cell.imageView.animationImages = nil
+                        
+                        let options = PHLivePhotoRequestOptions()
+                        options.isNetworkAccessAllowed = true
+                        options.progressHandler = { (progress, error, stop, info) in
+                            DispatchQueue.main.async {
+                                if progress < 1 {
+                                    if cell.indicator.isAnimating == false {
+                                        cell.indicator.startAnimating()
+                                    }
+                                } else {
+                                    cell.indicator.stopAnimating()
+                                }
+                            }
+                        }
+                        PHImageManager.default().requestLivePhoto(for: element, targetSize: collectionView.frame.size, contentMode: .aspectFit, options: options) { (livePhoto, _) in
+                            if cell.representedAssetIdentifier == element.localIdentifier && livePhoto != nil {
+                                cell.livePhotoView.livePhoto = livePhoto
+                            }
+                        }
+                    } else {
+                        cell.isLivePhoto = false
+                        if #available(iOS 11.0, *) {
+                            if element.playbackStyle == .imageAnimated {
+                                cell.imageView.image = nil
+                                
+                                let options = PHImageRequestOptions()
+                                options.isNetworkAccessAllowed = true
+                                options.progressHandler = { (progress, error, stop, info) in
+                                    DispatchQueue.main.async {
+                                        if progress < 1 {
+                                            if cell.indicator.isAnimating == false {
+                                                cell.indicator.startAnimating()
+                                            }
+                                        } else {
+                                            cell.indicator.stopAnimating()
+                                        }
+                                    }
+                                }
+                                PHImageManager.default().requestImageData(for: element, options: options, resultHandler: { (data, _, _, _) in
+                                    if cell.representedAssetIdentifier == element.localIdentifier && data != nil {
+                                        self.getGifImagesFrom(data: data!, completion: { (images, duration) in
+                                            if cell.representedAssetIdentifier == element.localIdentifier {
+                                                cell.imageView.animationImages = images
+                                                cell.imageView.animationDuration = duration
+                                                cell.imageView.animationRepeatCount = 0 // 无限循环
+                                                cell.imageView.startAnimating()
+                                            }
+                                        })
+                                    }
+                                })
+                            } else {
+                                cell.imageView.stopAnimating()
+                                cell.imageView.animationImages = nil
+                                
+                                let options = PHImageRequestOptions()
+                                options.isNetworkAccessAllowed = true
+                                options.progressHandler = { (progress, error, stop, info) in
+                                    DispatchQueue.main.async {
+                                        if progress < 1 {
+                                            if cell.indicator.isAnimating == false {
+                                                cell.indicator.startAnimating()
+                                            }
+                                        } else {
+                                            cell.indicator.stopAnimating()
+                                        }
+                                    }
+                                }
+                                PHImageManager.default().requestImageData(for: element, options: options, resultHandler: { (data, _, _, _) in
+                                    if cell.representedAssetIdentifier == element.localIdentifier && data != nil {
+                                        let image = UIImage.init(data: data!)
+                                        cell.imageView.image = image
+                                    }
+                                })
                             }
                         } else {
-                            cell.indicator.stopAnimating()
+                            cell.imageView.stopAnimating()
+                            cell.imageView.animationImages = nil
+                            
+                            let options = PHImageRequestOptions()
+                            options.isNetworkAccessAllowed = true
+                            options.progressHandler = { (progress, error, stop, info) in
+                                DispatchQueue.main.async {
+                                    if progress < 1 {
+                                        if cell.indicator.isAnimating == false {
+                                            cell.indicator.startAnimating()
+                                        }
+                                    } else {
+                                        cell.indicator.stopAnimating()
+                                    }
+                                }
+                            }
+                            PHImageManager.default().requestImageData(for: element, options: options, resultHandler: { (data, _, _, _) in
+                                if cell.representedAssetIdentifier == element.localIdentifier && data != nil {
+                                    let image = UIImage.init(data: data!)
+                                    cell.imageView.image = image
+                                }
+                            })
                         }
                     }
-                }
-                PHImageManager.default().requestImageData(for: element, options: options, resultHandler: { (data, _, _, _) in
-                    if cell.representedAssetIdentifier == element.localIdentifier && data != nil {
-                        let image = UIImage.init(data: data!)
-                        cell.imageView.image = image
+                    return cell
+                } else {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ZZPhotoBrowserNormalCollectionViewCell.cellID, for: indexPath) as! ZZPhotoBrowserNormalCollectionViewCell
+                    cell.representedAssetIdentifier = element.localIdentifier
+                    cell.imageView.image = nil
+                    let options = PHImageRequestOptions()
+                    options.isNetworkAccessAllowed = true
+                    options.progressHandler = { (progress, error, stop, info) in
+                        DispatchQueue.main.async {
+                            if progress < 1 {
+                                if cell.indicator.isAnimating == false {
+                                    cell.indicator.startAnimating()
+                                }
+                            } else {
+                                cell.indicator.stopAnimating()
+                            }
+                        }
                     }
-                })
-                return cell
+                    PHImageManager.default().requestImageData(for: element, options: options, resultHandler: { (data, _, _, _) in
+                        if cell.representedAssetIdentifier == element.localIdentifier && data != nil {
+                            let image = UIImage.init(data: data!)
+                            cell.imageView.image = image
+                        }
+                    })
+                    return cell
+                }
             }
         )
         
@@ -96,6 +206,22 @@ class ZZPhotoBrowserViewModel: NSObject {
         }.disposed(by: disposeBag)
         
         // 处理UI事件
+        let ob1 = target.collectionView.rx.didEndDecelerating.asObservable()
+        let ob2 = target.collectionView.rx.didScroll.take(1).delay(0.5, scheduler: MainScheduler.asyncInstance).asObservable()
+        
+        ControlEvent<Void>.merge([ob1, ob2]).map { [weak self] (_) -> Int in
+            guard let strongSelf = self else { return 0 }
+            return Int((strongSelf.target.collectionView.contentOffset.x + strongSelf.target.collectionView.bounds.width / 2) / (strongSelf.target.collectionView.bounds.width + strongSelf.target.flowLayout.itemSpacing))
+        }.bind { [weak self] (page) in
+            guard let strongSelf = self else { return  }
+            let cell = strongSelf.target.collectionView.cellForItem(at: IndexPath.init(item: page, section: 0))
+            if #available(iOS 9.1, *) {
+                if let livePhotoCell = cell as? ZZPhotoBrowserLivePhotoCollectionViewCell {
+                    livePhotoCell.livePhotoView.startPlayback(with: .full)
+                }
+            }
+        }.disposed(by: disposeBag)
+        
         target.collectionView.rx.didScroll.map { [weak self] (_) -> Int in
             guard let strongSelf = self else { return 0 }
             return Int((strongSelf.target.collectionView.contentOffset.x + strongSelf.target.collectionView.bounds.width / 2) / (strongSelf.target.collectionView.bounds.width + strongSelf.target.flowLayout.itemSpacing))
@@ -103,7 +229,6 @@ class ZZPhotoBrowserViewModel: NSObject {
             guard let strongSelf = self else { return  }
             strongSelf.target.pageIndex = page
             if strongSelf.isPreview {
-                strongSelf.target.navigationItem.title = "\(page + 1)/\(strongSelf.previewAssets.count)"
                 let asset = strongSelf.previewAssets[page]
                 if strongSelf.photoOperationService.selectedAssets.value.contains(asset) {
                     strongSelf.target.checkMark.isSelected = true
@@ -111,7 +236,6 @@ class ZZPhotoBrowserViewModel: NSObject {
                     strongSelf.target.checkMark.isSelected = false
                 }
             } else {
-                strongSelf.target.navigationItem.title = "\(page + 1)/\(strongSelf.photoOperationService.currentGroup.assets.count)"
                 let asset = strongSelf.photoOperationService.currentGroup.assets[page]
                 if strongSelf.photoOperationService.selectedAssets.value.contains(asset) {
                     strongSelf.target.checkMark.isSelected = true

@@ -17,6 +17,8 @@ class ZZPhotoCollectionViewCell: UICollectionViewCell {
     var representedAssetIdentifier: String!
     var disposeBag = DisposeBag()
     private(set) var imageView: UIImageView!
+    private(set) var livePhotoBadgeView: UIImageView!
+    private(set) var gifLabel: UILabel!
     private(set) var shadowView: UIView!
     private(set) var selectBtn: UIButton!
     private(set) lazy var videoIndicatorView: ZZPhotoVideoIndicatorView = {
@@ -55,6 +57,27 @@ class ZZPhotoCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(shadowView)
         shadowView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
+        }
+        
+        livePhotoBadgeView = UIImageView()
+        livePhotoBadgeView.contentMode = .center
+        contentView.addSubview(livePhotoBadgeView)
+        livePhotoBadgeView.snp.makeConstraints { (make) in
+            make.left.top.equalToSuperview()
+            make.height.equalTo(40.0)
+            make.width.greaterThanOrEqualTo(40.0)
+        }
+        
+        gifLabel = UILabel()
+        gifLabel.text = "动图"
+        gifLabel.textColor = UIColor.white
+        gifLabel.backgroundColor = UIColor.init(red: 52.0/255, green: 126.0/255, blue: 224.0/255, alpha: 160.0/255)
+        gifLabel.font = UIFont.systemFont(ofSize: 11)
+        gifLabel.textAlignment = .center
+        contentView.addSubview(gifLabel)
+        gifLabel.snp.makeConstraints { (make) in
+            make.right.bottom.equalToSuperview()
+            make.size.equalTo(CGSize.init(width: 30, height: 20))
         }
         
         selectBtn = UIButton()

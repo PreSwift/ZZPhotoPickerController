@@ -1,5 +1,5 @@
 //
-//  ZZPhotoBrowserCollectionViewCell.swift
+//  ZZPhotoBrowserLivePhotoCollectionViewCell.swift
 //  ZZPhotoPickerController
 //
 //  Created by WES319 on 26/7/18.
@@ -10,14 +10,17 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import PhotosUI
 
-class ZZPhotoBrowserCollectionViewCell: UICollectionViewCell {
+@available(iOS 9.1, *)
+class ZZPhotoBrowserLivePhotoCollectionViewCell: UICollectionViewCell, UIScrollViewDelegate {
  
-    static let cellID = NSStringFromClass(ZZPhotoBrowserCollectionViewCell.self)
+    static let cellID = NSStringFromClass(ZZPhotoBrowserLivePhotoCollectionViewCell.self)
     
     var representedAssetIdentifier: String!
     private(set) var scrollView: UIScrollView!
     private(set) var imageView: UIImageView!
+    private(set) var livePhotoView: PHLivePhotoView!
     private(set) lazy var indicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView.init(activityIndicatorStyle: .gray)
         indicator.hidesWhenStopped = true
@@ -27,6 +30,19 @@ class ZZPhotoBrowserCollectionViewCell: UICollectionViewCell {
         }
         return indicator
     }()
+    
+    var isLivePhoto: Bool = false {
+        didSet {
+            if isLivePhoto {
+                imageView.isHidden = true
+                livePhotoView.isHidden = false
+            } else {
+                imageView.isHidden = false
+                livePhotoView.isHidden = true
+            }
+        }
+    }
+    
     let disposeBag = DisposeBag()
     
     override init(frame: CGRect) {
@@ -36,7 +52,7 @@ class ZZPhotoBrowserCollectionViewCell: UICollectionViewCell {
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.minimumZoomScale = 1
-        scrollView.maximumZoomScale = 10.0
+        scrollView.maximumZoomScale = 5.0
         contentView.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -51,6 +67,14 @@ class ZZPhotoBrowserCollectionViewCell: UICollectionViewCell {
             make.size.equalTo(frame.size)
         }
         
+        livePhotoView = PHLivePhotoView()
+        livePhotoView.contentMode = .scaleAspectFit
+        scrollView.addSubview(livePhotoView)
+        livePhotoView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+            make.size.equalTo(frame.size)
+        }
+        
         let doubleTap = UITapGestureRecognizer()
         doubleTap.numberOfTapsRequired = 2
         scrollView.addGestureRecognizer(doubleTap)
@@ -59,7 +83,7 @@ class ZZPhotoBrowserCollectionViewCell: UICollectionViewCell {
             if strongSelf.scrollView.zoomScale > 1 {
                 strongSelf.scrollView.setZoomScale(1, animated: true)
             } else {
-                let touchPoint = gesture.location(in: strongSelf.imageView)
+                let touchPoint = gesture.location(in: strongSelf.isLivePhoto ? strongSelf.livePhotoView : strongSelf.imageView)
                 let newZoomScale = strongSelf.scrollView.maximumZoomScale
                 let xSize = strongSelf.frame.width / newZoomScale
                 let ySize = strongSelf.frame.height / newZoomScale
@@ -74,12 +98,12 @@ class ZZPhotoBrowserCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-}
-
-extension ZZPhotoBrowserCollectionViewCell: UIScrollViewDelegate {
-    
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return imageView
+        if isLivePhoto {
+            return livePhotoView
+        } else {
+            return imageView
+        }
     }
     
 }

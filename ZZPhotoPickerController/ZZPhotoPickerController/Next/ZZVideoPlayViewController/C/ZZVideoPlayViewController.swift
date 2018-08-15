@@ -20,12 +20,21 @@ class ZZVideoPlayViewController: UIViewController {
     var tapGesture: UITapGestureRecognizer!
     var viewModel: ZZVideoPlayViewModel!
     
-    var asset: AVAsset!
+    var avAsset: AVAsset
     
     @objc dynamic var playerItem: AVPlayerItem? {
         didSet {
             avPlayer.replaceCurrentItem(with: playerItem)
         }
+    }
+    
+    required init(avAsset: AVAsset) {
+        self.avAsset = avAsset
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -84,10 +93,7 @@ class ZZVideoPlayViewController: UIViewController {
         }
         view.layer.insertSublayer(avPlayerLayer, at: 0)
         
-        if asset != nil {
-            playerItem = AVPlayerItem.init(asset: asset)
-        }
-        
+        playerItem = AVPlayerItem.init(asset: avAsset)
         viewModel = ZZVideoPlayViewModel.init(target: self)
     }
     

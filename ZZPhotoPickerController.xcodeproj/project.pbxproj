@@ -12,6 +12,9 @@
 		DC34FB62211AFDC6005EADA1 /* ZZVideoPlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC34FB61211AFDC6005EADA1 /* ZZVideoPlayViewModel.swift */; };
 		DC34FB64211AFDD9005EADA1 /* ZZVideoPlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC34FB63211AFDD9005EADA1 /* ZZVideoPlayViewController.swift */; };
 		DC5E07732123FF2D003A16E2 /* ZZPhoto.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC708ACA211D8B2A006459D0 /* ZZPhoto.xcassets */; };
+		DC5E07762124084E003A16E2 /* ZZPhoto3DTouchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5E07752124084E003A16E2 /* ZZPhoto3DTouchViewController.swift */; };
+		DC5E0778212419A5003A16E2 /* ZZPhotoBrowserNormalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5E0777212419A5003A16E2 /* ZZPhotoBrowserNormalCollectionViewCell.swift */; };
+		DC5E077A21241ECA003A16E2 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC5E077921241ECA003A16E2 /* CoreMedia.framework */; };
 		DC5F9F5D211060D700C09777 /* ZZPhotoToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5F9F5C211060D700C09777 /* ZZPhotoToolView.swift */; };
 		DC5F9F602110643A00C09777 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5F9F5F2110643A00C09777 /* UIImage+Extension.swift */; };
 		DC5F9F622110649D00C09777 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5F9F612110649D00C09777 /* UIColor+Extension.swift */; };
@@ -37,7 +40,7 @@
 		DCDBC74A2109764800C245A9 /* ZZPhotoCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7492109764800C245A9 /* ZZPhotoCollectionViewModel.swift */; };
 		DCDBC7502109798E00C245A9 /* ZZPhotoGroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC74F2109798E00C245A9 /* ZZPhotoGroupModel.swift */; };
 		DCDBC7632109B08D00C245A9 /* ZZPhotoBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7622109B08D00C245A9 /* ZZPhotoBrowserViewController.swift */; };
-		DCDBC7652109B7E400C245A9 /* ZZPhotoBrowserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7642109B7E400C245A9 /* ZZPhotoBrowserCollectionViewCell.swift */; };
+		DCDBC7652109B7E400C245A9 /* ZZPhotoBrowserLivePhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7642109B7E400C245A9 /* ZZPhotoBrowserLivePhotoCollectionViewCell.swift */; };
 		DCDBC7672109B80B00C245A9 /* ZZPhotoBrowserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7662109B80B00C245A9 /* ZZPhotoBrowserViewModel.swift */; };
 		DCDBC7692109B93C00C245A9 /* ZZPhotoBrowserCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7682109B93C00C245A9 /* ZZPhotoBrowserCollectionViewFlowLayout.swift */; };
 		DCDBC76C2109C5F000C245A9 /* ZZPhotoOperationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC76B2109C5F000C245A9 /* ZZPhotoOperationService.swift */; };
@@ -62,6 +65,9 @@
 		152B6F78F6A9430C03AB4EF2 /* Pods-ZZPhotoPickerController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZPhotoPickerController.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZZPhotoPickerController/Pods-ZZPhotoPickerController.release.xcconfig"; sourceTree = "<group>"; };
 		DC34FB61211AFDC6005EADA1 /* ZZVideoPlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZVideoPlayViewModel.swift; sourceTree = "<group>"; };
 		DC34FB63211AFDD9005EADA1 /* ZZVideoPlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZVideoPlayViewController.swift; sourceTree = "<group>"; };
+		DC5E07752124084E003A16E2 /* ZZPhoto3DTouchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhoto3DTouchViewController.swift; sourceTree = "<group>"; };
+		DC5E0777212419A5003A16E2 /* ZZPhotoBrowserNormalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoBrowserNormalCollectionViewCell.swift; sourceTree = "<group>"; };
+		DC5E077921241ECA003A16E2 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		DC5F9F5C211060D700C09777 /* ZZPhotoToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoToolView.swift; sourceTree = "<group>"; };
 		DC5F9F5F2110643A00C09777 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		DC5F9F612110649D00C09777 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -96,7 +102,7 @@
 		DCDBC757210979BB00C245A9 /* RxCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCDBC759210979C000C245A9 /* RxDataSources.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxDataSources.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCDBC7622109B08D00C245A9 /* ZZPhotoBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoBrowserViewController.swift; sourceTree = "<group>"; };
-		DCDBC7642109B7E400C245A9 /* ZZPhotoBrowserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoBrowserCollectionViewCell.swift; sourceTree = "<group>"; };
+		DCDBC7642109B7E400C245A9 /* ZZPhotoBrowserLivePhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoBrowserLivePhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		DCDBC7662109B80B00C245A9 /* ZZPhotoBrowserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoBrowserViewModel.swift; sourceTree = "<group>"; };
 		DCDBC7682109B93C00C245A9 /* ZZPhotoBrowserCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZZPhotoBrowserCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		DCDBC76B2109C5F000C245A9 /* ZZPhotoOperationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoOperationService.swift; sourceTree = "<group>"; };
@@ -109,6 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC5E077A21241ECA003A16E2 /* CoreMedia.framework in Frameworks */,
 				62128031F1302FE5AD19A4EC /* Pods_ZZPhotoPickerController.framework in Frameworks */,
 				034C3C382C76D9A98D977F24 /* Pods_ZZPhotoPickerController.framework in Frameworks */,
 			);
@@ -120,6 +127,7 @@
 		6730A5F01881701024716713 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC5E077921241ECA003A16E2 /* CoreMedia.framework */,
 				DC7DCAD921212F9800AC7636 /* Pods_ZZPhotoPickerController.framework */,
 				DCDBC759210979C000C245A9 /* RxDataSources.framework */,
 				DCDBC757210979BB00C245A9 /* RxCocoa.framework */,
@@ -171,6 +179,14 @@
 				DC708ACA211D8B2A006459D0 /* ZZPhoto.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		DC5E077421240816003A16E2 /* ZZPhoto3DTouchViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DC5E07752124084E003A16E2 /* ZZPhoto3DTouchViewController.swift */,
+			);
+			path = ZZPhoto3DTouchViewController;
 			sourceTree = "<group>";
 		};
 		DC5F9F5E211063DA00C09777 /* Utility */ = {
@@ -276,6 +292,7 @@
 		DCDBC75C2109B00600C245A9 /* Next */ = {
 			isa = PBXGroup;
 			children = (
+				DC5E077421240816003A16E2 /* ZZPhoto3DTouchViewController */,
 				DC34FB5D211AFD56005EADA1 /* ZZVideoPlayViewController */,
 				DCDBC75D2109B01D00C245A9 /* ZZPhotoBrowserViewController */,
 			);
@@ -304,7 +321,8 @@
 		DCDBC7602109B07800C245A9 /* V */ = {
 			isa = PBXGroup;
 			children = (
-				DCDBC7642109B7E400C245A9 /* ZZPhotoBrowserCollectionViewCell.swift */,
+				DC5E0777212419A5003A16E2 /* ZZPhotoBrowserNormalCollectionViewCell.swift */,
+				DCDBC7642109B7E400C245A9 /* ZZPhotoBrowserLivePhotoCollectionViewCell.swift */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -469,10 +487,12 @@
 				DC646878211407B3003BC385 /* ZZPhotoPickerController+Rx.swift in Sources */,
 				DCDBC74A2109764800C245A9 /* ZZPhotoCollectionViewModel.swift in Sources */,
 				DC88A5EC21181F6E003256B3 /* ZZPhotoGroupViewModel.swift in Sources */,
-				DCDBC7652109B7E400C245A9 /* ZZPhotoBrowserCollectionViewCell.swift in Sources */,
+				DCDBC7652109B7E400C245A9 /* ZZPhotoBrowserLivePhotoCollectionViewCell.swift in Sources */,
 				DCDBC7632109B08D00C245A9 /* ZZPhotoBrowserViewController.swift in Sources */,
+				DC5E07762124084E003A16E2 /* ZZPhoto3DTouchViewController.swift in Sources */,
 				DC60CF5121196FAE00AA3EBB /* Notification+Extension.swift in Sources */,
 				DCDBC7672109B80B00C245A9 /* ZZPhotoBrowserViewModel.swift in Sources */,
+				DC5E0778212419A5003A16E2 /* ZZPhotoBrowserNormalCollectionViewCell.swift in Sources */,
 				DC6468762113FB1B003BC385 /* RxPhotoPickerControllerDelegateProxy.swift in Sources */,
 				DC5F9F602110643A00C09777 /* UIImage+Extension.swift in Sources */,
 				DCDBC748210975D500C245A9 /* ZZPhotoCollectionViewCell.swift in Sources */,

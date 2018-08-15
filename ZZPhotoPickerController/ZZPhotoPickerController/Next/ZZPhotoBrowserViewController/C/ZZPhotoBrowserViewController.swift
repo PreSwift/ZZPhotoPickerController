@@ -45,7 +45,11 @@ class ZZPhotoBrowserViewController: UIViewController {
         collectionView.isDirectionalLockEnabled = true
         collectionView.decelerationRate = UIScrollViewDecelerationRateFast
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(ZZPhotoBrowserCollectionViewCell.self, forCellWithReuseIdentifier: ZZPhotoBrowserCollectionViewCell.cellID)
+        if #available(iOS 9.1, *) {
+            collectionView.register(ZZPhotoBrowserLivePhotoCollectionViewCell.self, forCellWithReuseIdentifier: ZZPhotoBrowserLivePhotoCollectionViewCell.cellID)
+        } else {
+            collectionView.register(ZZPhotoBrowserNormalCollectionViewCell.self, forCellWithReuseIdentifier: ZZPhotoBrowserNormalCollectionViewCell.cellID)
+        }
         return collectionView
     }()
     var viewModel: ZZPhotoBrowserViewModel!
