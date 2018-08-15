@@ -33,7 +33,7 @@ class ZZVideoPlayViewController: UIViewController {
         view.backgroundColor = UIColor.black
         
         leftButton = UIButton()
-        leftButton.setImage(UIImage.init(named: "ZZPhoto_nav_back", in: imageBundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        leftButton.setImage(UIImage.init(named: "ZZPhoto_nav_back", in: self.imageBundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         leftButton.contentHorizontalAlignment = .left
         leftButton.tintColor = UIColor.white
         view.addSubview(leftButton)
@@ -66,7 +66,7 @@ class ZZVideoPlayViewController: UIViewController {
             make.height.equalTo(30)
         }
         
-        pauseImageView = UIImageView.init(image: UIImage.init(named: "ZZPhoto_play", in: imageBundle, compatibleWith: nil))
+        pauseImageView = UIImageView.init(image: UIImage.init(named: "ZZPhoto_play", in: self.imageBundle, compatibleWith: nil))
         pauseImageView.isHidden = true
         view.addSubview(pauseImageView)
         pauseImageView.snp.makeConstraints { (make) in

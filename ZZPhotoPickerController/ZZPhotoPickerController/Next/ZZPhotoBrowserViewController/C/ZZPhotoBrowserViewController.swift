@@ -14,7 +14,7 @@ class ZZPhotoBrowserViewController: UIViewController {
 
     lazy var leftButton: UIButton = {
         let leftButton = UIButton()
-        leftButton.setImage(UIImage.init(named: "ZZPhoto_nav_back", in: imageBundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        leftButton.setImage(UIImage.init(named: "ZZPhoto_nav_back", in: self.imageBundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         leftButton.contentHorizontalAlignment = .left
         leftButton.tintColor = UIColor.white
         return leftButton
@@ -32,8 +32,8 @@ class ZZPhotoBrowserViewController: UIViewController {
     }()
     lazy var checkMark: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage.init(named: "ZZPhoto_selected_small", in: imageBundle, compatibleWith: nil), for: .selected)
-        button.setImage(UIImage.init(named: "ZZPhoto_selected_not_small", in: imageBundle, compatibleWith: nil), for: .normal)
+        button.setImage(UIImage.init(named: "ZZPhoto_selected_small", in: self.imageBundle, compatibleWith: nil), for: .selected)
+        button.setImage(UIImage.init(named: "ZZPhoto_selected_not_small", in: self.imageBundle, compatibleWith: nil), for: .normal)
         return button
     }()
     lazy var flowLayout: ZZPhotoBrowserCollectionViewFlowLayout = {
