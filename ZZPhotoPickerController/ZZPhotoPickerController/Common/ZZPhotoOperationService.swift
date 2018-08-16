@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import Photos
+import AudioUnit
 
 enum ZZPhotoOperationStatus: String {
     typealias RawValue = String
@@ -209,6 +210,10 @@ class ZZPhotoOperationService: NSObject {
                 self.operationStatus = .noPermission
             }
         }
+        
+        
+        // 忽略设备静音
+        try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
     }
     
     deinit {

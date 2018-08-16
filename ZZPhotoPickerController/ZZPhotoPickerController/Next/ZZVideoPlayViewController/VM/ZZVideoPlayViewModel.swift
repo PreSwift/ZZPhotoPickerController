@@ -16,6 +16,7 @@ class ZZVideoPlayViewModel: NSObject {
     weak var target: ZZVideoPlayViewController!
     
     var isPlayingWhenLost: Bool = false
+    var time: CMTime = kCMTimeZero
     
     let disposeBag = DisposeBag()
     
@@ -36,9 +37,11 @@ class ZZVideoPlayViewModel: NSObject {
         
         (self.target.rightButton.rx.tap).subscribe(onNext: { [weak self] (_) in
             guard let strongSelf = self else { return }
-            if let rootVC = strongSelf.target.navigationController as? ZZPhotoPickerController {
-                rootVC.zzDelegate?.photoPickerController!(rootVC, didSelectVideo: strongSelf.target.avAsset)
-                rootVC.dismiss(animated: true, completion: nil)
+            if strongSelf.target.avAsset != nil {
+                if let rootVC = strongSelf.target.navigationController as? ZZPhotoPickerController {
+                    rootVC.zzDelegate?.photoPickerController!(rootVC, didSelectVideo: strongSelf.target.avAsset!)
+                    rootVC.dismiss(animated: true, completion: nil)
+                }
             }
         }).disposed(by: disposeBag)
         
@@ -51,12 +54,19 @@ class ZZVideoPlayViewModel: NSObject {
             }
         }).disposed(by: disposeBag)
         
-        NotificationCenter.default.rx.notification(Notification.Name.AVPlayerItemDidPlayToEndTime).subscribe(onNext: { [weak self] (notification) in
+        NotificationCenter.default.rx.notification(Notification.Name.AVPlayerItemDidPlayToEndTime).filter({ [weak self] (notification) -> Bool in
+            guard let strongSelf = self else { return false }
+            if strongSelf.target.isViewLoaded == true {
+                return true
+            } else {
+                return false
+            }
+        }).subscribe(onNext: { [weak self] (notification) in
             guard let strongSelf = self else { return }
             strongSelf.target.avPlayer.seek(to: CMTime.init(seconds: 0, preferredTimescale: 1), completionHandler: { [weak self] (finish) in
                 guard let strongSelf = self else { return }
                 if finish {
-                    strongSelf.target.avPlayer.play()
+                    strongSelf.play()
                 }
             })
         }).disposed(by: disposeBag)
@@ -65,20 +75,33 @@ class ZZVideoPlayViewModel: NSObject {
             guard let strongSelf = self else { return }
             strongSelf.isPlayingWhenLost = strongSelf.target.avPlayer.rate == 1
             strongSelf.pause()
+            strongSelf.time = strongSelf.target.avPlayer.currentTime()
         }).disposed(by: disposeBag)
         
-        NotificationCenter.default.rx.notification(Notification.Name.UIApplicationDidBecomeActive).subscribe(onNext: { [weak self] (notification) in
-            guard let strongSelf = self else { return }
-            if strongSelf.isPlayingWhenLost {
-                strongSelf.play()
+        NotificationCenter.default.rx.notification(Notification.Name.UIApplicationDidBecomeActive).filter({ [weak self] (notification) -> Bool in
+            guard let strongSelf = self else { return false }
+            if strongSelf.target.isViewLoaded == true {
+                return true
+            } else {
+                return false
             }
+        }).subscribe(onNext: { [weak self] (notification) in
+            guard let strongSelf = self else { return }
+            strongSelf.target.avPlayer.seek(to: strongSelf.time, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (finished) in
+                if finished {
+                    if strongSelf.isPlayingWhenLost {
+                        strongSelf.play()
+                    }
+                }
+            })
         }).disposed(by: disposeBag)
     }
     
     func addObserver(newItem: AVPlayerItem) {
-        newItem.rx.observeWeakly(NSNumber.self, "status").subscribe(onNext: { [weak self] (status) in
+        newItem.rx.observeWeakly(NSNumber.self, "status").take(2).subscribe(onNext: { [weak self] (status) in
             guard let strongSelf = self else { return }
             if let newStatus = status {
+                print(newStatus)
                 if newStatus.intValue == AVPlayerItemStatus.readyToPlay.rawValue {
                     strongSelf.play()
                 }

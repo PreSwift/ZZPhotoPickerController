@@ -212,7 +212,7 @@ class ZZPhotoCollectionViewModel: NSObject {
                         }
                     } else {
                         DispatchQueue.main.async {
-                            let vc = ZZVideoPlayViewController.init(avAsset: avAsset!)
+                            let vc = ZZVideoPlayViewController.init(asset: asset, avAsset: avAsset)
                             strongSelf.target.navigationController?.pushViewController(vc, animated: true)
                         }
                     }
@@ -278,46 +278,29 @@ extension ZZPhotoCollectionViewModel: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         if let indexPath = self.target.collectionView.indexPathForItem(at: location) {
             let asset = photoOperationService.currentGroup.assets[indexPath.item]
-            if asset.mediaType == .video {
-               
-            } else {
-                
-            }
             if let cell = self.target.collectionView.cellForItem(at: indexPath) {
                 previewingContext.sourceRect = cell.frame
-                let _3dTouchVC = ZZPhoto3DTouchViewController.init(currentAsset: asset, indexPath: indexPath)
-                return _3dTouchVC
+                
+                if asset.mediaType == .video {
+                    let vc = ZZVideoPlayViewController.init(asset: asset, avAsset: nil)
+                    vc.preferredContentSize = CGSize.init(width: asset.pixelWidth, height: asset.pixelHeight)
+                    return vc
+                } else {
+                    let vc = ZZPhotoBrowserViewController.init(photoOperationService: photoOperationService)
+                    vc.preferredContentSize = CGSize.init(width: asset.pixelWidth, height: asset.pixelHeight)
+                    if let index = photoOperationService.currentGroup.assets.index(of: asset) {
+                        vc.pageIndex = index
+                    }
+                    return vc
+                }
             }
         }
         return nil
     }
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        let asset = (viewControllerToCommit as! ZZPhoto3DTouchViewController).currentAsset
-        if asset.mediaType == .image {
-            let vc = ZZPhotoBrowserViewController.init(photoOperationService: photoOperationService)
-            if let index = photoOperationService.currentGroup.assets.index(of: asset) {
-                vc.pageIndex = index
-            }
-            target.navigationController?.pushViewController(vc, animated: true)
-        } else {
-            PHImageManager.default().requestAVAsset(forVideo: asset, options: nil, resultHandler: { [weak self] (avAsset, audioMix, info) in
-                guard let strongSelf = self else { return }
-                if avAsset == nil {
-                    if let isInCloud = info?[PHImageResultIsInCloudKey] as? Bool {
-                        if isInCloud == true {
-                            DispatchQueue.main.async {
-                                ZZPhotoAlertView.show("iCloud同步中")
-                            }
-                        }
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        let vc = ZZVideoPlayViewController.init(avAsset: avAsset!)
-                        strongSelf.target.navigationController?.pushViewController(vc, animated: true)
-                    }
-                }
-            })
-        }
+        self.target.show(viewControllerToCommit, sender: self.target)
     }
+    
+    
 }

@@ -12,7 +12,6 @@
 		DC34FB62211AFDC6005EADA1 /* ZZVideoPlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC34FB61211AFDC6005EADA1 /* ZZVideoPlayViewModel.swift */; };
 		DC34FB64211AFDD9005EADA1 /* ZZVideoPlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC34FB63211AFDD9005EADA1 /* ZZVideoPlayViewController.swift */; };
 		DC5E07732123FF2D003A16E2 /* ZZPhoto.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC708ACA211D8B2A006459D0 /* ZZPhoto.xcassets */; };
-		DC5E07762124084E003A16E2 /* ZZPhoto3DTouchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5E07752124084E003A16E2 /* ZZPhoto3DTouchViewController.swift */; };
 		DC5E0778212419A5003A16E2 /* ZZPhotoBrowserNormalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5E0777212419A5003A16E2 /* ZZPhotoBrowserNormalCollectionViewCell.swift */; };
 		DC5E077A21241ECA003A16E2 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC5E077921241ECA003A16E2 /* CoreMedia.framework */; };
 		DC5F9F5D211060D700C09777 /* ZZPhotoToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5F9F5C211060D700C09777 /* ZZPhotoToolView.swift */; };
@@ -65,7 +64,6 @@
 		152B6F78F6A9430C03AB4EF2 /* Pods-ZZPhotoPickerController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZPhotoPickerController.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZZPhotoPickerController/Pods-ZZPhotoPickerController.release.xcconfig"; sourceTree = "<group>"; };
 		DC34FB61211AFDC6005EADA1 /* ZZVideoPlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZVideoPlayViewModel.swift; sourceTree = "<group>"; };
 		DC34FB63211AFDD9005EADA1 /* ZZVideoPlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZVideoPlayViewController.swift; sourceTree = "<group>"; };
-		DC5E07752124084E003A16E2 /* ZZPhoto3DTouchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhoto3DTouchViewController.swift; sourceTree = "<group>"; };
 		DC5E0777212419A5003A16E2 /* ZZPhotoBrowserNormalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoBrowserNormalCollectionViewCell.swift; sourceTree = "<group>"; };
 		DC5E077921241ECA003A16E2 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		DC5F9F5C211060D700C09777 /* ZZPhotoToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoToolView.swift; sourceTree = "<group>"; };
@@ -181,14 +179,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		DC5E077421240816003A16E2 /* ZZPhoto3DTouchViewController */ = {
-			isa = PBXGroup;
-			children = (
-				DC5E07752124084E003A16E2 /* ZZPhoto3DTouchViewController.swift */,
-			);
-			path = ZZPhoto3DTouchViewController;
-			sourceTree = "<group>";
-		};
 		DC5F9F5E211063DA00C09777 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -292,7 +282,6 @@
 		DCDBC75C2109B00600C245A9 /* Next */ = {
 			isa = PBXGroup;
 			children = (
-				DC5E077421240816003A16E2 /* ZZPhoto3DTouchViewController */,
 				DC34FB5D211AFD56005EADA1 /* ZZVideoPlayViewController */,
 				DCDBC75D2109B01D00C245A9 /* ZZPhotoBrowserViewController */,
 			);
@@ -489,7 +478,6 @@
 				DC88A5EC21181F6E003256B3 /* ZZPhotoGroupViewModel.swift in Sources */,
 				DCDBC7652109B7E400C245A9 /* ZZPhotoBrowserLivePhotoCollectionViewCell.swift in Sources */,
 				DCDBC7632109B08D00C245A9 /* ZZPhotoBrowserViewController.swift in Sources */,
-				DC5E07762124084E003A16E2 /* ZZPhoto3DTouchViewController.swift in Sources */,
 				DC60CF5121196FAE00AA3EBB /* Notification+Extension.swift in Sources */,
 				DCDBC7672109B80B00C245A9 /* ZZPhotoBrowserViewModel.swift in Sources */,
 				DC5E0778212419A5003A16E2 /* ZZPhotoBrowserNormalCollectionViewCell.swift in Sources */,

@@ -107,7 +107,7 @@ class ZZPhotoCollectionViewController: UIViewController {
         let photoOperationService = ZZPhotoOperationService.init(mediaType: mediaType, maxSelectCount: maxSelectCount)
         collectionViewModel = ZZPhotoCollectionViewModel.init(target: self, photoOperationService: photoOperationService)
     }
-
+    
     deinit {
         print(self)
     }

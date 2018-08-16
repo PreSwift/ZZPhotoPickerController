@@ -9,6 +9,7 @@
 import UIKit
 import AVKit
 import SnapKit
+import Photos
 
 class ZZVideoPlayViewController: UIViewController {
 
@@ -20,7 +21,18 @@ class ZZVideoPlayViewController: UIViewController {
     var tapGesture: UITapGestureRecognizer!
     var viewModel: ZZVideoPlayViewModel!
     
-    var avAsset: AVAsset
+    private(set) lazy var indicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView.init(activityIndicatorStyle: .white)
+        indicator.hidesWhenStopped = true
+        self.view.addSubview(indicator)
+        indicator.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+        }
+        return indicator
+    }()
+    
+    var asset: PHAsset
+    var avAsset: AVAsset?
     
     @objc dynamic var playerItem: AVPlayerItem? {
         didSet {
@@ -28,7 +40,8 @@ class ZZVideoPlayViewController: UIViewController {
         }
     }
     
-    required init(avAsset: AVAsset) {
+    required init(asset: PHAsset, avAsset: AVAsset? = nil) {
+        self.asset = asset
         self.avAsset = avAsset
         super.init(nibName: nil, bundle: nil)
     }
@@ -39,9 +52,10 @@ class ZZVideoPlayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.black
+        view.backgroundColor = UIColor.init(white: 0.1, alpha: 1)
         
         leftButton = UIButton()
+        leftButton.isHidden = true
         leftButton.setImage(UIImage.init(named: "ZZPhoto_nav_back", in: self.imageBundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         leftButton.contentHorizontalAlignment = .left
         leftButton.tintColor = UIColor.white
@@ -57,6 +71,7 @@ class ZZVideoPlayViewController: UIViewController {
         }
         
         rightButton = UIButton()
+        rightButton.isHidden = true
         rightButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.regular)
         rightButton.setTitle("下一步", for: .normal)
         rightButton.layer.cornerRadius = 15
@@ -93,7 +108,39 @@ class ZZVideoPlayViewController: UIViewController {
         }
         view.layer.insertSublayer(avPlayerLayer, at: 0)
         
-        playerItem = AVPlayerItem.init(asset: avAsset)
+        if avAsset != nil {
+            playerItem = AVPlayerItem.init(asset: avAsset!)
+        } else {
+            let options = PHVideoRequestOptions()
+            options.isNetworkAccessAllowed = true
+            options.progressHandler = { (progress, error, stop, info) in
+                DispatchQueue.main.async {
+                    if progress < 1 {
+                        if self.indicator.isAnimating == false {
+                            self.indicator.startAnimating()
+                        }
+                    } else {
+                        self.indicator.stopAnimating()
+                    }
+                }
+            }
+            PHImageManager.default().requestAVAsset(forVideo: asset, options: options, resultHandler: { [weak self] (avAsset, audioMix, info) in
+                guard let strongSelf = self else { return }
+                if avAsset == nil {
+                    if let isInCloud = info?[PHImageResultIsInCloudKey] as? Bool {
+                        if isInCloud == true {
+                            DispatchQueue.main.async {
+                                ZZPhotoAlertView.show("iCloud同步中")
+                            }
+                        }
+                    }
+                } else {
+                    strongSelf.avAsset = avAsset!
+                    strongSelf.playerItem = AVPlayerItem.init(asset: avAsset!)
+                }
+            })
+        }
+        
         viewModel = ZZVideoPlayViewModel.init(target: self)
     }
     
@@ -103,6 +150,10 @@ class ZZVideoPlayViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if navigationController != nil {
+            leftButton.isHidden = false
+            rightButton.isHidden = false
+        }
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     

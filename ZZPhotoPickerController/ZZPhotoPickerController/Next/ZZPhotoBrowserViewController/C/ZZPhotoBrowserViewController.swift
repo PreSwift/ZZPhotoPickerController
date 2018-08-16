@@ -14,6 +14,7 @@ class ZZPhotoBrowserViewController: UIViewController {
 
     lazy var leftButton: UIButton = {
         let leftButton = UIButton()
+        leftButton.isHidden = true
         leftButton.setImage(UIImage.init(named: "ZZPhoto_nav_back", in: self.imageBundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         leftButton.contentHorizontalAlignment = .left
         leftButton.tintColor = UIColor.white
@@ -21,6 +22,7 @@ class ZZPhotoBrowserViewController: UIViewController {
     }()
     lazy var rightButton: UIButton = {
         let rightButton = UIButton()
+        rightButton.isHidden = true
         rightButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.regular)
         rightButton.setTitle("下一步", for: .normal)
         rightButton.layer.cornerRadius = 15
@@ -115,6 +117,10 @@ class ZZPhotoBrowserViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if navigationController != nil {
+            leftButton.isHidden = false
+            rightButton.isHidden = false
+        }
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
