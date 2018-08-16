@@ -25,5 +25,5 @@ class ZZPhotoVideoIconView: UIView {
         let squarePath = UIBezierPath.init(roundedRect: CGRect.init(x: bounds.minX, y: bounds.minY, width: bounds.width - bounds.midY - 1.0, height: bounds.height), cornerRadius: 2.0)
         squarePath.fill()
     }
-
+    
 }

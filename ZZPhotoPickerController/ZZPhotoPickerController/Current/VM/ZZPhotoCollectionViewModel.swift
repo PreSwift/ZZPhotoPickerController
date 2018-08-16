@@ -186,7 +186,7 @@ class ZZPhotoCollectionViewModel: NSObject {
         (target.rightButton.rx.tap).subscribe(onNext: { [weak self] (_) in
             guard let strongSelf = self else { return }
             if let rootVC = strongSelf.target.navigationController as? ZZPhotoPickerController {
-                rootVC.zzDelegate?.photoPickerController!(rootVC, didSelectImage: strongSelf.photoOperationService.selectedAssets.value)
+                rootVC.zzDelegate?.photoPickerController!(rootVC, didSelect: strongSelf.photoOperationService.selectedAssets.value)
                 rootVC.dismiss(animated: true, completion: nil)
             }
         }).disposed(by: disposeBag)
@@ -200,23 +200,8 @@ class ZZPhotoCollectionViewModel: NSObject {
                 }
                 strongSelf.target.navigationController?.pushViewController(vc, animated: true)
             } else if asset.mediaType == .video {
-                PHImageManager.default().requestAVAsset(forVideo: asset, options: nil, resultHandler: { [weak self] (avAsset, audioMix, info) in
-                    guard let strongSelf = self else { return }
-                    if avAsset == nil {
-                        if let isInCloud = info?[PHImageResultIsInCloudKey] as? Bool {
-                            if isInCloud == true {
-                                DispatchQueue.main.async {
-                                    ZZPhotoAlertView.show("iCloud同步中")
-                                }
-                            }
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            let vc = ZZVideoPlayViewController.init(asset: asset, avAsset: avAsset)
-                            strongSelf.target.navigationController?.pushViewController(vc, animated: true)
-                        }
-                    }
-                })
+                let vc = ZZVideoPlayViewController.init(asset: asset)
+                strongSelf.target.navigationController?.pushViewController(vc, animated: true)
             }
         }).disposed(by: disposeBag)
         
@@ -282,12 +267,12 @@ extension ZZPhotoCollectionViewModel: UIViewControllerPreviewingDelegate {
                 previewingContext.sourceRect = cell.frame
                 
                 if asset.mediaType == .video {
-                    let vc = ZZVideoPlayViewController.init(asset: asset, avAsset: nil)
-                    vc.preferredContentSize = CGSize.init(width: asset.pixelWidth, height: asset.pixelHeight)
+                    let vc = ZZVideoPlayViewController.init(asset: asset)
+                    vc.preferredContentSize = CGSize.init(width: CGFloat(asset.pixelWidth) / UIScreen.main.scale, height: CGFloat(asset.pixelHeight) / UIScreen.main.scale)
                     return vc
                 } else {
                     let vc = ZZPhotoBrowserViewController.init(photoOperationService: photoOperationService)
-                    vc.preferredContentSize = CGSize.init(width: asset.pixelWidth, height: asset.pixelHeight)
+                    vc.preferredContentSize = CGSize.init(width: CGFloat(asset.pixelWidth) / UIScreen.main.scale, height: CGFloat(asset.pixelHeight) / UIScreen.main.scale)
                     if let index = photoOperationService.currentGroup.assets.index(of: asset) {
                         vc.pageIndex = index
                     }

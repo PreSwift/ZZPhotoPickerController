@@ -32,16 +32,15 @@ class ZZVideoPlayViewModel: NSObject {
         }).disposed(by: disposeBag)
         
         (self.target.leftButton.rx.tap).subscribe(onNext: { [weak self] (_) in
+            self?.target.avPlayer.pause()
             self?.target.navigationController?.popViewController(animated: true)
         }).disposed(by: disposeBag)
         
         (self.target.rightButton.rx.tap).subscribe(onNext: { [weak self] (_) in
             guard let strongSelf = self else { return }
-            if strongSelf.target.avAsset != nil {
-                if let rootVC = strongSelf.target.navigationController as? ZZPhotoPickerController {
-                    rootVC.zzDelegate?.photoPickerController!(rootVC, didSelectVideo: strongSelf.target.avAsset!)
-                    rootVC.dismiss(animated: true, completion: nil)
-                }
+            if let rootVC = strongSelf.target.navigationController as? ZZPhotoPickerController {
+                rootVC.zzDelegate?.photoPickerController!(rootVC, didSelect: [strongSelf.target.asset])
+                rootVC.dismiss(animated: true, completion: nil)
             }
         }).disposed(by: disposeBag)
         
@@ -54,14 +53,7 @@ class ZZVideoPlayViewModel: NSObject {
             }
         }).disposed(by: disposeBag)
         
-        NotificationCenter.default.rx.notification(Notification.Name.AVPlayerItemDidPlayToEndTime).filter({ [weak self] (notification) -> Bool in
-            guard let strongSelf = self else { return false }
-            if strongSelf.target.isViewLoaded == true {
-                return true
-            } else {
-                return false
-            }
-        }).subscribe(onNext: { [weak self] (notification) in
+        NotificationCenter.default.rx.notification(Notification.Name.AVPlayerItemDidPlayToEndTime).subscribe(onNext: { [weak self] (notification) in
             guard let strongSelf = self else { return }
             strongSelf.target.avPlayer.seek(to: CMTime.init(seconds: 0, preferredTimescale: 1), completionHandler: { [weak self] (finish) in
                 guard let strongSelf = self else { return }
@@ -78,14 +70,7 @@ class ZZVideoPlayViewModel: NSObject {
             strongSelf.time = strongSelf.target.avPlayer.currentTime()
         }).disposed(by: disposeBag)
         
-        NotificationCenter.default.rx.notification(Notification.Name.UIApplicationDidBecomeActive).filter({ [weak self] (notification) -> Bool in
-            guard let strongSelf = self else { return false }
-            if strongSelf.target.isViewLoaded == true {
-                return true
-            } else {
-                return false
-            }
-        }).subscribe(onNext: { [weak self] (notification) in
+        NotificationCenter.default.rx.notification(Notification.Name.UIApplicationDidBecomeActive).subscribe(onNext: { [weak self] (notification) in
             guard let strongSelf = self else { return }
             strongSelf.target.avPlayer.seek(to: strongSelf.time, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (finished) in
                 if finished {
@@ -95,15 +80,17 @@ class ZZVideoPlayViewModel: NSObject {
                 }
             })
         }).disposed(by: disposeBag)
+        
     }
     
     func addObserver(newItem: AVPlayerItem) {
         newItem.rx.observeWeakly(NSNumber.self, "status").take(2).subscribe(onNext: { [weak self] (status) in
             guard let strongSelf = self else { return }
             if let newStatus = status {
-                print(newStatus)
                 if newStatus.intValue == AVPlayerItemStatus.readyToPlay.rawValue {
-                    strongSelf.play()
+                    if strongSelf.target.preferredContentSize.width != CGFloat(strongSelf.target.asset.pixelWidth) / UIScreen.main.scale {
+                        strongSelf.play()
+                    }
                 }
             }
         }).disposed(by: disposeBag)

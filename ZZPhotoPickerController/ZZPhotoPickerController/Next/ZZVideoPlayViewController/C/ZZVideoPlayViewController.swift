@@ -31,8 +31,7 @@ class ZZVideoPlayViewController: UIViewController {
         return indicator
     }()
     
-    var asset: PHAsset
-    var avAsset: AVAsset?
+    private(set) var asset: PHAsset
     
     @objc dynamic var playerItem: AVPlayerItem? {
         didSet {
@@ -40,9 +39,8 @@ class ZZVideoPlayViewController: UIViewController {
         }
     }
     
-    required init(asset: PHAsset, avAsset: AVAsset? = nil) {
+    required init(asset: PHAsset) {
         self.asset = asset
-        self.avAsset = avAsset
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -101,6 +99,7 @@ class ZZVideoPlayViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
         
         avPlayerLayer = AVPlayerLayer.init(player: avPlayer)
+        // 加入初始frame，防止抖动
         if #available(iOS 11.0, *) {
             avPlayerLayer.frame = CGRect.init(x: 0, y: view.safeAreaInsets.top, width: view.frame.width, height: view.frame.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom)
         } else {
@@ -108,40 +107,45 @@ class ZZVideoPlayViewController: UIViewController {
         }
         view.layer.insertSublayer(avPlayerLayer, at: 0)
         
-        if avAsset != nil {
-            playerItem = AVPlayerItem.init(asset: avAsset!)
-        } else {
-            let options = PHVideoRequestOptions()
-            options.isNetworkAccessAllowed = true
-            options.progressHandler = { (progress, error, stop, info) in
-                DispatchQueue.main.async {
-                    if progress < 1 {
-                        if self.indicator.isAnimating == false {
-                            self.indicator.startAnimating()
-                        }
-                    } else {
-                        self.indicator.stopAnimating()
-                    }
-                }
-            }
-            PHImageManager.default().requestAVAsset(forVideo: asset, options: options, resultHandler: { [weak self] (avAsset, audioMix, info) in
-                guard let strongSelf = self else { return }
-                if avAsset == nil {
-                    if let isInCloud = info?[PHImageResultIsInCloudKey] as? Bool {
-                        if isInCloud == true {
-                            DispatchQueue.main.async {
-                                ZZPhotoAlertView.show("iCloud同步中")
-                            }
-                        }
+        let options = PHVideoRequestOptions()
+        options.isNetworkAccessAllowed = true
+        options.progressHandler = { (progress, error, stop, info) in
+            DispatchQueue.main.async {
+                if progress < 1 {
+                    if self.indicator.isAnimating == false {
+                        self.indicator.startAnimating()
                     }
                 } else {
-                    strongSelf.avAsset = avAsset!
-                    strongSelf.playerItem = AVPlayerItem.init(asset: avAsset!)
+                    self.indicator.stopAnimating()
                 }
-            })
+            }
         }
+        PHImageManager.default().requestAVAsset(forVideo: asset, options: options, resultHandler: { [weak self] (avAsset, audioMix, info) in
+            guard let strongSelf = self else { return }
+            if avAsset == nil {
+                if let isInCloud = info?[PHImageResultIsInCloudKey] as? Bool {
+                    if isInCloud == true {
+                        DispatchQueue.main.async {
+                            ZZPhotoAlertView.show("iCloud同步中")
+                        }
+                    }
+                }
+            } else {
+                strongSelf.playerItem = AVPlayerItem.init(asset: avAsset!)
+            }
+        })
         
         viewModel = ZZVideoPlayViewModel.init(target: self)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        // 自适应frame
+        if #available(iOS 11.0, *) {
+            avPlayerLayer.frame = CGRect.init(x: 0, y: view.safeAreaInsets.top, width: view.frame.width, height: view.frame.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom)
+        } else {
+            avPlayerLayer.frame = view.frame
+        }
     }
     
     override var prefersStatusBarHidden: Bool {

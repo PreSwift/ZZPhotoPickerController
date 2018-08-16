@@ -252,7 +252,7 @@ class ZZPhotoBrowserViewModel: NSObject {
         (target.rightButton.rx.tap).subscribe(onNext: { [weak self] (_) in
             guard let strongSelf = self else { return }
             if let rootVC = strongSelf.target.navigationController as? ZZPhotoPickerController {
-                rootVC.zzDelegate?.photoPickerController!(rootVC, didSelectImage: strongSelf.photoOperationService.selectedAssets.value)
+                rootVC.zzDelegate?.photoPickerController!(rootVC, didSelect: strongSelf.photoOperationService.selectedAssets.value)
                 rootVC.dismiss(animated: true, completion: nil)
             }
         }).disposed(by: disposeBag)

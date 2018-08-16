@@ -18,8 +18,7 @@ public enum ZZPhotoPickerMediaType {
 
 // 代理方式获取结果
 @objc public protocol ZZPhotoPickerControllerDelegate : NSObjectProtocol {
-    @objc optional func photoPickerController(_ photoPickerController: ZZPhotoPickerController, didSelectImage assets: [Any])
-    @objc optional func photoPickerController(_ photoPickerController: ZZPhotoPickerController, didSelectVideo avAsset: Any)
+    @objc optional func photoPickerController(_ photoPickerController: ZZPhotoPickerController, didSelect assets: [Any])
 }
 
 public class ZZPhotoPickerController: UINavigationController {
