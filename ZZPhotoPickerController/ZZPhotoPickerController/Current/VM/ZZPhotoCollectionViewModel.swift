@@ -204,16 +204,6 @@ class ZZPhotoCollectionViewModel: NSObject {
                 strongSelf.target.navigationController?.pushViewController(vc, animated: true)
             }
         }).disposed(by: disposeBag)
-        
-        target.collectionView.rx.modelSelected(PHAsset.self).take(1).subscribe(onNext: { (asset) in
-            if asset.mediaType == .video {
-                let options = PHVideoRequestOptions()
-                options.isNetworkAccessAllowed = true
-                PHImageManager.default().requestAVAsset(forVideo: asset, options: options, resultHandler: { (avAsset, audioMix, info) in
-
-                })
-            }
-        }).disposed(by: disposeBag)
 
         // 监听选中改变预览按钮状态
         photoOperationService.selectedAssets.bind { [weak self] assets in

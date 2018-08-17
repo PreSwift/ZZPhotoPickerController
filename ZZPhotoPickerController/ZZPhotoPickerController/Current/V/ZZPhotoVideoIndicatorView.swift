@@ -26,7 +26,7 @@ class ZZPhotoVideoIndicatorView: UIView {
     }()
     
     private(set) lazy var videoIcon: ZZPhotoVideoIconView = {
-       let view = ZZPhotoVideoIconView()
+        let view = ZZPhotoVideoIconView()
         self.addSubview(view)
         view.snp.makeConstraints { (make) in
             make.size.equalTo(CGSize.init(width: 14, height: 8))

@@ -109,14 +109,15 @@ class ZZVideoPlayViewController: UIViewController {
         
         let options = PHVideoRequestOptions()
         options.isNetworkAccessAllowed = true
-        options.progressHandler = { (progress, error, stop, info) in
+        options.progressHandler = { [weak self] (progress, error, stop, info) in
+            guard let strongSelf = self else { return }
             DispatchQueue.main.async {
                 if progress < 1 {
-                    if self.indicator.isAnimating == false {
-                        self.indicator.startAnimating()
+                    if strongSelf.indicator.isAnimating == false {
+                        strongSelf.indicator.startAnimating()
                     }
                 } else {
-                    self.indicator.stopAnimating()
+                    strongSelf.indicator.stopAnimating()
                 }
             }
         }

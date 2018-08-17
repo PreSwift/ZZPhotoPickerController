@@ -12,6 +12,15 @@ class ZZPhotoVideoIconView: UIView {
 
     var iconColor: UIColor = UIColor.white
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = UIColor.clear
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func draw(_ rect: CGRect) {
         iconColor.setFill()
         
