@@ -271,11 +271,8 @@ extension ZZPhotoCollectionViewModel: UIViewControllerPreviewingDelegate {
                     vc.preferredContentSize = CGSize.init(width: CGFloat(asset.pixelWidth) / UIScreen.main.scale, height: CGFloat(asset.pixelHeight) / UIScreen.main.scale)
                     return vc
                 } else {
-                    let vc = ZZPhotoBrowserViewController.init(photoOperationService: photoOperationService)
+                    let vc = ZZPhoto3DTouchViewController.init(asset: asset)
                     vc.preferredContentSize = CGSize.init(width: CGFloat(asset.pixelWidth) / UIScreen.main.scale, height: CGFloat(asset.pixelHeight) / UIScreen.main.scale)
-                    if let index = photoOperationService.currentGroup.assets.index(of: asset) {
-                        vc.pageIndex = index
-                    }
                     return vc
                 }
             }
@@ -284,7 +281,16 @@ extension ZZPhotoCollectionViewModel: UIViewControllerPreviewingDelegate {
     }
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        self.target.show(viewControllerToCommit, sender: self.target)
+        if let imageVC = viewControllerToCommit as? ZZPhoto3DTouchViewController {
+            let asset = imageVC.asset
+            let vc = ZZPhotoBrowserViewController.init(photoOperationService: photoOperationService)
+            if let index = photoOperationService.currentGroup.assets.index(of: asset) {
+                vc.pageIndex = index
+            }
+            self.target.show(vc, sender: self.target)
+        } else {
+            self.target.show(viewControllerToCommit, sender: self.target)
+        }
     }
     
     

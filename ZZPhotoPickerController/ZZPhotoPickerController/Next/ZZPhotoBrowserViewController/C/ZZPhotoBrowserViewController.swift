@@ -34,6 +34,7 @@ class ZZPhotoBrowserViewController: UIViewController {
     }()
     lazy var checkMark: UIButton = {
         let button = UIButton()
+        button.isHidden = true
         button.setImage(UIImage.init(named: "ZZPhoto_selected_small", in: self.imageBundle, compatibleWith: nil), for: .selected)
         button.setImage(UIImage.init(named: "ZZPhoto_selected_not_small", in: self.imageBundle, compatibleWith: nil), for: .normal)
         return button
@@ -120,6 +121,7 @@ class ZZPhotoBrowserViewController: UIViewController {
         if navigationController != nil {
             leftButton.isHidden = false
             rightButton.isHidden = false
+            checkMark.isHidden = false
         }
         navigationController?.setNavigationBarHidden(true, animated: true)
     }

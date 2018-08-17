@@ -81,6 +81,7 @@ class ZZVideoPlayViewModel: NSObject {
             })
         }).disposed(by: disposeBag)
         
+        
     }
     
     func addObserver(newItem: AVPlayerItem) {
@@ -88,9 +89,10 @@ class ZZVideoPlayViewModel: NSObject {
             guard let strongSelf = self else { return }
             if let newStatus = status {
                 if newStatus.intValue == AVPlayerItemStatus.readyToPlay.rawValue {
-                    if strongSelf.target.preferredContentSize.width != CGFloat(strongSelf.target.asset.pixelWidth) / UIScreen.main.scale {
-                        strongSelf.play()
-                    }
+//                    if strongSelf.target.preferredContentSize.width != CGFloat(strongSelf.target.asset.pixelWidth) / UIScreen.main.scale {
+//                        strongSelf.play()
+//                    }
+                    strongSelf.play()
                 }
             }
         }).disposed(by: disposeBag)
