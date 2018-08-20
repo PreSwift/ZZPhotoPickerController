@@ -14,7 +14,7 @@ import RxCocoa
 
 extension Reactive where Base: ZZPhotoPickerController {
     
-    var assetsSelected: ControlEvent<[Any]> {
+  public var assetsSelected: ControlEvent<[Any]> {
         let source: Observable<[Any]> = self.zzDelegate.methodInvoked(#selector(ZZPhotoPickerControllerDelegate.photoPickerController(_:didSelect:))).map { a in
             return a[1] as! [Any]
         }
