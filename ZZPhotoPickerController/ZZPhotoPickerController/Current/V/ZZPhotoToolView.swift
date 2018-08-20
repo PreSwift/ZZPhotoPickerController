@@ -48,6 +48,7 @@ class ZZPhotoToolView: UIView {
         }
         
         ytBtn = UIButton()
+        ytBtn.isHidden = true
         ytBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.regular)
         ytBtn.setTitle("原图", for: .normal)
         ytBtn.contentEdgeInsets = UIEdgeInsetsMake(4, 8, 4, 8)
