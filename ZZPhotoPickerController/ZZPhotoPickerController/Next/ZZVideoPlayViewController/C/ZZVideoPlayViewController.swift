@@ -13,15 +13,40 @@ import Photos
 
 class ZZVideoPlayViewController: UIViewController {
 
-    var leftButton: UIButton!
-    var rightButton:UIButton!
+    lazy var leftButton: UIButton = {
+        let leftButton = UIButton()
+        leftButton.isHidden = true
+        leftButton.setImage(UIImage.init(named: "ZZPhoto_nav_back", in: self.imageBundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        leftButton.contentHorizontalAlignment = .left
+        leftButton.tintColor = UIColor.white
+        return leftButton
+    }()
+    lazy var rightButton: UIButton = {
+        let rightButton = UIButton()
+        rightButton.isHidden = true
+        rightButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.regular)
+        rightButton.setTitle("下一步", for: .normal)
+        rightButton.layer.cornerRadius = 15
+        rightButton.layer.masksToBounds = true
+        rightButton.setBackgroundImage(UIImage.init(color: UIColor.orange.withAlphaComponent(0.8)), for: .normal)
+        rightButton.setTitleColor(UIColor.white, for: .normal)
+        rightButton.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
+        return rightButton
+    }()
     lazy var avPlayer: AVPlayer = AVPlayer()
-    var avPlayerLayer: AVPlayerLayer!
-    var pauseImageView: UIImageView!
-    var tapGesture: UITapGestureRecognizer!
-    var viewModel: ZZVideoPlayViewModel!
-    
-    private(set) lazy var indicator: UIActivityIndicatorView = {
+    lazy var tapGesture: UITapGestureRecognizer = {
+        let tapGesture = UITapGestureRecognizer()
+        return tapGesture
+    }()
+    lazy var avPlayerLayer: AVPlayerLayer = {
+        let avPlayerLayer = AVPlayerLayer.init(player: avPlayer)
+        return avPlayerLayer
+    }()
+    lazy var pauseImageView: UIImageView = {
+        let pauseImageView = UIImageView.init(image: UIImage.init(named: "ZZPhoto_play", in: self.imageBundle, compatibleWith: nil))
+        return pauseImageView
+    }()
+    lazy var indicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView.init(activityIndicatorStyle: .white)
         indicator.hidesWhenStopped = true
         self.view.addSubview(indicator)
@@ -30,18 +55,26 @@ class ZZVideoPlayViewController: UIViewController {
         }
         return indicator
     }()
+    lazy var checkMark: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage.init(named: "ZZPhoto_selected_small", in: self.imageBundle, compatibleWith: nil), for: .selected)
+        button.setImage(UIImage.init(named: "ZZPhoto_selected_not_small", in: self.imageBundle, compatibleWith: nil), for: .normal)
+        return button
+    }()
     
+    
+    var viewModel: ZZVideoPlayViewModel!
     private(set) var asset: PHAsset
-    
     @objc dynamic var playerItem: AVPlayerItem? {
         didSet {
             avPlayer.replaceCurrentItem(with: playerItem)
         }
     }
     
-    required init(asset: PHAsset) {
+    required init(photoOperationService: ZZPhotoOperationService, asset: PHAsset) {
         self.asset = asset
         super.init(nibName: nil, bundle: nil)
+        self.viewModel = ZZVideoPlayViewModel.init(target: self, photoOperationService: photoOperationService)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,11 +85,6 @@ class ZZVideoPlayViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.init(white: 0.1, alpha: 1)
         
-        leftButton = UIButton()
-        leftButton.isHidden = true
-        leftButton.setImage(UIImage.init(named: "ZZPhoto_nav_back", in: self.imageBundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
-        leftButton.contentHorizontalAlignment = .left
-        leftButton.tintColor = UIColor.white
         view.addSubview(leftButton)
         leftButton.snp.makeConstraints { (make) in
             if #available(iOS 11.0, *) {
@@ -68,15 +96,6 @@ class ZZVideoPlayViewController: UIViewController {
             make.size.equalTo(CGSize.init(width: 60, height: 30))
         }
         
-        rightButton = UIButton()
-        rightButton.isHidden = true
-        rightButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.regular)
-        rightButton.setTitle("下一步", for: .normal)
-        rightButton.layer.cornerRadius = 15
-        rightButton.layer.masksToBounds = true
-        rightButton.setBackgroundImage(UIImage.init(color: UIColor.orange.withAlphaComponent(0.8)), for: .normal)
-        rightButton.setTitleColor(UIColor.white, for: .normal)
-        rightButton.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
         view.addSubview(rightButton)
         rightButton.snp.makeConstraints { (make) in
             make.right.equalToSuperview().inset(10)
@@ -88,17 +107,14 @@ class ZZVideoPlayViewController: UIViewController {
             make.height.equalTo(30)
         }
         
-        pauseImageView = UIImageView.init(image: UIImage.init(named: "ZZPhoto_play", in: self.imageBundle, compatibleWith: nil))
         pauseImageView.isHidden = true
         view.addSubview(pauseImageView)
         pauseImageView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
         }
         
-        tapGesture = UITapGestureRecognizer()
         view.addGestureRecognizer(tapGesture)
         
-        avPlayerLayer = AVPlayerLayer.init(player: avPlayer)
         // 加入初始frame，防止抖动
         if #available(iOS 11.0, *) {
             avPlayerLayer.frame = CGRect.init(x: 0, y: view.safeAreaInsets.top, width: view.frame.width, height: view.frame.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom)
@@ -106,6 +122,13 @@ class ZZVideoPlayViewController: UIViewController {
             avPlayerLayer.frame = view.frame
         }
         view.layer.insertSublayer(avPlayerLayer, at: 0)
+        
+        view.addSubview(checkMark)
+        checkMark.snp.makeConstraints { (make) in
+            make.top.equalTo(rightButton.snp.bottom).offset(10)
+            make.right.equalToSuperview()
+            make.size.equalTo(CGSize.init(width: 40, height: 40))
+        }
         
         let options = PHVideoRequestOptions()
         options.isNetworkAccessAllowed = true
@@ -135,8 +158,6 @@ class ZZVideoPlayViewController: UIViewController {
                 strongSelf.playerItem = AVPlayerItem.init(asset: avAsset!)
             }
         })
-        
-        viewModel = ZZVideoPlayViewModel.init(target: self)
     }
     
     override func viewWillLayoutSubviews() {

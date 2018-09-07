@@ -253,6 +253,18 @@ class ZZPhotoBrowserViewModel: NSObject {
             guard let strongSelf = self else { return }
             if let rootVC = strongSelf.target.navigationController as? ZZPhotoPickerController {
                 rootVC.dismiss(animated: true, completion: {
+                    var newAssets = strongSelf.photoOperationService.selectedAssets.value
+                    if newAssets.count == 0 {
+                        var asset: PHAsset!
+                        if strongSelf.isPreview {
+                            asset = strongSelf.previewAssets[strongSelf.target.pageIndex]
+                        } else {
+                            asset = strongSelf.photoOperationService.currentGroup.assets[strongSelf.target.pageIndex]
+                        }
+                        newAssets.append(asset)
+                        strongSelf.photoOperationService.selectedAssets.accept(newAssets)
+                    }
+                    
                     rootVC.zzDelegate?.photoPickerController!(rootVC, didSelect: strongSelf.photoOperationService.selectedAssets.value)
                 })
             }

@@ -23,20 +23,33 @@ public enum ZZPhotoPickerMediaType {
 
 public class ZZPhotoPickerController: UINavigationController {
     
+    // public
+    
+    
+    /// 代理方法
     public weak var zzDelegate: ZZPhotoPickerControllerDelegate?
+    
+    /// 最大允许选择数量，默认9999
     public var maxSelectCount: Int = 9999 {
         didSet {
             collectionViewController.maxSelectCount = maxSelectCount
         }
     }
+    
+    /// 媒体类型
     public var mediaType: ZZPhotoPickerMediaType = .image {
         didSet {
             collectionViewController.mediaType = mediaType
         }
     }
     
+    
+    // private
+    
     private var collectionViewController: ZZPhotoCollectionViewController!
 
+    // life cycle
+    
     required public init() {
         let collectionViewController = ZZPhotoCollectionViewController()
         super.init(rootViewController: collectionViewController)

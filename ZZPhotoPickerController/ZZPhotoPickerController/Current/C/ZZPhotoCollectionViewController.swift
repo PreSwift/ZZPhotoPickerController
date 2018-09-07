@@ -54,6 +54,7 @@ class ZZPhotoCollectionViewController: UIViewController {
         rightButton.isEnabled = false
         rightButton.snp.makeConstraints { (make) in }
         let rightItem = UIBarButtonItem.init(customView: rightButton)
+        navigationItem.rightBarButtonItem = rightItem
         
         titleBtn = UIButton()
         titleBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.bold)
@@ -74,7 +75,6 @@ class ZZPhotoCollectionViewController: UIViewController {
         
         
         if mediaType == .video {
-            navigationItem.rightBarButtonItem = nil
             collectionView.snp.makeConstraints { (make) in
                 if #available(iOS 11.0, *) {
                     make.edges.equalTo(view.safeAreaLayoutGuide)
@@ -83,7 +83,6 @@ class ZZPhotoCollectionViewController: UIViewController {
                 }
             }
         } else {
-            navigationItem.rightBarButtonItem = rightItem
             collectionView.snp.makeConstraints { (make) in
                 if #available(iOS 11.0, *) {
                     make.top.left.right.equalTo(view.safeAreaLayoutGuide)

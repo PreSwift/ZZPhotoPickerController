@@ -75,7 +75,7 @@ class ZZPhotoCollectionViewModel: NSObject {
                         } else {
                             let max = strongSelf.photoOperationService.maxSelectCount
                             if newAssets.count >= max {
-                                ZZPhotoAlertView.show("最多可以选择\(max)张照片")
+                                ZZPhotoAlertView.show("最多可以选择\(max)\(strongSelf.target.mediaType == .video ? "个视频" : "张照片")")
                             } else {
                                 newAssets.append(element)
                             }
@@ -107,7 +107,7 @@ class ZZPhotoCollectionViewModel: NSObject {
                 })
 
                 if element.mediaType.rawValue == PHAssetMediaType.video.rawValue {
-                    cell.selectBtn.isHidden = true
+//                    cell.selectBtn.isHidden = true
                     cell.videoIndicatorView.isHidden = false
 
                     let minutes = Int(element.duration / 60.0)
@@ -123,7 +123,7 @@ class ZZPhotoCollectionViewModel: NSObject {
                         cell.videoIndicatorView.slomoIcon.isHidden = true
                     }
                 } else {
-                    cell.selectBtn.isHidden = false
+//                    cell.selectBtn.isHidden = false
                     cell.videoIndicatorView.isHidden = true
                 }
 
@@ -201,7 +201,7 @@ class ZZPhotoCollectionViewModel: NSObject {
                 }
                 strongSelf.target.navigationController?.pushViewController(vc, animated: true)
             } else if asset.mediaType == .video {
-                let vc = ZZVideoPlayViewController.init(asset: asset)
+                let vc = ZZVideoPlayViewController.init(photoOperationService: photoOperationService, asset: asset)
                 strongSelf.target.navigationController?.pushViewController(vc, animated: true)
             }
         }).disposed(by: disposeBag)
@@ -258,7 +258,7 @@ extension ZZPhotoCollectionViewModel: UIViewControllerPreviewingDelegate {
                 previewingContext.sourceRect = cell.frame
                 
                 if asset.mediaType == .video {
-                    let vc = ZZVideoPlayViewController.init(asset: asset)
+                    let vc = ZZVideoPlayViewController.init(photoOperationService: photoOperationService, asset: asset)
                     vc.preferredContentSize = CGSize.init(width: CGFloat(asset.pixelWidth) / UIScreen.main.scale, height: CGFloat(asset.pixelHeight) / UIScreen.main.scale)
                     return vc
                 } else {
