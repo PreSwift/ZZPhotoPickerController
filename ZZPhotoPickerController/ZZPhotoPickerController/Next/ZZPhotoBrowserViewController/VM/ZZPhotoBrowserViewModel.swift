@@ -35,6 +35,7 @@ class ZZPhotoBrowserViewModel: NSObject {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ZZPhotoBrowserLivePhotoCollectionViewCell.cellID, for: indexPath) as! ZZPhotoBrowserLivePhotoCollectionViewCell
                     cell.representedAssetIdentifier = element.localIdentifier
                     cell.imageView.image = nil
+                    cell.livePhotoView.livePhoto = nil
                     if element.mediaSubtypes.contains(.photoLive) {
                         cell.isLivePhoto = true
                         cell.imageView.stopAnimating()
@@ -217,7 +218,11 @@ class ZZPhotoBrowserViewModel: NSObject {
             let cell = strongSelf.target.collectionView.cellForItem(at: IndexPath.init(item: page, section: 0))
             if #available(iOS 9.1, *) {
                 if let livePhotoCell = cell as? ZZPhotoBrowserLivePhotoCollectionViewCell {
-                    livePhotoCell.livePhotoView.startPlayback(with: .full)
+                    if livePhotoCell.isLivePhoto {
+                        livePhotoCell.livePhotoView.startPlayback(with: .full)
+                    } else {
+                        livePhotoCell.livePhotoView.stopPlayback()
+                    }
                 }
             }
         }.disposed(by: disposeBag)

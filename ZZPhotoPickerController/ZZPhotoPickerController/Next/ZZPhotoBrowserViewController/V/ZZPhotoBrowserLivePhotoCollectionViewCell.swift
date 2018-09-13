@@ -105,5 +105,4 @@ class ZZPhotoBrowserLivePhotoCollectionViewCell: UICollectionViewCell, UIScrollV
             return imageView
         }
     }
-    
 }
