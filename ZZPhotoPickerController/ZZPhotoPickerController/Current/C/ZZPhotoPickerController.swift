@@ -65,7 +65,7 @@ public class ZZPhotoPickerController: UINavigationController {
     }
     
     deinit {
-        print(self)
+        //        print(self)
     }
 }
 

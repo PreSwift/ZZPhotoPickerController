@@ -218,7 +218,7 @@ class ZZPhotoOperationService: NSObject {
     
     deinit {
         cachingManager?.stopCachingImagesForAllAssets()
-        print(self)
+        //        print(self)
     }
 
 }

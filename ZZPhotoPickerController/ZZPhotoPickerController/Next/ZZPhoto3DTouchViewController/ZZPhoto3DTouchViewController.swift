@@ -43,7 +43,7 @@ class ZZPhoto3DTouchViewController: UIViewController {
     }
     
     deinit {
-        print(self)
+        //        print(self)
     }
     
     override func viewDidLoad() {

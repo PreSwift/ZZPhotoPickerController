@@ -108,7 +108,7 @@ class ZZPhotoCollectionViewController: UIViewController {
     }
     
     deinit {
-        print(self)
+        //        print(self)
     }
     
 }

@@ -300,7 +300,7 @@ class ZZPhotoBrowserViewModel: NSObject {
     }
     
     deinit {
-        print(self)
+        //        print(self)
     }
     
 }

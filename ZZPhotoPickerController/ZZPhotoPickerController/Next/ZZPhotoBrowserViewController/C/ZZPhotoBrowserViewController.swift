@@ -132,7 +132,7 @@ class ZZPhotoBrowserViewController: UIViewController {
     }
     
     deinit {
-        print(self)
+        //        print(self)
     }
 
 }

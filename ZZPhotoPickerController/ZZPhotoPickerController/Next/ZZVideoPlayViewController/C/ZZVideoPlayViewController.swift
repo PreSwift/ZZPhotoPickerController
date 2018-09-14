@@ -189,7 +189,7 @@ class ZZVideoPlayViewController: UIViewController {
     }
     
     deinit {
-        print(self)
+        //        print(self)
     }
 
     

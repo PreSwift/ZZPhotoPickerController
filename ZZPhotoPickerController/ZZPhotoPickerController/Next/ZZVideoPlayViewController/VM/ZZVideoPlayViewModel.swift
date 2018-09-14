@@ -153,7 +153,7 @@ class ZZVideoPlayViewModel: NSObject {
     }
     
     deinit {
-        print(self)
+        //        print(self)
     }
     
 }

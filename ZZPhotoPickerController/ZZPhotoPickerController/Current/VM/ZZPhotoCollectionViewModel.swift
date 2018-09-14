@@ -246,7 +246,7 @@ class ZZPhotoCollectionViewModel: NSObject {
     }
     
     deinit {
-        print(self)
+//        print(self)
     }
 }
 
