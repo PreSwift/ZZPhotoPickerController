@@ -12,7 +12,7 @@ import PhotosUI
 class ZZPhoto3DTouchViewController: UIViewController {
 
     private(set) lazy var indicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView.init(activityIndicatorStyle: .gray)
+        let indicator = UIActivityIndicatorView.init(style: .gray)
         indicator.hidesWhenStopped = true
         self.view.addSubview(indicator)
         indicator.snp.makeConstraints { (make) in

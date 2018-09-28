@@ -59,7 +59,7 @@ class ZZPhotoAlertView: UIView {
         textView!.numberOfLines = 0
         addSubview(textView!)
         textView!.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview().inset(UIEdgeInsetsMake(10, 20, 10, 20))
+            make.edges.equalToSuperview().inset(UIEdgeInsets.init(top: 10, left: 20, bottom: 10, right: 20))
         }
     }
     

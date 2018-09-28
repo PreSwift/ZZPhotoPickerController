@@ -30,7 +30,7 @@ class ZZVideoPlayViewController: UIViewController {
         rightButton.layer.masksToBounds = true
         rightButton.setBackgroundImage(UIImage.init(color: UIColor.orange.withAlphaComponent(0.8)), for: .normal)
         rightButton.setTitleColor(UIColor.white, for: .normal)
-        rightButton.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
+        rightButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
         return rightButton
     }()
     lazy var avPlayer: AVPlayer = AVPlayer()
@@ -47,7 +47,7 @@ class ZZVideoPlayViewController: UIViewController {
         return pauseImageView
     }()
     lazy var indicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView.init(activityIndicatorStyle: .white)
+        let indicator = UIActivityIndicatorView.init(style: .white)
         indicator.hidesWhenStopped = true
         self.view.addSubview(indicator)
         indicator.snp.makeConstraints { (make) in

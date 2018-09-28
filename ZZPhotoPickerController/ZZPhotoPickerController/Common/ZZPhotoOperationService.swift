@@ -49,7 +49,7 @@ class ZZPhotoOperationService: NSObject {
         
         fetchPhotoGroups()
         
-        NotificationCenter.default.rx.notification(.UIApplicationDidBecomeActive).subscribe(onNext: { [weak self] (_) in
+        NotificationCenter.default.rx.notification(UIApplication.didBecomeActiveNotification).subscribe(onNext: { [weak self] (_) in
             self?.fetchPhotoGroups()
         }).disposed(by: disposeBag)
         
@@ -213,7 +213,12 @@ class ZZPhotoOperationService: NSObject {
         
         
         // 忽略设备静音
-        try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        
+        if #available(iOS 10.0, *) {
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.default, options: AVAudioSession.CategoryOptions.interruptSpokenAudioAndMixWithOthers)
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     deinit {
@@ -222,3 +227,5 @@ class ZZPhotoOperationService: NSObject {
     }
 
 }
+
+

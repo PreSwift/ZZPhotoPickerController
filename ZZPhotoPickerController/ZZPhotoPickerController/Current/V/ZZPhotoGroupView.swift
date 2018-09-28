@@ -25,7 +25,7 @@ class ZZPhotoGroupView: UIButton {
         window.addSubview(self)
         self.frame = window.bounds
         
-        navHeight = UIApplication.shared.statusBarFrame.height + (UIApplication.shared.keyWindow!.rootViewController?.childViewControllers.first?.navigationController?.navigationBar.frame.height ?? 44)
+        navHeight = UIApplication.shared.statusBarFrame.height + (UIApplication.shared.keyWindow!.rootViewController?.children.first?.navigationController?.navigationBar.frame.height ?? 44)
         
         self.viewHeight = 66.0 * CGFloat(photoOperationService.groups.value.count)
         let heightCount = UIScreen.main.bounds.height >= 667 ? 5 : 4

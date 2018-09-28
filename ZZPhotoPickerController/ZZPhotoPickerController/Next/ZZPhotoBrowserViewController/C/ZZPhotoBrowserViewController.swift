@@ -29,7 +29,7 @@ class ZZPhotoBrowserViewController: UIViewController {
         rightButton.layer.masksToBounds = true
         rightButton.setBackgroundImage(UIImage.init(color: UIColor.orange.withAlphaComponent(0.8)), for: .normal)
         rightButton.setTitleColor(UIColor.white, for: .normal)
-        rightButton.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
+        rightButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
         return rightButton
     }()
     lazy var checkMark: UIButton = {
@@ -46,7 +46,7 @@ class ZZPhotoBrowserViewController: UIViewController {
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.isDirectionalLockEnabled = true
-        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
+        collectionView.decelerationRate = UIScrollView.DecelerationRate.fast
         collectionView.showsHorizontalScrollIndicator = false
         if #available(iOS 9.1, *) {
             collectionView.register(ZZPhotoBrowserLivePhotoCollectionViewCell.self, forCellWithReuseIdentifier: ZZPhotoBrowserLivePhotoCollectionViewCell.cellID)

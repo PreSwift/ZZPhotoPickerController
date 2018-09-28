@@ -18,7 +18,7 @@ class ZZVideoPlayViewModel: NSObject {
     weak var target: ZZVideoPlayViewController!
     
     var isPlayingWhenLost: Bool = false
-    var time: CMTime = kCMTimeZero
+    var time: CMTime = CMTime.zero
     
     let disposeBag = DisposeBag()
     
@@ -93,16 +93,16 @@ class ZZVideoPlayViewModel: NSObject {
             })
         }).disposed(by: disposeBag)
         
-        NotificationCenter.default.rx.notification(Notification.Name.UIApplicationWillResignActive).subscribe(onNext: { [weak self] (notification) in
+        NotificationCenter.default.rx.notification(UIApplication.willResignActiveNotification).subscribe(onNext: { [weak self] (notification) in
             guard let strongSelf = self else { return }
             strongSelf.isPlayingWhenLost = strongSelf.target.avPlayer.rate == 1
             strongSelf.pause()
             strongSelf.time = strongSelf.target.avPlayer.currentTime()
         }).disposed(by: disposeBag)
         
-        NotificationCenter.default.rx.notification(Notification.Name.UIApplicationDidBecomeActive).subscribe(onNext: { [weak self] (notification) in
+        NotificationCenter.default.rx.notification(UIApplication.didBecomeActiveNotification).subscribe(onNext: { [weak self] (notification) in
             guard let strongSelf = self else { return }
-            strongSelf.target.avPlayer.seek(to: strongSelf.time, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (finished) in
+            strongSelf.target.avPlayer.seek(to: strongSelf.time, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero, completionHandler: { (finished) in
                 if finished {
                     if strongSelf.isPlayingWhenLost {
                         strongSelf.play()
@@ -135,7 +135,7 @@ class ZZVideoPlayViewModel: NSObject {
         newItem.rx.observeWeakly(NSNumber.self, "status").take(2).subscribe(onNext: { [weak self] (status) in
             guard let strongSelf = self else { return }
             if let newStatus = status {
-                if newStatus.intValue == AVPlayerItemStatus.readyToPlay.rawValue {
+                if newStatus.intValue == AVPlayerItem.Status.readyToPlay.rawValue {
                     strongSelf.play()
                 }
             }

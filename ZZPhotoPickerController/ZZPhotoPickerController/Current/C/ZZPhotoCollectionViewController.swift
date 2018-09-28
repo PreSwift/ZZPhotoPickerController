@@ -44,7 +44,7 @@ class ZZPhotoCollectionViewController: UIViewController {
         
         rightButton = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 60, height: 44))
         rightButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.regular)
-        rightButton.contentEdgeInsets = UIEdgeInsetsMake(2, 4, 2, 4)
+        rightButton.contentEdgeInsets = UIEdgeInsets.init(top: 2, left: 4, bottom: 2, right: 4)
         rightButton.layer.cornerRadius = 2
         rightButton.layer.masksToBounds = true
         rightButton.setBackgroundImage(UIImage.init(color: UIColor.orange), for: .normal)

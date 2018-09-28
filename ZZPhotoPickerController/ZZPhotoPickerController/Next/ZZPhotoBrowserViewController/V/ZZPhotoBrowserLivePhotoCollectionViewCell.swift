@@ -22,7 +22,7 @@ class ZZPhotoBrowserLivePhotoCollectionViewCell: UICollectionViewCell, UIScrollV
     private(set) var imageView: UIImageView!
     private(set) var livePhotoView: PHLivePhotoView!
     private(set) lazy var indicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView.init(activityIndicatorStyle: .gray)
+        let indicator = UIActivityIndicatorView.init(style: .gray)
         indicator.hidesWhenStopped = true
         contentView.addSubview(indicator)
         indicator.snp.makeConstraints { (make) in

@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.minimumInteritemSpacing = 5
         flowLayout.minimumLineSpacing = 5
-        flowLayout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5)
+        flowLayout.sectionInset = UIEdgeInsets.init(top: 5, left: 5, bottom: 5, right: 5)
         collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.backgroundColor = UIColor.white
         collectionView.dataSource = self

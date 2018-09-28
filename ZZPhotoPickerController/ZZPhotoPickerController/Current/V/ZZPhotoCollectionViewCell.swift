@@ -27,7 +27,7 @@ class ZZPhotoCollectionViewCell: UICollectionViewCell {
         return view
     }()
     private(set) lazy var indicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView.init(activityIndicatorStyle: .gray)
+        let indicator = UIActivityIndicatorView.init(style: .gray)
         indicator.hidesWhenStopped = true
         contentView.addSubview(indicator)
         indicator.snp.makeConstraints { (make) in
@@ -83,7 +83,7 @@ class ZZPhotoCollectionViewCell: UICollectionViewCell {
         selectBtn = UIButton()
         selectBtn.setImage(UIImage.init(named: "ZZPhoto_selected_small", in: self.imageBundle, compatibleWith: nil), for: .selected)
         selectBtn.setImage(UIImage.init(named: "ZZPhoto_selected_not_small", in: self.imageBundle, compatibleWith: nil), for: .normal)
-        selectBtn.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
+        selectBtn.contentEdgeInsets = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
         contentView.addSubview(selectBtn)
         selectBtn.snp.makeConstraints { (make) in
             make.width.height.equalTo(40)

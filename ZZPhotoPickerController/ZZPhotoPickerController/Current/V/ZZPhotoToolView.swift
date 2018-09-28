@@ -32,7 +32,7 @@ class ZZPhotoToolView: UIView {
         previewBtn = UIButton()
         previewBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.regular)
         previewBtn.setTitle("预览", for: .normal)
-        previewBtn.contentEdgeInsets = UIEdgeInsetsMake(4, 8, 4, 8)
+        previewBtn.contentEdgeInsets = UIEdgeInsets.init(top: 4, left: 8, bottom: 4, right: 8)
         previewBtn.layer.cornerRadius = 2
         previewBtn.layer.masksToBounds = true
         previewBtn.setBackgroundImage(UIImage.init(color: UIColor.orange), for: .normal)
@@ -51,7 +51,7 @@ class ZZPhotoToolView: UIView {
         ytBtn.isHidden = true
         ytBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.regular)
         ytBtn.setTitle("原图", for: .normal)
-        ytBtn.contentEdgeInsets = UIEdgeInsetsMake(4, 8, 4, 8)
+        ytBtn.contentEdgeInsets = UIEdgeInsets.init(top: 4, left: 8, bottom: 4, right: 8)
         ytBtn.layer.cornerRadius = 2
         ytBtn.layer.masksToBounds = true
         ytBtn.layer.borderColor = UIColor.init(hex: "#dcdcdc").cgColor
