@@ -280,9 +280,9 @@
 		DCDBC75B2109AFEE00C245A9 /* Current */ = {
 			isa = PBXGroup;
 			children = (
-				DCDBC74D2109766100C245A9 /* VM */,
-				DCDBC74C2109765A00C245A9 /* V */,
 				DCDBC74B2109765500C245A9 /* C */,
+				DCDBC74C2109765A00C245A9 /* V */,
+				DCDBC74D2109766100C245A9 /* VM */,
 			);
 			path = Current;
 			sourceTree = "<group>";

@@ -50,6 +50,7 @@ class ViewController: UIViewController {
         _ = (rightItem.rx.tap).bind { [unowned self] in
             let vc = ZZPhotoPickerController()
 //            vc.mediaType = .video
+            vc.maxSelectCount = 1
             self.present(vc, animated: true, completion: nil)
             vc.rx.assetsSelected.subscribe(onNext: { [unowned self] (assets) in
                 self.assets += (assets as![PHAsset])

@@ -20,14 +20,7 @@ class ZZPhotoCollectionViewController: UIViewController {
     var itemWidth = (UIScreen.main.bounds.width - 3) / 4
     var collectionView: UICollectionView!
     var titleView: UIButton!
-    lazy var placeholderView: ZZPhotoPlaceholderView = {
-        let placeholderView = ZZPhotoPlaceholderView()
-        view.addSubview(placeholderView)
-        placeholderView.snp.makeConstraints { (make) in
-            make.edges.equalTo(collectionView)
-        }
-        return placeholderView
-    }()
+    var placeholderView: ZZPhotoPlaceholderView = ZZPhotoPlaceholderView()
     var mediaType: ZZPhotoPickerMediaType = .image
     var maxSelectCount: Int = 9999
     lazy var toolView: ZZPhotoToolView = ZZPhotoToolView()
@@ -73,6 +66,10 @@ class ZZPhotoCollectionViewController: UIViewController {
         collectionView.register(ZZPhotoCollectionViewCell.self, forCellWithReuseIdentifier: ZZPhotoCollectionViewCell.cellID)
         view.addSubview(collectionView)
         
+        view.addSubview(placeholderView)
+        placeholderView.snp.makeConstraints { (make) in
+            make.edges.equalTo(collectionView)
+        }
         
         if mediaType == .video {
             collectionView.snp.makeConstraints { (make) in
