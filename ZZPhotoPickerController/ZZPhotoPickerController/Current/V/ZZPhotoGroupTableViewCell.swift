@@ -43,7 +43,7 @@ class ZZPhotoGroupTableViewCell: UITableViewCell {
         contentView.addSubview(numberLabel)
         
         selectedImageView = UIImageView()
-        selectedImageView.image = UIImage.init(named: "ZZPhoto_group_selected", in: QMUIHelper.resourcesBundle(withName: "ZZPhoto_Images"), compatibleWith: nil)
+        selectedImageView.image = UIImage.init(named: "ZZPhoto_group_selected", in: self.imageBundle, compatibleWith: nil)
         leftImageView.addSubview(selectedImageView)
         
         // AutoLayout
