@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name         = "ZZPhotoPickerController"
-s.version      = "0.3.9"
+s.version      = "0.4.0"
 s.summary      = "照片选择器."
 s.homepage     = "https://github.com/PreSwift/ZZPhotoPickerController"
 s.license              = { :type => "MIT", :file => "LICENSE" }
@@ -13,11 +13,11 @@ s.ios.deployment_target = '9.0'
 s.source_files = 'ZZPhotoPickerController/ZZPhotoPickerController/**/*.swift'
 
 s.resource_bundles = {
-'ZZPhoto_Images' =>['ZZPhotoPickerController/ZZPhotoPickerController/Resources/ZZPhoto.xcassets']
+'ZZPhoto_Images' =>['ZZPhotoPickerController/ZZPhotoPickerController/Resources/*.*']
 }
 
 s.requires_arc = true
-
+s.public_header_files = 'ZZPhotoPickerController/ZZPhotoPickerController/Current/C/ZZPhotoPickerController.swift'
 s.swift_version = '4.2'
 
 s.dependency  'RxSwift'
