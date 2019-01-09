@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import SnapKit
+import QMUIKit
 
 class ZZPhotoCollectionViewCell: UICollectionViewCell {
     
@@ -81,8 +82,8 @@ class ZZPhotoCollectionViewCell: UICollectionViewCell {
         }
         
         selectBtn = UIButton()
-        selectBtn.setImage(UIImage.init(named: "ZZPhoto_selected_small", in: self.imageBundle, compatibleWith: nil), for: .selected)
-        selectBtn.setImage(UIImage.init(named: "ZZPhoto_selected_not_small", in: self.imageBundle, compatibleWith: nil), for: .normal)
+        selectBtn.setImage(UIImage.init(named: "ZZPhoto_selected_small", in: QMUIHelper.resourcesBundle(withName: "ZZPhoto_Images"), compatibleWith: nil), for: .selected)
+        selectBtn.setImage(UIImage.init(named: "ZZPhoto_selected_not_small", in: QMUIHelper.resourcesBundle(withName: "ZZPhoto_Images"), compatibleWith: nil), for: .normal)
         selectBtn.contentEdgeInsets = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
         contentView.addSubview(selectBtn)
         selectBtn.snp.makeConstraints { (make) in

@@ -110,12 +110,7 @@ class ZZPhoto3DTouchViewController: UIViewController {
                         }
                         PHImageManager.default().requestImageData(for: asset, options: options, resultHandler: { (data, _, _, _) in
                             if data != nil {
-                                self.getGifImagesFrom(data: data!, completion: { (images, duration) in
-                                    self.imageView.animationImages = images
-                                    self.imageView.animationDuration = duration
-                                    self.imageView.animationRepeatCount = 0 // 无限循环
-                                    self.imageView.startAnimating()
-                                })
+                                self.imageView.image = UIImage.qmui_animatedImage(with: data!)
                             }
                         })
                     } else {
@@ -196,12 +191,7 @@ class ZZPhoto3DTouchViewController: UIViewController {
                     }
                     PHImageManager.default().requestImageData(for: asset, options: options, resultHandler: { (data, _, _, _) in
                         if data != nil {
-                            self.getGifImagesFrom(data: data!, completion: { (images, duration) in
-                                self.imageView.animationImages = images
-                                self.imageView.animationDuration = duration
-                                self.imageView.animationRepeatCount = 0 // 无限循环
-                                self.imageView.startAnimating()
-                            })
+                            self.imageView.image = UIImage.qmui_animatedImage(with: data!)
                         }
                     })
                 } else {
