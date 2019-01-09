@@ -33,7 +33,6 @@
 		DC966D3E2108874D00D42A48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC966D3C2108874D00D42A48 /* LaunchScreen.storyboard */; };
 		DC9C5ED621266BEA005655FA /* ZZPhoto3DTouchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9C5ED521266BEA005655FA /* ZZPhoto3DTouchViewController.swift */; };
 		DCC39D6921E5A6D1007C4B58 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC39D6821E5A6D1007C4B58 /* CoreServices.framework */; };
-		DCC39D6B21E5D995007C4B58 /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC39D6A21E5D995007C4B58 /* NSObject+Extension.swift */; };
 		DCDBC7442109759E00C245A9 /* ZZPhotoPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7432109759E00C245A9 /* ZZPhotoPickerController.swift */; };
 		DCDBC746210975B200C245A9 /* ZZPhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC745210975B200C245A9 /* ZZPhotoCollectionViewController.swift */; };
 		DCDBC748210975D500C245A9 /* ZZPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC747210975D500C245A9 /* ZZPhotoCollectionViewCell.swift */; };
@@ -44,7 +43,6 @@
 		DCDBC7692109B93C00C245A9 /* ZZPhotoBrowserCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7682109B93C00C245A9 /* ZZPhotoBrowserCollectionViewFlowLayout.swift */; };
 		DCDBC76C2109C5F000C245A9 /* ZZPhotoOperationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC76B2109C5F000C245A9 /* ZZPhotoOperationService.swift */; };
 		DCE40DF2210B06D800194041 /* ZZPhotoPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE40DF1210B06D800194041 /* ZZPhotoPlaceholderView.swift */; };
-		DE7D24CC025C5058616898E0 /* Pods_ZZPhotoPickerController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC7DCAD921212F9800AC7636 /* Pods_ZZPhotoPickerController.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -91,7 +89,6 @@
 		DC966D3F2108874D00D42A48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC9C5ED521266BEA005655FA /* ZZPhoto3DTouchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZZPhoto3DTouchViewController.swift; sourceTree = "<group>"; };
 		DCC39D6821E5A6D1007C4B58 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
-		DCC39D6A21E5D995007C4B58 /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
 		DCDBC7432109759E00C245A9 /* ZZPhotoPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoPickerController.swift; sourceTree = "<group>"; };
 		DCDBC745210975B200C245A9 /* ZZPhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoCollectionViewController.swift; sourceTree = "<group>"; };
 		DCDBC747210975D500C245A9 /* ZZPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -118,7 +115,6 @@
 				DCC39D6921E5A6D1007C4B58 /* CoreServices.framework in Frameworks */,
 				DC5E077A21241ECA003A16E2 /* CoreMedia.framework in Frameworks */,
 				62128031F1302FE5AD19A4EC /* Pods_ZZPhotoPickerController.framework in Frameworks */,
-				DE7D24CC025C5058616898E0 /* Pods_ZZPhotoPickerController.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,7 +185,6 @@
 				DC5F9F5F2110643A00C09777 /* UIImage+Extension.swift */,
 				DC5F9F612110649D00C09777 /* UIColor+Extension.swift */,
 				DC60CF5021196FAE00AA3EBB /* Notification+Extension.swift */,
-				DCC39D6A21E5D995007C4B58 /* NSObject+Extension.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -376,7 +371,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "周元素";
 				TargetAttributes = {
 					DC966D2F2108874C00D42A48 = {
@@ -498,7 +493,6 @@
 				DC5E0778212419A5003A16E2 /* ZZPhotoBrowserCollectionViewCell.swift in Sources */,
 				DC6468762113FB1B003BC385 /* RxPhotoPickerControllerDelegateProxy.swift in Sources */,
 				DC5F9F602110643A00C09777 /* UIImage+Extension.swift in Sources */,
-				DCC39D6B21E5D995007C4B58 /* NSObject+Extension.swift in Sources */,
 				DC9C5ED621266BEA005655FA /* ZZPhoto3DTouchViewController.swift in Sources */,
 				DCDBC748210975D500C245A9 /* ZZPhotoCollectionViewCell.swift in Sources */,
 				DC60CF4F21196E5700AA3EBB /* ZZPhotoAlertView.swift in Sources */,

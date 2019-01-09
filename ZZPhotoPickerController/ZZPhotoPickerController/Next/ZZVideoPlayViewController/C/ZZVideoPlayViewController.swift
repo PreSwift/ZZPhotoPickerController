@@ -17,7 +17,7 @@ class ZZVideoPlayViewController: UIViewController {
     lazy var leftButton: UIButton = {
         let leftButton = UIButton()
         leftButton.isHidden = true
-        leftButton.setImage(UIImage.init(named: "ZZPhoto_nav_back", in: self.imageBundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        leftButton.setImage(UIImage.init(named: "ZZPhoto_nav_back")?.withRenderingMode(.alwaysTemplate), for: .normal)
         leftButton.contentHorizontalAlignment = .left
         leftButton.tintColor = UIColor.white
         return leftButton
@@ -44,7 +44,7 @@ class ZZVideoPlayViewController: UIViewController {
         return avPlayerLayer
     }()
     lazy var pauseImageView: UIImageView = {
-        let pauseImageView = UIImageView.init(image: UIImage.init(named: "ZZPhoto_play", in: self.imageBundle, compatibleWith: nil))
+        let pauseImageView = UIImageView.init(image: UIImage.init(named: "ZZPhoto_play"))
         return pauseImageView
     }()
     lazy var indicator: UIActivityIndicatorView = {
@@ -58,8 +58,8 @@ class ZZVideoPlayViewController: UIViewController {
     }()
     lazy var checkMark: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage.init(named: "ZZPhoto_selected_small", in: self.imageBundle, compatibleWith: nil), for: .selected)
-        button.setImage(UIImage.init(named: "ZZPhoto_selected_not_small", in: self.imageBundle, compatibleWith: nil), for: .normal)
+        button.setImage(UIImage.init(named: "ZZPhoto_selected_small"), for: .selected)
+        button.setImage(UIImage.init(named: "ZZPhoto_selected_not_small"), for: .normal)
         return button
     }()
     
