@@ -49,7 +49,7 @@ class ZZPhotoAlertView: UIView {
         NotificationCenter.default.addObserver(self, selector: #selector(dismiss(notification:)), name: .alertViewChanged, object: nil)
         
         backgroundColor = UIColor.init(white: 0.0, alpha: 0.8)
-        layer.cornerRadius = 5
+        layer.cornerRadius = 2
         layer.masksToBounds = true
         isUserInteractionEnabled = false
         

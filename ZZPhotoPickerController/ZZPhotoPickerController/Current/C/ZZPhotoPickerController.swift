@@ -23,10 +23,6 @@ public enum ZZPhotoPickerMediaType {
 }
 
 public class ZZPhotoPickerController: UINavigationController {
-    
-    // public
-    
-    
     /// 代理方法
     public weak var zzDelegate: ZZPhotoPickerControllerDelegate?
     
@@ -37,20 +33,9 @@ public class ZZPhotoPickerController: UINavigationController {
         }
     }
     
-    /// 媒体类型
-    public var mediaType: ZZPhotoPickerMediaType = .image {
-        didSet {
-            collectionViewController.mediaType = mediaType
-        }
-    }
-    
-    
-    // private
-    
+    private var mediaType: ZZPhotoPickerMediaType = .image
     private var collectionViewController: ZZPhotoCollectionViewController!
 
-    // life cycle
-    
     required public init() {
         let collectionViewController = ZZPhotoCollectionViewController()
         super.init(rootViewController: collectionViewController)
@@ -63,10 +48,6 @@ public class ZZPhotoPickerController: UINavigationController {
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    deinit {
-        //        print(self)
     }
 }
 

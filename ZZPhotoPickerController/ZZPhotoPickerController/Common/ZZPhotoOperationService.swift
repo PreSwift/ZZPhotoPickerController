@@ -83,7 +83,6 @@ class ZZPhotoOperationService: NSObject {
         
         self.rx.observeWeakly(ZZPhotoGroupModel.self, "currentGroup", options: [.new]).take(1).subscribe(onNext: { [weak self] (value) in
             guard let strongSelf = self else { return }
-//            print("222222222232323222222222222222222222")
             if let newValue = value {
                 if strongSelf.currentGroup.assetCollection.assetCollectionSubtype != .smartAlbumVideos && strongSelf.currentGroup.assetCollection.assetCollectionSubtype != .smartAlbumSlomoVideos {
                     strongSelf.cachingManager?.startCachingImages(for:newValue.assets , targetSize: PHImageManagerMaximumSize, contentMode: .default, options: nil)
@@ -210,20 +209,10 @@ class ZZPhotoOperationService: NSObject {
                 self.operationStatus = .noPermission
             }
         }
-        
-        
-        // 忽略设备静音
-        
-        if #available(iOS 10.0, *) {
-            try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.default, options: AVAudioSession.CategoryOptions.interruptSpokenAudioAndMixWithOthers)
-        } else {
-            // Fallback on earlier versions
-        }
     }
     
     deinit {
         cachingManager?.stopCachingImagesForAllAssets()
-        //        print(self)
     }
 
 }

@@ -104,8 +104,4 @@ class ZZPhotoCollectionViewController: UIViewController {
         collectionViewModel = ZZPhotoCollectionViewModel.init(target: self, photoOperationService: photoOperationService)
     }
     
-    deinit {
-        //        print(self)
-    }
-    
 }

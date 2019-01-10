@@ -26,18 +26,20 @@ extension UIImage {
         UIGraphicsEndImageContext()
     }
     
-    static func imageName(name: String, type: String?) -> UIImage {
-        let mainBundlePath = Bundle.main.bundlePath
-        var bundlePath = String.init(format: "%@/%@", mainBundlePath, "ZZPhoto_Images.bundle")
-        var bundle = Bundle.init(path: bundlePath)
-        if bundle == nil {
-            bundlePath = String.init(format: "%@/%@", mainBundlePath, "Frameworks/ZZPhotoPickerController.framework/ZZPhoto_Images.bundle")
-            bundle = Bundle.init(path: bundlePath)
-        }
-        if let image = UIImage.init(named: name, in: bundle, compatibleWith: nil) {
-            return image
-        } else {
-            return UIImage.init(contentsOfFile: (bundle?.path(forResource: name, ofType: type))!)!
-        }
+    static func imageName(name: String, type: String?) -> UIImage? {
+//        let mainBundlePath = Bundle.main.bundlePath
+//        var bundlePath = String.init(format: "%@/%@", mainBundlePath, "ZZPhoto_Images.bundle")
+//        var bundle = Bundle.init(path: bundlePath)
+//        if bundle == nil {
+//            bundlePath = String.init(format: "%@/%@", mainBundlePath, "Frameworks/ZZPhotoPickerController.framework/ZZPhoto_Images.bundle")
+//            bundle = Bundle.init(path: bundlePath)
+//        }
+//        if let image = UIImage.init(named: name, in: bundle, compatibleWith: nil) {
+//            return image
+//        } else {
+//            let image = UIImage.init(contentsOfFile: (bundle?.path(forResource: name, ofType: type))!)
+//            return image
+//        }
+        return UIImage.init(named: name, in: Bundle.main, compatibleWith: nil)
     }
 }

@@ -17,7 +17,7 @@ class ZZVideoPlayViewController: UIViewController {
     lazy var leftButton: UIButton = {
         let leftButton = UIButton()
         leftButton.isHidden = true
-        leftButton.setImage(UIImage.imageName(name: "ZZPhoto_nav_back", type: nil).withRenderingMode(.alwaysTemplate), for: .normal)
+        leftButton.setImage(UIImage.imageName(name: "ZZPhoto_nav_back", type: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
         leftButton.contentHorizontalAlignment = .left
         leftButton.tintColor = UIColor.white
         return leftButton

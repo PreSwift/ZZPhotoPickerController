@@ -82,8 +82,8 @@ class ZZPhotoCollectionViewCell: UICollectionViewCell {
         }
         
         selectBtn = UIButton()
-        selectBtn.setImage(UIImage.init(named: "ZZPhoto_selected_small"), for: .selected)
-        selectBtn.setImage(UIImage.init(named: "ZZPhoto_selected_not_small"), for: .normal)
+        selectBtn.setImage(UIImage.imageName(name: "ZZPhoto_selected_small", type: nil), for: .selected)
+        selectBtn.setImage(UIImage.imageName(name: "ZZPhoto_selected_not_small", type: nil), for: .normal)
         selectBtn.contentEdgeInsets = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
         contentView.addSubview(selectBtn)
         selectBtn.snp.makeConstraints { (make) in

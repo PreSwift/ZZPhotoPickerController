@@ -11,8 +11,8 @@ import Photos
 
 class ZZPhotoGroupModel: NSObject {
 
-    var assetCollection: PHAssetCollection // 保存一些基本信息
-    var assets: [PHAsset]  // 包含视频和照片
+    var assetCollection: PHAssetCollection
+    var assets: [PHAsset]
     var isContainSelectedAssets: Bool = false
     var isCurrentGroup: Bool = false
     
