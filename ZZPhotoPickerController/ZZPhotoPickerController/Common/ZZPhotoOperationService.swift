@@ -23,7 +23,6 @@ enum ZZPhotoOperationStatus: String {
 class ZZPhotoOperationService: NSObject {
     
     var maxSelectCount: Int
-    var mediaType: ZZPhotoPickerMediaType
     @objc dynamic var isGroupViewShow: Bool = false
     @objc dynamic private(set) var operationStatusRaw: String?
     var operationStatus: ZZPhotoOperationStatus? {
@@ -42,8 +41,7 @@ class ZZPhotoOperationService: NSObject {
     private var hasVideoGroup: Bool = true
     private var hasImageGroup: Bool = true
     
-    required init(mediaType: ZZPhotoPickerMediaType, maxSelectCount: Int) {
-        self.mediaType = mediaType
+    required init(maxSelectCount: Int) {
         self.maxSelectCount = maxSelectCount
         super.init()
         
@@ -123,23 +121,12 @@ class ZZPhotoOperationService: NSObject {
                                     })
                                     
                                      let group = ZZPhotoGroupModel.init(assetCollection: assetCollection, assets: items)
-                                    
-                                    if strongSelf.mediaType == .image {
-                                        if assetCollection.assetCollectionSubtype != .smartAlbumVideos && assetCollection.assetCollectionSubtype != .smartAlbumSlomoVideos {
-                                            strongSelf.groups.accept(strongSelf.groups.value + [group])
-                                        }
-                                        // 默认选中所有相册
-                                        if assetCollection.assetCollectionSubtype == .smartAlbumUserLibrary {
-                                            strongSelf.currentGroup = group
-                                        }
-                                    } else if strongSelf.mediaType == .video {
-                                        if assetCollection.assetCollectionSubtype == .smartAlbumVideos || assetCollection.assetCollectionSubtype == .smartAlbumSlomoVideos {
-                                            strongSelf.groups.accept(strongSelf.groups.value + [group])
-                                        }
-                                        // 默认选中所有相册
-                                        if assetCollection.assetCollectionSubtype == .smartAlbumVideos {
-                                            strongSelf.currentGroup = group
-                                        }
+                                    if assetCollection.assetCollectionSubtype != .smartAlbumVideos && assetCollection.assetCollectionSubtype != .smartAlbumSlomoVideos {
+                                        strongSelf.groups.accept(strongSelf.groups.value + [group])
+                                    }
+                                    // 默认选中所有相册
+                                    if assetCollection.assetCollectionSubtype == .smartAlbumUserLibrary {
+                                        strongSelf.currentGroup = group
                                     }
                                 }
                             } else {
@@ -175,14 +162,8 @@ class ZZPhotoOperationService: NSObject {
                                 })
                                  
                                 let group = ZZPhotoGroupModel.init(assetCollection: assetCollection, assets: items)
-                                if strongSelf.mediaType == .image {
-                                    if assetCollection.assetCollectionSubtype != .smartAlbumVideos && assetCollection.assetCollectionSubtype != .smartAlbumSlomoVideos {
-                                        strongSelf.groups.accept(strongSelf.groups.value + [group])
-                                    }
-                                } else if strongSelf.mediaType == .video {
-                                    if assetCollection.assetCollectionSubtype == .smartAlbumVideos || assetCollection.assetCollectionSubtype == .smartAlbumSlomoVideos {
-                                        strongSelf.groups.accept(strongSelf.groups.value + [group])
-                                    }
+                                if assetCollection.assetCollectionSubtype != .smartAlbumVideos && assetCollection.assetCollectionSubtype != .smartAlbumSlomoVideos {
+                                    strongSelf.groups.accept(strongSelf.groups.value + [group])
                                 }
                             }
                         }

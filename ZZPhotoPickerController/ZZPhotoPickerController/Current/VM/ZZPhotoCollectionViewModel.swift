@@ -75,7 +75,7 @@ class ZZPhotoCollectionViewModel: NSObject {
                         } else {
                             let max = strongSelf.photoOperationService.maxSelectCount
                             if newAssets.count >= max {
-                                ZZPhotoAlertView.show("最多可以选择\(max)\(strongSelf.target.mediaType == .video ? "个视频" : "张照片")")
+                                ZZPhotoAlertView.show("最多可以选择\(max)张照片")
                             } else {
                                 newAssets.append(element)
                             }
@@ -105,28 +105,6 @@ class ZZPhotoCollectionViewModel: NSObject {
                         cell.imageView.image = image
                     }
                 })
-
-                if element.mediaType.rawValue == PHAssetMediaType.video.rawValue {
-//                    cell.selectBtn.isHidden = true
-                    cell.videoIndicatorView.isHidden = false
-
-                    let minutes = Int(element.duration / 60.0)
-                    let seconds = Int(ceil(element.duration - 60.0 * Double(minutes)))
-                    cell.videoIndicatorView.timeLabel.text = String.init(format: "%02ld:%02ld", minutes, seconds)
-
-                    if element.mediaSubtypes.rawValue & PHAssetMediaSubtype.videoHighFrameRate.rawValue != 0 {
-                        cell.videoIndicatorView.videoIcon.isHidden = true
-                        cell.videoIndicatorView.slomoIcon.isHidden = false
-                    }
-                    else {
-                        cell.videoIndicatorView.videoIcon.isHidden = false
-                        cell.videoIndicatorView.slomoIcon.isHidden = true
-                    }
-                } else {
-//                    cell.selectBtn.isHidden = false
-                    cell.videoIndicatorView.isHidden = true
-                }
-
                 return cell
             }
         )
@@ -194,16 +172,11 @@ class ZZPhotoCollectionViewModel: NSObject {
 
         target.collectionView.rx.modelSelected(PHAsset.self).subscribe(onNext: { [weak self] (asset) in
             guard let strongSelf = self else { return }
-            if asset.mediaType == .image {
-                let vc = ZZPhotoBrowserViewController.init(photoOperationService: strongSelf.photoOperationService)
-                if let index = strongSelf.photoOperationService.currentGroup.assets.index(of: asset) {
-                    vc.pageIndex = index
-                }
-                strongSelf.target.navigationController?.pushViewController(vc, animated: true)
-            } else if asset.mediaType == .video {
-                let vc = ZZVideoPlayViewController.init(photoOperationService: photoOperationService, asset: asset)
-                strongSelf.target.navigationController?.pushViewController(vc, animated: true)
+            let vc = ZZPhotoBrowserViewController.init(photoOperationService: strongSelf.photoOperationService)
+            if let index = strongSelf.photoOperationService.currentGroup.assets.index(of: asset) {
+                vc.pageIndex = index
             }
+            strongSelf.target.navigationController?.pushViewController(vc, animated: true)
         }).disposed(by: disposeBag)
 
         // 监听选中改变预览按钮状态
@@ -236,17 +209,10 @@ class ZZPhotoCollectionViewModel: NSObject {
             strongSelf.target.toolView.changeYtBtnStatus(isSelected: !strongSelf.target.toolView.ytBtn.isSelected)
         }.disposed(by: disposeBag)
         
-        
-        
-        
         // 注册3DTouch
         if self.target.traitCollection.forceTouchCapability == .available {
             self.target.registerForPreviewing(with: self, sourceView: self.target.collectionView)
         }
-    }
-    
-    deinit {
-//        print(self)
     }
 }
 
@@ -256,16 +222,9 @@ extension ZZPhotoCollectionViewModel: UIViewControllerPreviewingDelegate {
             let asset = photoOperationService.currentGroup.assets[indexPath.item]
             if let cell = self.target.collectionView.cellForItem(at: indexPath) {
                 previewingContext.sourceRect = cell.frame
-                
-                if asset.mediaType == .video {
-                    let vc = ZZVideoPlayViewController.init(photoOperationService: photoOperationService, asset: asset)
-                    vc.preferredContentSize = CGSize.init(width: CGFloat(asset.pixelWidth) / UIScreen.main.scale, height: CGFloat(asset.pixelHeight) / UIScreen.main.scale)
-                    return vc
-                } else {
-                    let vc = ZZPhoto3DTouchViewController.init(asset: asset)
-                    vc.preferredContentSize = CGSize.init(width: CGFloat(asset.pixelWidth) / UIScreen.main.scale, height: CGFloat(asset.pixelHeight) / UIScreen.main.scale)
-                    return vc
-                }
+                let vc = ZZPhoto3DTouchViewController.init(asset: asset)
+                vc.preferredContentSize = CGSize.init(width: CGFloat(asset.pixelWidth) / UIScreen.main.scale, height: CGFloat(asset.pixelHeight) / UIScreen.main.scale)
+                return vc
             }
         }
         return nil

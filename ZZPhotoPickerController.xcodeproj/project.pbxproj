@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		62128031F1302FE5AD19A4EC /* Pods_ZZPhotoPickerController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9BD133E13F768C289A26192 /* Pods_ZZPhotoPickerController.framework */; };
-		DC34FB62211AFDC6005EADA1 /* ZZVideoPlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC34FB61211AFDC6005EADA1 /* ZZVideoPlayViewModel.swift */; };
-		DC34FB64211AFDD9005EADA1 /* ZZVideoPlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC34FB63211AFDD9005EADA1 /* ZZVideoPlayViewController.swift */; };
 		DC5E0778212419A5003A16E2 /* ZZPhotoBrowserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5E0777212419A5003A16E2 /* ZZPhotoBrowserCollectionViewCell.swift */; };
 		DC5E077A21241ECA003A16E2 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC5E077921241ECA003A16E2 /* CoreMedia.framework */; };
 		DC5F9F5D211060D700C09777 /* ZZPhotoToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5F9F5C211060D700C09777 /* ZZPhotoToolView.swift */; };
@@ -20,9 +18,6 @@
 		DC6468762113FB1B003BC385 /* RxPhotoPickerControllerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6468752113FB1B003BC385 /* RxPhotoPickerControllerDelegateProxy.swift */; };
 		DC646878211407B3003BC385 /* ZZPhotoPickerController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC646877211407B3003BC385 /* ZZPhotoPickerController+Rx.swift */; };
 		DC710FAE2112E78D00E8933D /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC710FAD2112E78D00E8933D /* CollectionViewCell.swift */; };
-		DC88A5E22117ECA4003256B3 /* ZZPhotoVideoIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88A5E12117ECA4003256B3 /* ZZPhotoVideoIndicatorView.swift */; };
-		DC88A5E42117ED31003256B3 /* ZZPhotoVideoIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88A5E32117ED31003256B3 /* ZZPhotoVideoIconView.swift */; };
-		DC88A5E62117ED9D003256B3 /* ZZPhotoSlomoIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88A5E52117ED9D003256B3 /* ZZPhotoSlomoIconView.swift */; };
 		DC88A5E821181A44003256B3 /* ZZPhotoGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88A5E721181A44003256B3 /* ZZPhotoGroupView.swift */; };
 		DC88A5EA21181ABB003256B3 /* ZZPhotoGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88A5E921181ABB003256B3 /* ZZPhotoGroupTableViewCell.swift */; };
 		DC88A5EC21181F6E003256B3 /* ZZPhotoGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC88A5EB21181F6E003256B3 /* ZZPhotoGroupViewModel.swift */; };
@@ -32,14 +27,10 @@
 		DC966D3E2108874D00D42A48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC966D3C2108874D00D42A48 /* LaunchScreen.storyboard */; };
 		DC9C5ED621266BEA005655FA /* ZZPhoto3DTouchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9C5ED521266BEA005655FA /* ZZPhoto3DTouchViewController.swift */; };
 		DCC39D6921E5A6D1007C4B58 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC39D6821E5A6D1007C4B58 /* CoreServices.framework */; };
-		DCC39D8221E5FE32007C4B58 /* photoGroup_select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC39D8021E5FE32007C4B58 /* photoGroup_select@3x.png */; };
-		DCC39D8321E5FE32007C4B58 /* photoGroup_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC39D8121E5FE32007C4B58 /* photoGroup_select@2x.png */; };
-		DCC39D8621E5FE3D007C4B58 /* nav_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC39D8421E5FE3D007C4B58 /* nav_back@2x.png */; };
-		DCC39D8721E5FE3D007C4B58 /* nav_back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC39D8521E5FE3D007C4B58 /* nav_back@3x.png */; };
-		DCC39D8E21E5FE4B007C4B58 /* photo_not_selected_small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC39D8C21E5FE4B007C4B58 /* photo_not_selected_small@2x.png */; };
-		DCC39D8F21E5FE4B007C4B58 /* photo_not_selected_small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC39D8D21E5FE4B007C4B58 /* photo_not_selected_small@3x.png */; };
-		DCC39D9221E5FE53007C4B58 /* photo_selected_small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC39D9021E5FE53007C4B58 /* photo_selected_small@2x.png */; };
-		DCC39D9321E5FE53007C4B58 /* photo_selected_small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC39D9121E5FE53007C4B58 /* photo_selected_small@3x.png */; };
+		DCC39D8221E5FE32007C4B58 /* zzphoto_photoGroup_select.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC39D8021E5FE32007C4B58 /* zzphoto_photoGroup_select.png */; };
+		DCC39D8721E5FE3D007C4B58 /* zzphoto_nav_back.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC39D8521E5FE3D007C4B58 /* zzphoto_nav_back.png */; };
+		DCC39D8F21E5FE4B007C4B58 /* zzphoto_photo_not_selected_small.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC39D8D21E5FE4B007C4B58 /* zzphoto_photo_not_selected_small.png */; };
+		DCC39D9321E5FE53007C4B58 /* zzphoto_photo_selected_small.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC39D9121E5FE53007C4B58 /* zzphoto_photo_selected_small.png */; };
 		DCDBC7442109759E00C245A9 /* ZZPhotoPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC7432109759E00C245A9 /* ZZPhotoPickerController.swift */; };
 		DCDBC746210975B200C245A9 /* ZZPhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC745210975B200C245A9 /* ZZPhotoCollectionViewController.swift */; };
 		DCDBC748210975D500C245A9 /* ZZPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDBC747210975D500C245A9 /* ZZPhotoCollectionViewCell.swift */; };
@@ -68,8 +59,6 @@
 /* Begin PBXFileReference section */
 		043C5AE68C0B72318EB28338 /* Pods-ZZPhotoPickerController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZPhotoPickerController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZZPhotoPickerController/Pods-ZZPhotoPickerController.debug.xcconfig"; sourceTree = "<group>"; };
 		152B6F78F6A9430C03AB4EF2 /* Pods-ZZPhotoPickerController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZZPhotoPickerController.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZZPhotoPickerController/Pods-ZZPhotoPickerController.release.xcconfig"; sourceTree = "<group>"; };
-		DC34FB61211AFDC6005EADA1 /* ZZVideoPlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZVideoPlayViewModel.swift; sourceTree = "<group>"; };
-		DC34FB63211AFDD9005EADA1 /* ZZVideoPlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZVideoPlayViewController.swift; sourceTree = "<group>"; };
 		DC5E0777212419A5003A16E2 /* ZZPhotoBrowserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoBrowserCollectionViewCell.swift; sourceTree = "<group>"; };
 		DC5E077921241ECA003A16E2 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		DC5F9F5C211060D700C09777 /* ZZPhotoToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoToolView.swift; sourceTree = "<group>"; };
@@ -81,9 +70,6 @@
 		DC646877211407B3003BC385 /* ZZPhotoPickerController+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZZPhotoPickerController+Rx.swift"; sourceTree = "<group>"; };
 		DC710FAD2112E78D00E8933D /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		DC7DCAD921212F9800AC7636 /* Pods_ZZPhotoPickerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_ZZPhotoPickerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC88A5E12117ECA4003256B3 /* ZZPhotoVideoIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoVideoIndicatorView.swift; sourceTree = "<group>"; };
-		DC88A5E32117ED31003256B3 /* ZZPhotoVideoIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoVideoIconView.swift; sourceTree = "<group>"; };
-		DC88A5E52117ED9D003256B3 /* ZZPhotoSlomoIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoSlomoIconView.swift; sourceTree = "<group>"; };
 		DC88A5E721181A44003256B3 /* ZZPhotoGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoGroupView.swift; sourceTree = "<group>"; };
 		DC88A5E921181ABB003256B3 /* ZZPhotoGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoGroupTableViewCell.swift; sourceTree = "<group>"; };
 		DC88A5EB21181F6E003256B3 /* ZZPhotoGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoGroupViewModel.swift; sourceTree = "<group>"; };
@@ -95,14 +81,10 @@
 		DC966D3F2108874D00D42A48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC9C5ED521266BEA005655FA /* ZZPhoto3DTouchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZZPhoto3DTouchViewController.swift; sourceTree = "<group>"; };
 		DCC39D6821E5A6D1007C4B58 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
-		DCC39D8021E5FE32007C4B58 /* photoGroup_select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photoGroup_select@3x.png"; sourceTree = "<group>"; };
-		DCC39D8121E5FE32007C4B58 /* photoGroup_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photoGroup_select@2x.png"; sourceTree = "<group>"; };
-		DCC39D8421E5FE3D007C4B58 /* nav_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back@2x.png"; sourceTree = "<group>"; };
-		DCC39D8521E5FE3D007C4B58 /* nav_back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back@3x.png"; sourceTree = "<group>"; };
-		DCC39D8C21E5FE4B007C4B58 /* photo_not_selected_small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo_not_selected_small@2x.png"; sourceTree = "<group>"; };
-		DCC39D8D21E5FE4B007C4B58 /* photo_not_selected_small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo_not_selected_small@3x.png"; sourceTree = "<group>"; };
-		DCC39D9021E5FE53007C4B58 /* photo_selected_small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo_selected_small@2x.png"; sourceTree = "<group>"; };
-		DCC39D9121E5FE53007C4B58 /* photo_selected_small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo_selected_small@3x.png"; sourceTree = "<group>"; };
+		DCC39D8021E5FE32007C4B58 /* zzphoto_photoGroup_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zzphoto_photoGroup_select.png; sourceTree = "<group>"; };
+		DCC39D8521E5FE3D007C4B58 /* zzphoto_nav_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zzphoto_nav_back.png; sourceTree = "<group>"; };
+		DCC39D8D21E5FE4B007C4B58 /* zzphoto_photo_not_selected_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zzphoto_photo_not_selected_small.png; sourceTree = "<group>"; };
+		DCC39D9121E5FE53007C4B58 /* zzphoto_photo_selected_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zzphoto_photo_selected_small.png; sourceTree = "<group>"; };
 		DCDBC7432109759E00C245A9 /* ZZPhotoPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoPickerController.swift; sourceTree = "<group>"; };
 		DCDBC745210975B200C245A9 /* ZZPhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoCollectionViewController.swift; sourceTree = "<group>"; };
 		DCDBC747210975D500C245A9 /* ZZPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZZPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -160,42 +142,13 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		DC34FB5D211AFD56005EADA1 /* ZZVideoPlayViewController */ = {
-			isa = PBXGroup;
-			children = (
-				DC34FB60211AFD87005EADA1 /* VM */,
-				DC34FB5E211AFD6E005EADA1 /* C */,
-			);
-			path = ZZVideoPlayViewController;
-			sourceTree = "<group>";
-		};
-		DC34FB5E211AFD6E005EADA1 /* C */ = {
-			isa = PBXGroup;
-			children = (
-				DC34FB63211AFDD9005EADA1 /* ZZVideoPlayViewController.swift */,
-			);
-			path = C;
-			sourceTree = "<group>";
-		};
-		DC34FB60211AFD87005EADA1 /* VM */ = {
-			isa = PBXGroup;
-			children = (
-				DC34FB61211AFDC6005EADA1 /* ZZVideoPlayViewModel.swift */,
-			);
-			path = VM;
-			sourceTree = "<group>";
-		};
 		DC5E07722123D7C6003A16E2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				DCC39D9021E5FE53007C4B58 /* photo_selected_small@2x.png */,
-				DCC39D9121E5FE53007C4B58 /* photo_selected_small@3x.png */,
-				DCC39D8C21E5FE4B007C4B58 /* photo_not_selected_small@2x.png */,
-				DCC39D8D21E5FE4B007C4B58 /* photo_not_selected_small@3x.png */,
-				DCC39D8421E5FE3D007C4B58 /* nav_back@2x.png */,
-				DCC39D8521E5FE3D007C4B58 /* nav_back@3x.png */,
-				DCC39D8121E5FE32007C4B58 /* photoGroup_select@2x.png */,
-				DCC39D8021E5FE32007C4B58 /* photoGroup_select@3x.png */,
+				DCC39D9121E5FE53007C4B58 /* zzphoto_photo_selected_small.png */,
+				DCC39D8D21E5FE4B007C4B58 /* zzphoto_photo_not_selected_small.png */,
+				DCC39D8521E5FE3D007C4B58 /* zzphoto_nav_back.png */,
+				DCC39D8021E5FE32007C4B58 /* zzphoto_photoGroup_select.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -279,9 +232,6 @@
 				DCDBC747210975D500C245A9 /* ZZPhotoCollectionViewCell.swift */,
 				DCE40DF1210B06D800194041 /* ZZPhotoPlaceholderView.swift */,
 				DC5F9F5C211060D700C09777 /* ZZPhotoToolView.swift */,
-				DC88A5E12117ECA4003256B3 /* ZZPhotoVideoIndicatorView.swift */,
-				DC88A5E32117ED31003256B3 /* ZZPhotoVideoIconView.swift */,
-				DC88A5E52117ED9D003256B3 /* ZZPhotoSlomoIconView.swift */,
 				DC88A5E721181A44003256B3 /* ZZPhotoGroupView.swift */,
 				DC88A5E921181ABB003256B3 /* ZZPhotoGroupTableViewCell.swift */,
 			);
@@ -311,7 +261,6 @@
 			isa = PBXGroup;
 			children = (
 				DC9C5ED421266BE2005655FA /* ZZPhoto3DTouchViewController */,
-				DC34FB5D211AFD56005EADA1 /* ZZVideoPlayViewController */,
 				DCDBC75D2109B01D00C245A9 /* ZZPhotoBrowserViewController */,
 			);
 			path = Next;
@@ -424,16 +373,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DCC39D8221E5FE32007C4B58 /* photoGroup_select@3x.png in Resources */,
-				DCC39D8F21E5FE4B007C4B58 /* photo_not_selected_small@3x.png in Resources */,
-				DCC39D9321E5FE53007C4B58 /* photo_selected_small@3x.png in Resources */,
+				DCC39D8221E5FE32007C4B58 /* zzphoto_photoGroup_select.png in Resources */,
+				DCC39D8F21E5FE4B007C4B58 /* zzphoto_photo_not_selected_small.png in Resources */,
+				DCC39D9321E5FE53007C4B58 /* zzphoto_photo_selected_small.png in Resources */,
 				DC966D3E2108874D00D42A48 /* LaunchScreen.storyboard in Resources */,
-				DCC39D8621E5FE3D007C4B58 /* nav_back@2x.png in Resources */,
-				DCC39D9221E5FE53007C4B58 /* photo_selected_small@2x.png in Resources */,
-				DCC39D8E21E5FE4B007C4B58 /* photo_not_selected_small@2x.png in Resources */,
 				DC966D3B2108874D00D42A48 /* Assets.xcassets in Resources */,
-				DCC39D8721E5FE3D007C4B58 /* nav_back@3x.png in Resources */,
-				DCC39D8321E5FE32007C4B58 /* photoGroup_select@2x.png in Resources */,
+				DCC39D8721E5FE3D007C4B58 /* zzphoto_nav_back.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,20 +442,15 @@
 			files = (
 				DC966D362108874C00D42A48 /* ViewController.swift in Sources */,
 				DCDBC746210975B200C245A9 /* ZZPhotoCollectionViewController.swift in Sources */,
-				DC88A5E42117ED31003256B3 /* ZZPhotoVideoIconView.swift in Sources */,
 				DC710FAE2112E78D00E8933D /* CollectionViewCell.swift in Sources */,
-				DC88A5E22117ECA4003256B3 /* ZZPhotoVideoIndicatorView.swift in Sources */,
 				DCDBC7442109759E00C245A9 /* ZZPhotoPickerController.swift in Sources */,
 				DC5F9F5D211060D700C09777 /* ZZPhotoToolView.swift in Sources */,
 				DC88A5E821181A44003256B3 /* ZZPhotoGroupView.swift in Sources */,
 				DC88A5EA21181ABB003256B3 /* ZZPhotoGroupTableViewCell.swift in Sources */,
 				DCE40DF2210B06D800194041 /* ZZPhotoPlaceholderView.swift in Sources */,
-				DC34FB62211AFDC6005EADA1 /* ZZVideoPlayViewModel.swift in Sources */,
-				DC34FB64211AFDD9005EADA1 /* ZZVideoPlayViewController.swift in Sources */,
 				DCDBC7502109798E00C245A9 /* ZZPhotoGroupModel.swift in Sources */,
 				DCDBC76C2109C5F000C245A9 /* ZZPhotoOperationService.swift in Sources */,
 				DC5F9F622110649D00C09777 /* UIColor+Extension.swift in Sources */,
-				DC88A5E62117ED9D003256B3 /* ZZPhotoSlomoIconView.swift in Sources */,
 				DC966D342108874C00D42A48 /* AppDelegate.swift in Sources */,
 				DC646878211407B3003BC385 /* ZZPhotoPickerController+Rx.swift in Sources */,
 				DCDBC74A2109764800C245A9 /* ZZPhotoCollectionViewModel.swift in Sources */,

@@ -31,37 +31,36 @@ class ZZPhotoGroupTableViewCell: UITableViewCell {
         leftImageView.contentMode = .scaleAspectFill
         leftImageView.clipsToBounds = true
         contentView.addSubview(leftImageView)
-        
-        titleLabel = UILabel()
-        titleLabel.textColor = UIColor.init(hex: "#333333")
-        titleLabel.font = UIFont.systemFont(ofSize: 16)
-        contentView.addSubview(titleLabel)
-        
-        numberLabel = UILabel()
-        numberLabel.textColor = UIColor.init(hex: "#333333")
-        numberLabel.font = UIFont.systemFont(ofSize: 12)
-        contentView.addSubview(numberLabel)
-        
-        selectedImageView = UIImageView()
-        selectedImageView.image = UIImage.imageName(name: "ZZPhoto_group_selected", type: nil)
-        leftImageView.addSubview(selectedImageView)
-        
-        // AutoLayout
         leftImageView.snp.makeConstraints { (make) in
             make.size.equalTo(CGSize.init(width: iconWidth, height: iconWidth))
             make.top.bottom.equalToSuperview().inset(8.0).priority(999)
             make.left.equalToSuperview().inset(separatorInset.left)
         }
+        
+        titleLabel = UILabel()
+        titleLabel.textColor = UIColor.init(hex: "#333333")
+        titleLabel.font = UIFont.systemFont(ofSize: 16)
+        contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(leftImageView.snp.right).offset(10.0)
             make.centerY.equalTo(leftImageView)
         }
+        
+        numberLabel = UILabel()
+        numberLabel.textColor = UIColor.init(hex: "#333333")
+        numberLabel.font = UIFont.systemFont(ofSize: 12)
+        contentView.addSubview(numberLabel)
         numberLabel.snp.makeConstraints { (make) in
             make.left.equalTo(titleLabel.snp.right).offset(10.0)
             make.bottom.equalTo(titleLabel)
         }
+        
+        selectedImageView = UIImageView()
+        selectedImageView.image = UIImage.imageName(name: "zzphoto_photoGroup_select")
+        leftImageView.addSubview(selectedImageView)
         selectedImageView.snp.makeConstraints { (make) in
             make.right.top.equalToSuperview().inset(3.0)
+            make.size.equalTo(CGSize.init(width: 13, height: 13))
         }
     }
     

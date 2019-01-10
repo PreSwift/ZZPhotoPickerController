@@ -21,7 +21,6 @@ class ZZPhotoCollectionViewController: UIViewController {
     var collectionView: UICollectionView!
     var titleView: UIButton!
     var placeholderView: ZZPhotoPlaceholderView = ZZPhotoPlaceholderView()
-    var mediaType: ZZPhotoPickerMediaType = .image
     var maxSelectCount: Int = 9999
     lazy var toolView: ZZPhotoToolView = ZZPhotoToolView()
     var collectionViewModel: ZZPhotoCollectionViewModel!
@@ -65,42 +64,31 @@ class ZZPhotoCollectionViewController: UIViewController {
         collectionView.backgroundColor = UIColor.white
         collectionView.register(ZZPhotoCollectionViewCell.self, forCellWithReuseIdentifier: ZZPhotoCollectionViewCell.cellID)
         view.addSubview(collectionView)
+        collectionView.snp.makeConstraints { (make) in
+            if #available(iOS 11.0, *) {
+                make.top.left.right.equalTo(view.safeAreaLayoutGuide)
+            } else {
+                make.top.left.right.equalToSuperview()
+            }
+        }
         
         view.addSubview(placeholderView)
         placeholderView.snp.makeConstraints { (make) in
             make.edges.equalTo(collectionView)
         }
         
-        if mediaType == .video {
-            collectionView.snp.makeConstraints { (make) in
-                if #available(iOS 11.0, *) {
-                    make.edges.equalTo(view.safeAreaLayoutGuide)
-                } else {
-                    make.edges.equalToSuperview()
-                }
-            }
-        } else {
-            collectionView.snp.makeConstraints { (make) in
-                if #available(iOS 11.0, *) {
-                    make.top.left.right.equalTo(view.safeAreaLayoutGuide)
-                } else {
-                    make.top.left.right.equalToSuperview()
-                }
-            }
-            
-            view.addSubview(toolView)
-            toolView.snp.makeConstraints { (make) in
-                make.top.equalTo(collectionView.snp.bottom)
-                if #available(iOS 11.0, *) {
-                    make.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
-                } else {
-                    make.left.right.bottom.equalToSuperview()
-                }
+        view.addSubview(toolView)
+        toolView.snp.makeConstraints { (make) in
+            make.top.equalTo(collectionView.snp.bottom)
+            if #available(iOS 11.0, *) {
+                make.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+            } else {
+                make.left.right.bottom.equalToSuperview()
             }
         }
         
         // VM
-        let photoOperationService = ZZPhotoOperationService.init(mediaType: mediaType, maxSelectCount: maxSelectCount)
+        let photoOperationService = ZZPhotoOperationService.init(maxSelectCount: maxSelectCount)
         collectionViewModel = ZZPhotoCollectionViewModel.init(target: self, photoOperationService: photoOperationService)
     }
     

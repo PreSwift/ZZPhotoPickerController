@@ -22,11 +22,6 @@ class ZZPhotoCollectionViewCell: UICollectionViewCell {
     private(set) var gifLabel: UILabel!
     private(set) var shadowView: UIView!
     private(set) var selectBtn: UIButton!
-    private(set) lazy var videoIndicatorView: ZZPhotoVideoIndicatorView = {
-        let view = ZZPhotoVideoIndicatorView.init(frame: CGRect.init(x: 0, y: self.bounds.maxY - 20, width: self.bounds.width, height: 20))
-        contentView.addSubview(view)
-        return view
-    }()
     private(set) lazy var indicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView.init(style: .gray)
         indicator.hidesWhenStopped = true
@@ -82,8 +77,8 @@ class ZZPhotoCollectionViewCell: UICollectionViewCell {
         }
         
         selectBtn = UIButton()
-        selectBtn.setImage(UIImage.imageName(name: "ZZPhoto_selected_small", type: nil), for: .selected)
-        selectBtn.setImage(UIImage.imageName(name: "ZZPhoto_selected_not_small", type: nil), for: .normal)
+        selectBtn.setImage(UIImage.imageName(name: "zzphoto_photo_selected_small"), for: .selected)
+        selectBtn.setImage(UIImage.imageName(name: "zzphoto_photo_not_selected_small"), for: .normal)
         selectBtn.contentEdgeInsets = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
         contentView.addSubview(selectBtn)
         selectBtn.snp.makeConstraints { (make) in

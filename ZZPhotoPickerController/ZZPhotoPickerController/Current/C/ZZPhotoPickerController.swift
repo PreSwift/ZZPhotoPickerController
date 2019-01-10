@@ -12,11 +12,6 @@ import RxCocoa
 import SnapKit
 import QMUIKit
 
-public enum ZZPhotoPickerMediaType {
-    case image
-    case video
-}
-
 // 代理方式获取结果
 @objc public protocol ZZPhotoPickerControllerDelegate : NSObjectProtocol {
     @objc optional func photoPickerController(_ photoPickerController: ZZPhotoPickerController, didSelect assets: [Any])
@@ -33,7 +28,6 @@ public class ZZPhotoPickerController: UINavigationController {
         }
     }
     
-    private var mediaType: ZZPhotoPickerMediaType = .image
     private var collectionViewController: ZZPhotoCollectionViewController!
 
     required public init() {
