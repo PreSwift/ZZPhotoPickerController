@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name         = "ZZPhotoPickerController"
-s.version      = "0.5.7"
+s.version      = "0.5.9"
 s.summary      = "照片选择器."
 s.homepage     = "https://github.com/PreSwift/ZZPhotoPickerController"
 s.license              = { :type => "MIT", :file => "LICENSE" }
@@ -14,7 +14,7 @@ s.source_files = 'ZZPhotoPickerController/ZZPhotoPickerController/**/*.swift'
 s.requires_arc = true
 s.swift_version = '4.2'
 
-spec.resource_bundles = {
+s.resource_bundles = {
 'MyLibrary' => ['ZZPhotoPickerController/ZZPhotoPickerController/Resources/*.png']
 }
 
