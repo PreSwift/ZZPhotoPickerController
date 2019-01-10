@@ -11,7 +11,6 @@ s.frameworks = 'Foundation', 'UIKit', 'CoreMedia', 'CoreServices'
 s.ios.deployment_target = '9.0'
 
 s.source_files = 'ZZPhotoPickerController/ZZPhotoPickerController/**/*.swift'
-s.public_header_files = 'ZZPhotoPickerController/ZZPhotoPickerController/ZZPhotoPickerController/ZZPhotoPickerController.swift'
 s.resources = 'ZZPhotoPickerController/ZZPhotoPickerController/Resources/*'
 
 s.requires_arc = true
