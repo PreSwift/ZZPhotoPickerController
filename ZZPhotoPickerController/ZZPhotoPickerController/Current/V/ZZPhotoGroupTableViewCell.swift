@@ -56,7 +56,7 @@ class ZZPhotoGroupTableViewCell: UITableViewCell {
         }
         
         selectedImageView = UIImageView()
-        selectedImageView.image = UIImage.imageName(name: "zzphoto_photoGroup_select")
+        selectedImageView.image = UIImage.imageName(aClass: self, name: "zzphoto_photoGroup_select")
         leftImageView.addSubview(selectedImageView)
         selectedImageView.snp.makeConstraints { (make) in
             make.right.top.equalToSuperview().inset(3.0)

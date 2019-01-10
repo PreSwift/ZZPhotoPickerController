@@ -16,7 +16,7 @@ class ZZPhotoBrowserViewController: UIViewController {
     lazy var leftButton: UIButton = {
         let leftButton = UIButton()
         leftButton.isHidden = true
-        leftButton.setImage(UIImage.imageName(name: "zzphoto_nav_back")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        leftButton.setImage(UIImage.imageName(aClass: self, name: "zzphoto_nav_back")?.withRenderingMode(.alwaysTemplate), for: .normal)
         leftButton.contentHorizontalAlignment = .left
         leftButton.tintColor = UIColor.white
         leftButton.contentEdgeInsets = UIEdgeInsets.init(top: 3.5, left: 6.5, bottom: 3.5, right: 30.5)
@@ -37,8 +37,8 @@ class ZZPhotoBrowserViewController: UIViewController {
     lazy var checkMark: UIButton = {
         let button = UIButton()
         button.isHidden = true
-        button.setImage(UIImage.imageName(name: "zzphoto_photo_selected_small"), for: .selected)
-        button.setImage(UIImage.imageName(name: "zzphoto_photo_not_selected_small"), for: .normal)
+        button.setImage(UIImage.imageName(aClass: self, name: "zzphoto_photo_selected_small"), for: .selected)
+        button.setImage(UIImage.imageName(aClass: self, name: "zzphoto_photo_not_selected_small"), for: .normal)
         button.contentEdgeInsets = UIEdgeInsets.init(top: 9, left: 9, bottom: 9, right: 9)
         return button
     }()

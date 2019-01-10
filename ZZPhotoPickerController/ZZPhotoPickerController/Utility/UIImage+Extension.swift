@@ -26,11 +26,12 @@ extension UIImage {
         UIGraphicsEndImageContext()
     }
     
-    static func imageName(name: String) -> UIImage? {
-        if let imagePath = Bundle.main.path(forResource: name, ofType: "png") {
-            return UIImage.init(contentsOfFile: imagePath)
+    static func imageName(aClass: NSObject, name: String) -> UIImage? {
+        if let url = Bundle.init(for: aClass.classForCoder).url(forResource: "MyLibrary", withExtension: "bundle") {
+            let bundle = Bundle.init(url: url)
+            return UIImage.init(named: name, in: bundle, compatibleWith: nil)
         } else {
-            return nil
+            return UIImage.init(named: name, in: Bundle.main, compatibleWith: nil)
         }
     }
 }
