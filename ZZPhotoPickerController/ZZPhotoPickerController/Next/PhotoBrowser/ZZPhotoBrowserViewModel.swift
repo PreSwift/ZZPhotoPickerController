@@ -245,7 +245,9 @@ class ZZPhotoBrowserViewModel: NSObject {
             } else {
                 let max = strongSelf.photoOperationService.maxSelectCount
                 if newAssets.count >= max {
-                    ZZPhotoAlertView.show("最多可以选择\(max)张照片")
+                    let alert = UIAlertController.init(title: "提示", message: "最多可以选择\(max)张照片", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction.init(title: "确定", style: UIAlertAction.Style.default, handler: nil))
+                    strongSelf.target.present(alert, animated: true, completion: nil)
                 } else {
                     newAssets.append(asset)
                 }
