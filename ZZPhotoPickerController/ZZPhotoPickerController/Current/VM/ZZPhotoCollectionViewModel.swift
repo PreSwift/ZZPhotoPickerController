@@ -70,7 +70,7 @@ class ZZPhotoCollectionViewModel: NSObject {
                     .drive(onNext: { [weak self] in
                         guard let strongSelf = self else { return }
                         var newAssets = strongSelf.photoOperationService.selectedAssets.value
-                        if let index = newAssets.index(of: element) {
+                        if let index = newAssets.firstIndex(of: element) {
                             newAssets.remove(at: index)
                         } else {
                             let max = strongSelf.photoOperationService.maxSelectCount
@@ -175,7 +175,7 @@ class ZZPhotoCollectionViewModel: NSObject {
         target.collectionView.rx.modelSelected(PHAsset.self).subscribe(onNext: { [weak self] (asset) in
             guard let strongSelf = self else { return }
             let vc = ZZPhotoBrowserViewController.init(photoOperationService: strongSelf.photoOperationService)
-            if let index = strongSelf.photoOperationService.currentGroup.assets.index(of: asset) {
+            if let index = strongSelf.photoOperationService.currentGroup.assets.firstIndex(of: asset) {
                 vc.pageIndex = index
             }
             strongSelf.target.navigationController?.pushViewController(vc, animated: true)
@@ -236,7 +236,7 @@ extension ZZPhotoCollectionViewModel: UIViewControllerPreviewingDelegate {
         if let imageVC = viewControllerToCommit as? ZZPhoto3DTouchViewController {
             let asset = imageVC.asset
             let vc = ZZPhotoBrowserViewController.init(photoOperationService: photoOperationService)
-            if let index = photoOperationService.currentGroup.assets.index(of: asset) {
+            if let index = photoOperationService.currentGroup.assets.firstIndex(of: asset) {
                 vc.pageIndex = index
             }
             self.target.show(vc, sender: self.target)

@@ -154,7 +154,7 @@ class ZZPhotoBrowserViewModel: NSObject {
                 asset = strongSelf.photoOperationService.currentGroup.assets[strongSelf.target.pageIndex]
             }
             let newAssets = strongSelf.photoOperationService.selectedAssets.value
-            if let _ = newAssets.index(of: asset) {
+            if let _ = newAssets.firstIndex(of: asset) {
                 strongSelf.target.checkMark.isSelected = true
             } else {
                 strongSelf.target.checkMark.isSelected = false
@@ -240,7 +240,7 @@ class ZZPhotoBrowserViewModel: NSObject {
             }
             
             var newAssets = strongSelf.photoOperationService.selectedAssets.value
-            if let index = newAssets.index(of: asset) {
+            if let index = newAssets.firstIndex(of: asset) {
                 newAssets.remove(at: index)
             } else {
                 let max = strongSelf.photoOperationService.maxSelectCount
