@@ -163,7 +163,7 @@ class ZZPhotoBrowserViewModel: NSObject {
         
         // 处理UI事件
         let ob1 = target.collectionView.rx.didEndDecelerating.asObservable()
-        let ob2 = target.collectionView.rx.didScroll.take(1).delay(0.5, scheduler: MainScheduler.asyncInstance).asObservable()
+        let ob2 = target.collectionView.rx.didScroll.take(1).delay(RxTimeInterval.milliseconds(500), scheduler: MainScheduler.asyncInstance).asObservable()
         
         ControlEvent<Void>.merge([ob1, ob2]).map { [weak self] (_) -> Int in
             guard let strongSelf = self else { return 0 }
